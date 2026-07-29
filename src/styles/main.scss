@@ -1,0 +1,17 @@
+// Imports all partials - main entry point
+
+// ABSTRACTS
+@import 'abstracts/colors';
+@import 'abstracts/mixins';
+@import 'abstracts/typography';
+
+// BASE
+@import 'base/reset';
+@import 'base/global';
+
+//COMPONENTS
+@import 'components/avatars';
+@import 'components/buttons';
+@import 'components/cards';
+@import 'components/inputs';
+@import 'components/tooltips';
