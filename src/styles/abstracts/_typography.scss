@@ -1,0 +1,54 @@
+$fonts: (
+  regular: 'Nunito',
+  bold: 'Nunito'
+);
+
+$font-weights: (
+  regular: 400,
+  bold: 700
+);
+
+$font-sizes: (
+  h1: clamp(2rem, 4vw + 1rem, 46px),
+  h2: clamp(1.5rem, 3vw + 0.5rem, 32px),
+  h3: clamp(1.25rem, 2vw + 0.5rem, 24px),
+
+  text-regular: clamp(1rem, 1vw + 0.5rem, 18px),
+  text-medium: clamp(1.1rem, 1vw + 0.6rem, 20px),
+  text-small: clamp(0.8rem, 0.5vw + 0.4rem, 14px),
+
+  button: clamp(1rem, 1vw + 0.5rem, 18px)
+);
+
+
+:root {
+  @each $key, $value in $fonts {
+    --font-#{$key}: #{$value};
+  }
+
+  @each $key, $value in $font-weights {
+    --font-weight-#{$key}: #{$value};
+  }
+
+  @each $key, $value in $font-sizes {
+    --font-size-#{$key}: #{$value};
+  }
+}
+
+
+/* nunito-regular - latin */
+@font-face {
+  font-display: swap; 
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../../../public/assets/fonts/nunito-v32-latin-regular.woff2') format('woff2');
+}
+/* nunito-700 - latin */
+@font-face {
+  font-display: swap; 
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../../../public/assets/fonts/nunito-v32-latin-700.woff2') format('woff2');
+}

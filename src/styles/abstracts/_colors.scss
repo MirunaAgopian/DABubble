@@ -1,0 +1,30 @@
+$colors: (
+  // Backgrounds
+  bg-start: #444cea,        // Start page background
+  bg-default: #eceefe,      // All other pages + inputs
+
+  // Primary button states
+  primary-default: #444df2, // Main primary button
+  primary-hover: #797ef3,   // Hover state
+  primary-disabled: #686868,// Disabled state
+
+  // Secondary button states
+  secondary-default: #ffffff, // White background
+  secondary-hover: #535af1,   // Hover text/border
+  secondary-active: #444df2,  // Active text/border
+
+  // Text colors
+  text-default: #000000,    // Main text
+  text-accent: #444df2,     // Accent text (links, highlights, headers)
+  text-accent-light: #535af1,// Secondary accent
+  text-placeholder: #686868, // Placeholder text
+
+  // Status colors
+  error: #ED1E79
+);
+
+:root {
+  @each $key, $value in $colors {
+    --color-#{$key}: #{$value};
+  }
+}
