@@ -1,0 +1,66 @@
+.btn-primary {
+  color: var(--color-primary-hover);
+  border-radius: 50px;
+  border: 1px solid transparent;
+  height: 40px;
+  width: 160px;
+
+  transition:
+    border-color 0.25s ease,
+    transform 0.25s ease,
+    font-weight 0.25s ease,
+    color 0.25s ease;
+
+  &:hover {
+    font-weight: var(--font-weight-bold);
+    border-color: var(--color-border-light);
+    transform: translateY(2px);
+  }
+}
+
+.btn-pw {
+  height: 32px;
+  width: 200px;
+  border-radius: 20px;
+  background-color: unset;
+  color: var(--color-primary-hover);
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease;
+
+  &:hover {
+    background-color: var(--color-bg-default);
+    color: var(--color-primary-default);
+    transform: translateY(2px);
+  }
+}
+
+.btn-primary-blue {
+  border-radius: 50px;
+  background-color: var(--color-primary-default);
+  color: var(--color-bg-default);
+  height: 40px;
+  width: 140px;
+
+  transition: background-color 0.25s ease;
+
+  &:hover {
+    background-color: var(--color-primary-hover);
+  }
+}
+
+.btn-secondary-blue {
+  border-radius: 50px;
+  border: 1px solid var(--color-primary-default);
+  height: 40px;
+  width: 140px;
+
+  transition: background-color 0.25s ease;
+
+  &:hover {
+    background-color: var(--color-primary-default);
+    color: var(--color-bg-default);
+    transform: translateX(2px);
+  }
+}

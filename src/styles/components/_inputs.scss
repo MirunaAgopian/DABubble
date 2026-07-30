@@ -1,0 +1,13 @@
+input {
+  background-color: var(--color-bg-default);
+  border: unset;
+  padding: 0 16px;
+
+  &:hover {
+    border: 1px solid var(--color-primary-disabled);
+  }
+
+  &:focus {
+    border: 1px solid var(--color-primary-hover);
+  }
+}

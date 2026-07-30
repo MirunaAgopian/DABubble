@@ -1,1 +1,46 @@
-<p>sign-in works!</p>
+<section class="sign-in-page">
+  <main class="content-wrapper">
+    <!-- this may be transferred to a separate header component -->
+    <header class="header">
+      <img class="header__logo" src="/assets/img/icons/logo_header.svg" alt="app logo" />
+      <div class="header__register-user">
+        <p>Neu bei DABubble?</p>
+        <button class="btn-primary">Konto erstellen</button>
+      </div>
+    </header>
+
+    <section class="sign-in-page__main-section">
+      <section class="card card-basestyle">
+        <h1>Anmeldung</h1>
+        <span
+          >Wir empfehlen dir, die E-Mail-Adresse zu nutzen, die du bei der Arbeit verwendest.</span
+        >
+        <div class="inputs-wrapper">
+          <input class="inputs-wrapper__default-input" type="text" />
+          <input class="inputs-wrapper__default-input" type="text" />
+        </div>
+        <button class="btn-pw">Passwort vergessen?</button>
+
+        <div class="separator">
+          <div class="separator__line"></div>
+          <p>oder</p>
+          <div class="separator__line"></div>
+        </div>
+        <button class="btn-google">
+          <img src="/assets/img/icons/google_icon.svg" alt="the logo of Google">
+          Anmelden mit Google
+        </button>
+
+        <footer class="card-footer">
+          <button class="btn-primary-blue">Anmelden</button>
+          <button class="btn-secondary-blue">Gäste-Login</button>
+        </footer>
+      </section>
+
+      <footer class="footer">
+        <button class="btn-primary">Impressum</button>
+        <button class="btn-primary">Datenschutz</button>
+      </footer>
+    </section>
+  </main>
+</section>

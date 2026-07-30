@@ -30,6 +30,36 @@ button {
 
 input, textarea, select {
   font: inherit;
+
+  border: none;
+  outline: none;
+  box-shadow: none;
+  background: none;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  border-radius: 0;
+
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    appearance: none;
+    margin: 0;
+  }
+
+  &:-webkit-autofill {
+    box-shadow: 0 0 0px 1000px var(--color-bg-default) inset;
+    -webkit-text-fill-color: var(--color-text-default);
+  }
+
+  &::placeholder {
+    opacity: 1;
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
 }
 
 a {
