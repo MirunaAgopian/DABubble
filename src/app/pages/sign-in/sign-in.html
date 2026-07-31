@@ -15,10 +15,10 @@
         <span
           >Wir empfehlen dir, die E-Mail-Adresse zu nutzen, die du bei der Arbeit verwendest.</span
         >
-        <div class="inputs-wrapper">
-          <input class="inputs-wrapper__default-input" type="text" />
-          <input class="inputs-wrapper__default-input" type="text" />
-        </div>
+        <!-- INPUT section -->
+        <app-input></app-input>
+        <app-input></app-input>
+
         <button class="btn-pw">Passwort vergessen?</button>
 
         <div class="separator">
@@ -27,7 +27,7 @@
           <div class="separator__line"></div>
         </div>
         <button class="btn-google">
-          <img src="/assets/img/icons/google_icon.svg" alt="the logo of Google">
+          <img src="/assets/img/icons/google_icon.svg" alt="the logo of Google" />
           Anmelden mit Google
         </button>
 
@@ -37,6 +37,7 @@
         </footer>
       </section>
 
+      <!-- this can also be isolated into standalone component -->
       <footer class="footer">
         <button class="btn-primary">Impressum</button>
         <button class="btn-primary">Datenschutz</button>
