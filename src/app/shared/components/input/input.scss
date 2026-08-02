@@ -28,28 +28,21 @@
     position: relative;
   }
 
-  &__icon {
-    position: absolute;
-    left: 16px;
-    top: 50%;
-    transform: translateY(-50%);
-
-    svg {
-      width: 20px;
-      height: 20px;
-      color: var(--color-text-placeholder);
-      fill: currentColor;
-    }
-  }
-
+ 
   &__error {
     align-self: flex-start;
     font-size: var(--font-size-text-small);
     color: var(--color-error);
+    margin-left: 32px;
     opacity: 0;
+
+    &.visible {
+      opacity: 1;
+    }
   }
 }
 
-.inputs-wrapper__input-container:focus-within .inputs-wrapper__icon svg {
-  color: var(--color-text-default);
-}
+
+
+
+

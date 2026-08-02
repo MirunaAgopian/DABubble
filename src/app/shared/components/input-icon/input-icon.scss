@@ -1,0 +1,19 @@
+.inputs-wrapper {
+  &__icon {
+    position: absolute;
+    left: 32px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    svg {
+      width: 20px;
+      height: 20px;
+      color: var(--color-text-placeholder);
+      fill: currentColor;
+    }
+  }
+}
+
+:host-context(.inputs-wrapper__input-container:focus-within) .inputs-wrapper__icon svg {
+  color: var(--color-text-default);
+}
