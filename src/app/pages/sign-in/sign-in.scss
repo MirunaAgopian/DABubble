@@ -61,13 +61,10 @@
     align-items: flex-start;
     gap: 8px;
   }
+
+  
+    @media(max-height: 850px){
+        margin-bottom: 16px;
+    }
 }
 
-.footer {
-  @include flex-space-btw;
-  position: fixed;
-  gap: 4px;
-  bottom: 0;
-  padding: 40px 0;
-  margin-top: clamp(20px, 8vh, 100px);
-}

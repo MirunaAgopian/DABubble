@@ -1,0 +1,15 @@
+@import '../../../../styles/abstracts/mixins';
+
+:host {
+  display: block;
+}
+
+.footer {
+  @include flex-center;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  gap: 4px;
+  padding: 20px 0;
+}

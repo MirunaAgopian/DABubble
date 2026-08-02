@@ -1,0 +1,22 @@
+@import '../../../styles/abstracts/mixins';
+
+.bg {
+  background-color: var(--color-bg-default);
+  height: 100vh;
+  @include flex-center;
+
+}
+
+.card {
+    max-height: 150px;
+    max-width: 500px;
+    margin: 0 20px;
+    justify-content: flex-start;
+ 
+
+    .title-return {
+        @include flex-space-btw;
+        width: 100%;
+        margin-bottom: 32px;
+    }
+}

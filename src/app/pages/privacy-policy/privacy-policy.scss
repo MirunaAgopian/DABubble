@@ -1,0 +1,45 @@
+@import '../../../styles/abstracts/mixins';
+
+.bg {
+  background-color: var(--color-bg-default);
+  height: 100vh;
+  @include flex-center;
+  align-items: flex-start;
+  overflow-y: auto;
+}
+
+.card {
+  margin: 40px 20px;
+  @include flex-column-space-btw;
+  align-items: flex-start;
+  
+  .title-return {
+    @include flex-space-btw;
+    width: 100%;
+    margin-bottom: 32px;
+
+    @media (max-width: 500px) {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+  }
+
+  h2 {
+    margin-top: 20px;
+  }
+}
+
+.mt {
+  margin-top: 20px;
+}
+
+ @media (max-width: 400px) {
+    h1 {
+        font-size: 28px;
+    }
+
+    .card {
+        margin: 40px 8px;
+    }
+ }

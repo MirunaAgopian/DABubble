@@ -6,7 +6,7 @@
       [type]="type()"
       [placeholder]="placeholder()"
       (blur)="onBlur($event)"
-      (focus)="onFocus()"
+      (input)="onInput($event)"
     />
   </div>
   @if (type() === 'email') {
