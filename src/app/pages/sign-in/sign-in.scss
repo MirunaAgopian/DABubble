@@ -46,25 +46,4 @@
   gap: 24px
 }
 
-//this may be transferred to a separate header-component
-.header {
-  @include flex-space-btw;
-  margin-bottom: clamp(20px, 8vh, 100px);
-
-  &__logo {
-    height: 80px;
-    width: 180px;
-  }
-
-  &__register-user {
-    @include flex-column-space-btw;
-    align-items: flex-start;
-    gap: 8px;
-  }
-
-  
-    @media(max-height: 850px){
-        margin-bottom: 16px;
-    }
-}
 

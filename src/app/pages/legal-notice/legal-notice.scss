@@ -1,22 +1,52 @@
 @import '../../../styles/abstracts/mixins';
 
-.bg {
+.legal-notice-page {
   background-color: var(--color-bg-default);
   height: 100vh;
-  @include flex-center;
+}
 
+.bg {
+  background-color: var(--color-bg-default);
+  @include flex-column-space-btw;
+}
+
+.header {
+  align-self: flex-start;
 }
 
 .card {
-    max-height: 150px;
-    max-width: 500px;
-    margin: 0 20px;
-    justify-content: flex-start;
- 
+  max-height: 150px;
+  max-width: 500px;
+  margin: 0 20px;
+  justify-content: flex-start;
 
-    .title-return {
-        @include flex-space-btw;
-        width: 100%;
-        margin-bottom: 32px;
+  .title-return {
+    @include flex-space-btw;
+    width: 100%;
+    margin-bottom: 32px;
+  }
+
+  @media(max-width: 650px){
+    min-height: 400px;
+  }
+}
+
+button {
+  padding: 8px;
+  transition:
+    border-radius 0.25s ease-in,
+    background-color 0.25s ease-in;
+
+  img {
+    transition: transform 0.25s ease-in;
+  }
+
+  &:hover {
+    border-radius: 50%;
+    background-color: var(--color-border-light);
+
+    img {
+      transform: scale(1.1);
     }
+  }
 }

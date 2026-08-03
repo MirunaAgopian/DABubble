@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { Input } from '../../shared/components/input/input';
 import { Footer } from '../../shared/components/footer/footer';
+import { Header } from '../../shared/components/header/header';
 
 
 @Component({
   selector: 'app-sign-in',
-  imports: [Input, Footer],
+  imports: [Input, Footer, Header],
   templateUrl: './sign-in.html',
   styleUrl: './sign-in.scss',
 })

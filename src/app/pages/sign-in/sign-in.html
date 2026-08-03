@@ -1,14 +1,6 @@
 <section class="sign-in-page">
   <main class="content-wrapper">
-    <!-- this may be transferred to a separate header component -->
-    <header class="header">
-      <img class="header__logo" src="/assets/img/icons/logo_header.svg" alt="app logo" />
-      <div class="header__register-user">
-        <p>Neu bei DABubble?</p>
-        <button class="btn-primary">Konto erstellen</button>
-      </div>
-    </header>
-
+    <app-header [showRegister]="true"></app-header>
     <section class="sign-in-page__main-section">
       <form class="card card-basestyle">
         <h1>Anmeldung</h1>
@@ -36,7 +28,7 @@
           <button class="btn-secondary-blue">Gäste-Login</button>
         </footer>
       </form>
-       <app-footer></app-footer>
+      <app-footer></app-footer>
     </section>
   </main>
 </section>

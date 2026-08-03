@@ -1,9 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { Header } from '../../shared/components/header/header';
 
 @Component({
   selector: 'app-legal-notice',
-  imports: [],
+  imports: [Header],
   templateUrl: './legal-notice.html',
   styleUrl: './legal-notice.scss',
 })
