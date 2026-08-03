@@ -1,7 +1,7 @@
 <header class="header">
   <img class="header__logo" src="/assets/img/icons/logo_header.svg" alt="app logo" />
   @if (showRegister()) {
-    <div class="header__register-user">
+    <div class="header__register-user" (click)="redirectRegister()">
       <p>Neu bei DABubble?</p>
       <button class="btn-primary">Konto erstellen</button>
     </div>

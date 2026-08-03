@@ -1,0 +1,60 @@
+@import '../../../styles/abstracts/mixins';
+
+.register-page {
+  background-color: var(--color-bg-default);
+  height: 100vh;
+
+  &__main-section {
+    @include flex-center;
+  }
+}
+
+.title-container {
+  width: 100%;
+  position: relative;
+
+  .abs-pos {
+    position: absolute;
+    left: 0;
+    top: 4px;
+  }
+}
+
+.card-footer {
+  align-self: flex-end;
+}
+
+.privacy-policy {
+  @include flex-center;
+  align-self: flex-start;
+  gap: 16px;
+
+  .link-priv-pol {
+    color: var(--color-primary-hover);
+  }
+}
+
+.checkbox {
+  background-image: url('../../../../public/assets/img/icons/check_box_outline_blank.svg');
+  background-size: cover;
+  height: 20px;
+  width: 20px;
+  border-radius: 0;
+  cursor: pointer;
+}
+
+.checkbox.checked {
+  background-image: url('../../../../public/assets/img/icons/check_box.svg');
+  border: none;
+}
+
+.btn-pw {
+  padding: 4px 8px;
+}
+
+@media (max-height: 650px) {
+  .content-wrapper {
+    padding: 0 20px;
+  }
+}
+

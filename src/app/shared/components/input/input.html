@@ -16,7 +16,12 @@
   }
   @if (type() === 'password') {
     <p class="inputs-wrapper__error" [class.visible]="showError">
-      Diees Passwort ist leider ungültig.
+      Dieses Passwort ist leider ungültig.
+    </p>
+  }
+   @if (type() === 'name') {
+    <p class="inputs-wrapper__error" [class.visible]="showError">
+      Bitte shreiben Sie einen Namen.
     </p>
   }
 </section>

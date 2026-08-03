@@ -1,4 +1,5 @@
-import { Component, input } from '@angular/core';
+import { Component, input, inject } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -8,4 +9,9 @@ import { Component, input } from '@angular/core';
 })
 export class Header {
   showRegister = input<boolean>(false);
+  router = inject(Router);
+
+  redirectRegister(){
+    this.router.navigate(['/register']);
+  }
 }

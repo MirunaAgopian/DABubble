@@ -1,1 +1,34 @@
-<p>register works!</p>
+<section class="register-page">
+  <main class="content-wrapper">
+    <app-header [showRegister]="false"></app-header>
+    <section class="register-page__main-section">
+      <form class="card card-basestyle">
+        <div class="title-container">
+          <button class="go-back-btn abs-pos" (click)="returnToSignin()">
+            <img src="/assets/img/icons/arrow_left.svg" alt="arrow poinint to the left" />
+          </button>
+          <h1>Konto erstellen</h1>
+        </div>
+        <span>Mit deinem Namen und deiner E-Mail-Adresse hast du dein neues DABubble-Konto.</span>
+        <!-- INPUT section -->
+        <app-input type="name" placeholder="Name und Nachname"></app-input>
+        <app-input type="email" placeholder="beispielname@email.com"></app-input>
+        <app-input type="password" placeholder="Passwort"></app-input>
+
+        <div class="privacy-policy">
+          <div class="checkbox btn-pw" [class.checked]="isChecked" (click)="toggleCheckbox()"></div>
+          <p>
+            Ich stimme der
+            <a class="link-priv-pol btn-pw" (click)="redirectToPrivPol()">Datenschutzerklärung</a>
+            zu.
+          </p>
+        </div>
+        <footer class="card-footer">
+          <!-- this button should be disabled and enabled only if form is filled + checkbox checked -->
+          <button class="btn-primary-blue">Weiter</button>
+        </footer>
+      </form>
+      <app-footer class="footer"></app-footer>
+    </section>
+  </main>
+</section>
