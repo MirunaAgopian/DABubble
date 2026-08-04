@@ -1,0 +1,28 @@
+.overlay {
+  background-color: rgba(236, 238, 254, 0.5);
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  right: -100vw;
+  opacity: 0;
+  transition:
+    right 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.overlay--visible {
+  right: 0;
+  opacity: 1;
+}
+
+.tooltip {
+  background-color: var(--color-primary-default);
+  border-radius: 15px 15px 0 15px;
+  color: var(--color-secondary-default);
+  font-size: var(--font-size-h3);
+  padding: 32px;
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+}
