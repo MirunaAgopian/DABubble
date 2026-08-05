@@ -14,18 +14,6 @@ import { ThumbPosition } from '@angular/material/slider/testing';
 export class Register {
   router = inject(Router);
   isChecked = false;
-  hideTooltip = true;
-  avatars = [
-    '/assets/img/avatars/default_user.png',
-    '/assets/img/avatars/avatar_elias_neumann.png',
-    '/assets/img/avatars/avatar_elise_roth.png',
-    '/assets/img/avatars/avatar_frederick_beck.png',
-    '/assets/img/avatars/avatar_noah_braun.png',
-    '/assets/img/avatars/avatar_sofia_mueller.png',
-    '/assets/img/avatars/avatar_steffen_hoffmann.png',
-  ];
-
-  chosenAvatar = this.avatars[0];
 
   returnToSignin() {
     this.router.navigate(['/sign-in']);
@@ -35,20 +23,12 @@ export class Register {
     this.router.navigate(['/privacy-policy']);
   }
 
+  redirectToAvatar(){
+    this.router.navigate(['/set-avatar']);
+  }
+
   toggleCheckbox() {
     this.isChecked = !this.isChecked;
-  }
-
-  selectAvatar(index: number) {
-    this.chosenAvatar = this.avatars[index];
-  }
-
-  showTooltip() {
-    this.hideTooltip = false;
-
-    setTimeout(()=> {
-      this.router.navigate(['/sign-in']);
-    },1000);
   }
 
 }

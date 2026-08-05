@@ -1,7 +1,7 @@
 <section class="register-page">
   <main class="content-wrapper">
     <app-header [showRegister]="false"></app-header>
-       <!-- REGISTRATION-Section -->
+    <!-- REGISTRATION-Section -->
     <section class="register-page__main-section">
       <form class="card card-basestyle">
         <div class="title-container">
@@ -26,47 +26,10 @@
         </div>
         <footer class="card-footer">
           <!-- this button should be disabled and enabled only if form is filled + checkbox checked -->
-          <button class="btn-primary-blue">Weiter</button>
+          <button class="btn-primary-blue" (click)="redirectToAvatar()">Weiter</button>
         </footer>
       </form>
       <app-footer class="footer"></app-footer>
     </section>
-    <!-- AVATAR-Section TO BE MOVED IN ITS OWN COMPONENT-->
-    <section class="choose-avatar">
-      <section class="register-page__main-section">
-        <form class="card card-basestyle">
-          <div class="title-container">
-            <button class="go-back-btn abs-pos">
-              <img src="/assets/img/icons/arrow_left.svg" alt="arrow poinint to the left" />
-            </button>
-            <h1>Wähle deinen Avatar</h1>
-          </div>
-          <div class="selected-avatar">
-            <img class="selected-avatar__img" [src]="chosenAvatar" alt="avatar" />
-            <span class="selected-avatar__username">Miruna Agopian??</span>
-          </div>
-          <div class="available-avatars">
-            <div class="avatar-list">
-              @for (avatar of avatars.slice(1); let i = $index; track i) {
-                <button
-                  type="button"
-                  class="available-avatars__avatar-option"
-                  (click)="selectAvatar(i + 1)"
-                >
-                  <img class="available-avatars__img" [src]="avatar" alt="avatar option" />
-                </button>
-              }
-            </div>
-          </div>
-          <footer class="card-footer">
-            <button type="button" class="btn-primary-blue" (click)="showTooltip()">Weiter</button>
-          </footer>
-        </form>
-        <app-footer class="footer"></app-footer>
-      </section>
-    </section>
   </main>
-  <div class="overlay" [class.overlay--visible]="!hideTooltip">
-    <span class="tooltip">Konto erfolgreich gestellt!</span>
-  </div>
 </section>

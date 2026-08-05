@@ -1,0 +1,42 @@
+import { Component, inject } from '@angular/core';
+import { Footer } from '../../shared/components/footer/footer';
+import { Header } from '../../shared/components/header/header';
+import { Router } from '@angular/router';
+
+@Component({
+  selector: 'app-set-avatar',
+  imports: [Footer, Header],
+  templateUrl: './set-avatar.html',
+  styleUrl: './set-avatar.scss',
+})
+export class SetAvatar {
+  router = inject(Router);
+  avatars = [
+    '/assets/img/avatars/default_user.png',
+    '/assets/img/avatars/avatar_elias_neumann.png',
+    '/assets/img/avatars/avatar_elise_roth.png',
+    '/assets/img/avatars/avatar_frederick_beck.png',
+    '/assets/img/avatars/avatar_noah_braun.png',
+    '/assets/img/avatars/avatar_sofia_mueller.png',
+    '/assets/img/avatars/avatar_steffen_hoffmann.png',
+  ];
+
+  chosenAvatar = this.avatars[0];
+  hideTooltip = true;
+
+  selectAvatar(index: number) {
+    this.chosenAvatar = this.avatars[index];
+  }
+
+   redirectToRegister(){
+    this.router.navigate(['/register']);
+  }
+
+  showTooltip() {
+    this.hideTooltip = false;
+
+    setTimeout(() => {
+      this.router.navigate(['/sign-in']);
+    }, 1000);
+  }
+}
