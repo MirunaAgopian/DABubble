@@ -7,15 +7,15 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-reset-password',
   imports: [Header, Footer, Input],
-  templateUrl: './reset-password.html',
-  styleUrl: './reset-password.scss',
+  templateUrl: './reset-password-request.html',
+  styleUrl: './reset-password-request.scss',
 })
-export class ResetPassword {
+export class ResetPasswordRequest {
   router = inject(Router);
   hideTooltip = true;
 
-  returnToResPwReq() {
-    this.router.navigate(['/reset-password-req']);
+  returnToSignin() {
+    this.router.navigate(['/sign-in']);
   }
 
   showTooltip() {
@@ -24,6 +24,5 @@ export class ResetPassword {
       this.router.navigate(['/sign-in']);
     }, 1000);
   }
-
   //implement real password reset with firebase
 }

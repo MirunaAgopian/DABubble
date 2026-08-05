@@ -10,9 +10,7 @@
         <!-- INPUT section -->
         <app-input type="email" placeholder="beispielname@email.com"></app-input>
         <app-input type="password" placeholder="Passwort"></app-input>
-
-        <button class="btn-pw">Passwort vergessen?</button>
-
+        <button class="btn-pw" (click)="redirectToPwChange()">Passwort vergessen?</button>
         <div class="separator">
           <div class="separator__line"></div>
           <p>oder</p>
@@ -22,7 +20,6 @@
           <img src="/assets/img/icons/google_icon.svg" alt="the logo of Google" />
           Anmelden mit Google
         </button>
-
         <footer class="card-footer">
           <button class="btn-primary-blue">Anmelden</button>
           <button class="btn-secondary-blue">Gäste-Login</button>
