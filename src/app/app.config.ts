@@ -7,7 +7,7 @@ import { getFirestore } from 'firebase/firestore';
 import { environment } from '../environments/environment';
 
 const firebaseApp = initializeApp(environment.firebase);
-const db = getFirestore(firebaseApp);
+export const db = getFirestore(firebaseApp);
 
 export const appConfig: ApplicationConfig = {
   providers: [
