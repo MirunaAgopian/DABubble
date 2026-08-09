@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { Footer } from '../../shared/components/footer/footer';
 import { Header } from '../../shared/components/header/header';
 import { Router } from '@angular/router';
+import { RegistrationService } from '../../core/services/registration.service';
 
 @Component({
   selector: 'app-set-avatar',
@@ -23,12 +24,20 @@ export class SetAvatar {
 
   chosenAvatar = this.avatars[0];
   hideTooltip = true;
+  registrationService = inject(RegistrationService);
+  username = '';
+
+  ngOnInit() {
+    const data = this.registrationService.getFinalData();
+    this.username = data.name;
+  }
 
   selectAvatar(index: number) {
     this.chosenAvatar = this.avatars[index];
+    this.registrationService.setAvatar(this.chosenAvatar);
   }
 
-   redirectToRegister(){
+  redirectToRegister() {
     this.router.navigate(['/register']);
   }
 

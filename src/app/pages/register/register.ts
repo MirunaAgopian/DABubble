@@ -3,7 +3,10 @@ import { Header } from '../../shared/components/header/header';
 import { Footer } from '../../shared/components/footer/footer';
 import { Input } from '../../shared/components/input/input';
 import { Router } from '@angular/router';
-import { ThumbPosition } from '@angular/material/slider/testing';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { strongPasswordValidator } from '../../shared/validators/strong-password.validator';
+import { RegistrationService } from '../../core/services/registration.service';
+
 
 @Component({
   selector: 'app-register',
@@ -14,6 +17,19 @@ import { ThumbPosition } from '@angular/material/slider/testing';
 export class Register {
   router = inject(Router);
   isChecked = false;
+  registrationService = inject(RegistrationService);
+
+  form = new FormGroup({
+    name: new FormControl('', {
+      validators: [Validators.required],
+    }),
+    email: new FormControl('', {
+      validators: [Validators.required, Validators.email]
+    }),
+    password: new FormControl('', {
+      validators: [Validators.required, strongPasswordValidator]
+    })
+  });
 
   returnToSignin() {
     this.router.navigate(['/sign-in']);
@@ -24,11 +40,13 @@ export class Register {
   }
 
   redirectToAvatar(){
+    this.registrationService.setFormData(this.form.value);
     this.router.navigate(['/set-avatar']);
   }
 
   toggleCheckbox() {
     this.isChecked = !this.isChecked;
   }
+
 
 }

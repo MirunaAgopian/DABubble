@@ -12,9 +12,9 @@
         </div>
         <span>Mit deinem Namen und deiner E-Mail-Adresse hast du dein neues DABubble-Konto.</span>
         <!-- INPUT section -->
-        <app-input type="name" placeholder="Name und Nachname"></app-input>
-        <app-input type="email" placeholder="beispielname@email.com"></app-input>
-        <app-input type="password" placeholder="Passwort"></app-input>
+        <app-input type="name" placeholder="Name und Nachname" (valueChange) = 'form.controls.name.setValue($event)'></app-input>
+        <app-input type="email" placeholder="beispielname@email.com" (valueChange)= 'form.controls.email.setValue($event)'></app-input>
+        <app-input type="password" placeholder="Passwort" (valueChange)= 'form.controls.password.setValue($event)'></app-input>
 
         <div class="privacy-policy">
           <div class="checkbox btn-pw" [class.checked]="isChecked" (click)="toggleCheckbox()"></div>
@@ -26,7 +26,7 @@
         </div>
         <footer class="card-footer">
           <!-- this button should be disabled and enabled only if form is filled + checkbox checked -->
-          <button class="btn-primary-blue" (click)="redirectToAvatar()">Weiter</button>
+          <button type="button" class="btn-primary-blue" (click)="redirectToAvatar()">Weiter</button>
         </footer>
       </form>
       <app-footer class="footer"></app-footer>
