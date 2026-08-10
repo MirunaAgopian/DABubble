@@ -1,4 +1,3 @@
-<!-- AVATAR-Section TO BE MOVED IN ITS OWN COMPONENT-->
 <section class="avatar-page">
   <main class="content-wrapper">
     <app-header [showRegister]="false"></app-header>
@@ -13,7 +12,7 @@
           </div>
           <div class="selected-avatar">
             <img class="selected-avatar__img" [src]="chosenAvatar" alt="avatar" />
-            <span class="selected-avatar__username">{{username}}</span>
+            <span class="selected-avatar__username">{{ username }}</span>
           </div>
           <div class="available-avatars">
             <div class="avatar-list">
@@ -29,15 +28,17 @@
             </div>
           </div>
           <footer class="card-footer">
-            <button type="button" class="btn-primary-blue" (click)="showTooltip()">Weiter</button>
+            <button type="button" class="btn-primary-blue" (click)="onSubmit()">
+              Weiter
+            </button>
           </footer>
         </form>
         <app-footer class="footer"></app-footer>
       </section>
-
-      <div class="overlay" [class.overlay--visible]="!hideTooltip">
-        <span class="tooltip">Konto erfolgreich gestellt!</span>
-      </div>
     </section>
+
+    <div class="overlay" [class.overlay--visible]="!hideTooltip">
+      <span class="tooltip">Konto erfolgreich gestellt!</span>
+    </div>
   </main>
 </section>

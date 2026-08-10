@@ -4,7 +4,7 @@ import { Footer } from '../../shared/components/footer/footer';
 import { Input } from '../../shared/components/input/input';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { strongPasswordValidator } from '../../shared/validators/strong-password.validator';
+import { strongPasswordValidator } from '../../shared/utils/strong-password.validator';
 import { RegistrationService } from '../../core/services/registration.service';
 
 

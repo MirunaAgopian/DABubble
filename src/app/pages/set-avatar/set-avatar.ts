@@ -3,6 +3,8 @@ import { Footer } from '../../shared/components/footer/footer';
 import { Header } from '../../shared/components/header/header';
 import { Router } from '@angular/router';
 import { RegistrationService } from '../../core/services/registration.service';
+import { AuthService } from '../../core/services/auth.service';
+import { NgZone } from '@angular/core';
 
 @Component({
   selector: 'app-set-avatar',
@@ -26,7 +28,9 @@ export class SetAvatar {
   hideTooltip = true;
   registrationService = inject(RegistrationService);
   username = '';
+  authService = inject(AuthService);
 
+  ngZone = inject(NgZone);
   ngOnInit() {
     const data = this.registrationService.getFinalData();
     this.username = data.name;
@@ -43,9 +47,19 @@ export class SetAvatar {
 
   showTooltip() {
     this.hideTooltip = false;
+  }
 
+  async finishRegistration() {
+    const data = this.registrationService.getFinalData();
+    await this.authService.registerUser(data.name, data.email, data.password, data.avatarUrl);
+    this.hideTooltip = false;
     setTimeout(() => {
       this.router.navigate(['/sign-in']);
     }, 1000);
+  }
+
+  async onSubmit() {
+    this.showTooltip();
+    await this.finishRegistration();
   }
 }

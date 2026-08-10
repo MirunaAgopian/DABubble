@@ -12,8 +12,8 @@ export class RegistrationService {
     this.userData = { ...this.userData, ...data };
   }
 
-  setAvatar(avatar: string) {
-    this.userData.avatar = avatar;
+  setAvatar(avatarUrl: string) {
+    this.userData.avatarUrl= avatarUrl;
   }
 
   getFinalData() {

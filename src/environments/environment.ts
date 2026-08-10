@@ -6,6 +6,6 @@ export const environment = {
     projectId: 'dabubble-956c7',
     storageBucket: 'dabubble-956c7.firebasestorage.app',
     messagingSenderId: '947834258240',
-    appId: '1:947834258240:web:33dbca316b5492008370a5'
-  }
+    appId: '1:947834258240:web:ea2344c27eff7aeb8370a5',
+  },
 };
