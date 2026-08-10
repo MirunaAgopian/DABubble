@@ -9,19 +9,25 @@
       (input)="onInput($event)"
     />
   </div>
-  @if (type() === 'email') {
-    <p class="inputs-wrapper__error" [class.visible]="showError">
+  <p class="inputs-wrapper__error" [class.visible]="controls()?.touched && controls()?.invalid">
+    @if (type() === 'email' && controls()?.hasError('required')) {
+      Bitte geben Sie eine E-Mail-Adresse ein.
+    }
+
+    @if (type() === 'email' && controls()?.hasError('email')) {
       Diese E-Mail-Adresse ist leider ungültig.
-    </p>
-  }
-  @if (type() === 'password') {
-    <p class="inputs-wrapper__error" [class.visible]="showError">
-      Dieses Passwort ist leider ungültig.
-    </p>
-  }
-   @if (type() === 'name') {
-    <p class="inputs-wrapper__error" [class.visible]="showError">
-      Bitte shreiben Sie einen Namen.
-    </p>
-  }
+    }
+
+    @if (type() === 'password' && controls()?.hasError('required')) {
+      Bitte geben Sie ein Passwort ein.
+    }
+
+    @if (type() === 'password' && controls()?.hasError('strongPassword')) {
+      Mind. 8 Zeichen mit Groß- und Kleinbuchstaben, Sonderzeichen und Ziffern.
+    }
+
+    @if (type() === 'name' && controls()?.hasError('required')) {
+      Bitte schreiben Sie einen Namen.
+    }
+  </p>
 </section>

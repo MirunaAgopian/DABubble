@@ -48,6 +48,10 @@
   &:hover {
     background-color: var(--color-primary-hover);
   }
+
+  &:disabled {
+    background-color: var(--color-primary-hover);
+  }
 }
 
 .btn-secondary-blue {
@@ -64,7 +68,6 @@
     transform: translateX(2px);
   }
 }
-
 
 .go-back-btn {
   padding: 8px;
@@ -85,4 +88,3 @@
     }
   }
 }
-

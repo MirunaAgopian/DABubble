@@ -28,21 +28,17 @@
     position: relative;
   }
 
- 
   &__error {
     align-self: flex-start;
+    text-align: left;
     font-size: var(--font-size-text-small);
     color: var(--color-error);
     margin-left: 32px;
     opacity: 0;
+    min-height: calc(var(--font-size-text-small) * 2.2);
 
     &.visible {
       opacity: 1;
     }
   }
 }
-
-
-
-
-

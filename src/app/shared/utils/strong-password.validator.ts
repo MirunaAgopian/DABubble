@@ -15,3 +15,6 @@ export function strongPasswordValidator(control: AbstractControl): ValidationErr
 
   return isValid ? null : { strongPassword: true };
 }
+
+
+
