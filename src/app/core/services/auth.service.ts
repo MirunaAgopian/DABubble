@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, getAuth, sendPasswordResetEmail, signInWithEmailAndPassword } from 'firebase/auth';
 import { User } from '../interfaces/user.interface';
 import { doc, setDoc } from 'firebase/firestore';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
@@ -53,5 +53,9 @@ export class AuthService {
     };
 
     await setDoc(doc(db, 'users', uid), newUser, { merge: true });
+  }
+
+  sendResetPasswordLink(email:string){
+    return sendPasswordResetEmail(this.auth, email);
   }
 }

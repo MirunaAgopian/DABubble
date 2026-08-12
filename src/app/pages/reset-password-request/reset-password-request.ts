@@ -5,6 +5,7 @@ import { Input } from '../../shared/components/input/input';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { email } from '@angular/forms/signals';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-reset-password',
@@ -15,13 +16,14 @@ import { email } from '@angular/forms/signals';
 export class ResetPasswordRequest {
   router = inject(Router);
   hideTooltip = true;
+  authService = inject(AuthService);
   form = new FormGroup({
     email: new FormControl('', {
       validators: [
         Validators.required,
         Validators.email,
         Validators.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]+$/),
-      ]
+      ],
     }),
   });
 
@@ -31,9 +33,22 @@ export class ResetPasswordRequest {
 
   showTooltip() {
     this.hideTooltip = false;
+  }
+
+  async sendPwResetEmail() {
+    const email = this.form.controls.email.value ?? '';
+    await this.authService.sendResetPasswordLink(email);
+  }
+
+  redirectAfterDelay() {
     setTimeout(() => {
       this.router.navigate(['/sign-in']);
     }, 1000);
   }
-  //implement real password reset with firebase
+
+  async onSubmit() {
+    this.showTooltip();
+    await this.sendPwResetEmail();
+    this.redirectAfterDelay();
+  }
 }
