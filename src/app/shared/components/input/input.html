@@ -9,7 +9,13 @@
       (input)="onInput($event)"
     />
   </div>
-  <p class="inputs-wrapper__error" [class.visible]="controls()?.touched && controls()?.invalid">
+  <p
+    class="inputs-wrapper__error"
+    [class.visible]="
+      controls()?.touched &&
+      (controls()?.invalid || controls()?.parent?.hasError('passwordsMismatch'))
+    "
+  >
     @if (type() === 'email' && controls()?.hasError('required')) {
       Bitte geben Sie eine E-Mail-Adresse ein.
     }
@@ -24,6 +30,16 @@
 
     @if (type() === 'password' && controls()?.hasError('strongPassword')) {
       Mind. 8 Zeichen mit Groß- und Kleinbuchstaben, Sonderzeichen und Ziffern.
+    }
+
+    @if (
+      type() === 'password' &&
+      placeholder() === 'Neues Passwort bestätigen' &&
+      controls()?.touched &&
+      controls()?.parent?.hasError('passwordsMismatch') &&
+      !controls()?.parent?.get('password')?.errors
+    ) {
+      Die Passwörter stimmen nicht überein.
     }
 
     @if (type() === 'name' && controls()?.hasError('required')) {

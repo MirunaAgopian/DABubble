@@ -8,8 +8,16 @@
           >Wir empfehlen dir, die E-Mail-Adresse zu nutzen, die du bei der Arbeit verwendest.</span
         >
         <!-- INPUT section -->
-        <app-input type="email" placeholder="beispielname@email.com"></app-input>
-        <app-input type="password" placeholder="Passwort"></app-input>
+        <app-input
+          type="email"
+          placeholder="beispielname@email.com"
+          [controls]="form.controls.email"
+        ></app-input>
+        <app-input
+          type="password"
+          placeholder="Passwort"
+          [controls]="form.controls.password"
+        ></app-input>
         <button class="btn-pw" (click)="redirectToPwChange()">Passwort vergessen?</button>
         <div class="separator">
           <div class="separator__line"></div>
@@ -21,7 +29,7 @@
           Anmelden mit Google
         </button>
         <footer class="card-footer">
-          <button class="btn-primary-blue">Anmelden</button>
+          <button class="btn-primary-blue" [disabled]="!form.valid">Anmelden</button>
           <button class="btn-secondary-blue">Gäste-Login</button>
         </footer>
       </form>

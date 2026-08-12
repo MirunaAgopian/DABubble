@@ -3,6 +3,9 @@ import { Header } from '../../shared/components/header/header';
 import { Footer } from '../../shared/components/footer/footer';
 import { Input } from '../../shared/components/input/input';
 import { Router } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { strongPasswordValidator } from '../../shared/utils/strong-password.validator';
+import { passwordsMatchValidator } from '../../shared/utils/password-match.validator';
 
 @Component({
   selector: 'app-reset-password',
@@ -13,6 +16,18 @@ import { Router } from '@angular/router';
 export class ResetPassword {
   router = inject(Router);
   hideTooltip = true;
+
+  form = new FormGroup(
+    {
+      password: new FormControl('', {
+        validators: [Validators.required, strongPasswordValidator],
+      }),
+      confirmPassword: new FormControl('', {
+        validators: [Validators.required],
+      }),
+    },
+    { validators: passwordsMatchValidator },
+  );
 
   returnToResPwReq() {
     this.router.navigate(['/reset-password-req']);

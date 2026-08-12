@@ -6,7 +6,6 @@ import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { strongPasswordValidator } from '../../shared/utils/strong-password.validator';
 import { RegistrationService } from '../../core/services/registration.service';
-import { validateHorizontalPosition } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-register',

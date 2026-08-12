@@ -3,6 +3,8 @@ import { Input } from '../../shared/components/input/input';
 import { Footer } from '../../shared/components/footer/footer';
 import { Header } from '../../shared/components/header/header';
 import { Router } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { strongPasswordValidator } from '../../shared/utils/strong-password.validator';
 
 @Component({
   selector: 'app-sign-in',
@@ -12,6 +14,21 @@ import { Router } from '@angular/router';
 })
 export class SignIn {
   router = inject(Router);
+
+  form = new FormGroup({
+    email: new FormControl('', {
+      validators: [
+        Validators.required,
+        Validators.email,
+        Validators.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]+$/),
+      ],
+    }),
+    password: new FormControl('', {
+      validators: [
+        Validators.required, strongPasswordValidator
+      ]
+    }),
+  });
 
   redirectToPwChange() {
     this.router.navigate(['reset-password-req']);

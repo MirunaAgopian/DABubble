@@ -15,37 +15,21 @@ export class Input {
   valueChange = output<string>();
   showError = false;
 
-  // onBlur(event: FocusEvent) {
-  //   const value = (event.target as HTMLInputElement).value.trim();
-  //   this.showError = value === '';
-  //   this.valueChange.emit(value);
-  // }
+  onBlur(event: FocusEvent) {
+    const value = (event.target as HTMLInputElement).value.trim();
+    const control: any = this.controls();
+    control?.markAsTouched();
+    control?.updateValueAndValidity();
+    this.showError = control?.invalid;
+    this.valueChange.emit(value);
+  }
 
-  // onInput(event: Event) {
-  //   const value = (event.target as HTMLInputElement).value.trim();
-  //   this.showError = false;
-  //   this.valueChange.emit(value);
-  // }
-
-    onBlur(event: FocusEvent) {
-      const value = (event.target as HTMLInputElement).value.trim();
-
-      const control: any = this.controls();
-      control?.markAsTouched(); // ✔ tells Angular the user interacted
-      control?.updateValueAndValidity(); // ✔ triggers validators
-
-      this.showError = control?.invalid; // ✔ use real validation state
-      this.valueChange.emit(value);
-    }
-
-    onInput(event: Event) {
-      const value = (event.target as HTMLInputElement).value.trim();
-
-      const control:any = this.controls();
-      control?.setValue(value);
-      control?.updateValueAndValidity(); // ✔ re-run validators
-
-      this.showError = control.invalid && control.touched; // ✔ correct UX
-      this.valueChange.emit(value);
-    }
+  onInput(event: Event) {
+    const value = (event.target as HTMLInputElement).value.trim();
+    const control: any = this.controls();
+    control?.setValue(value);
+    control?.updateValueAndValidity();
+    this.showError = control.invalid && control.touched;
+    this.valueChange.emit(value);
+  }
 }
