@@ -33,4 +33,8 @@ export class SignIn {
   redirectToPwChange() {
     this.router.navigate(['reset-password-req']);
   }
+
+  redirectToApp(){
+    this.router.navigate([]);
+  }
 }
