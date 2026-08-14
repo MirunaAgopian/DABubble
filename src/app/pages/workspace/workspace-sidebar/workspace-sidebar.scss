@@ -23,12 +23,16 @@ h3 {
   color: var(--color-text-default);
 }
 
+.bold-span {
+  font-weight: var(--font-weight-bold);
+}
+
 .sidebar-content__channels {
   width: 100%;
 }
 
 .sidebar-content__messages {
-    width: 100%;
+  width: 100%;
 }
 
 //Buttons styling
@@ -60,4 +64,80 @@ h3 {
 
 .collapsible.expanded svg.arrow-icon {
   transform: rotate(0deg);
+}
+
+.collapsible .channels-container {
+  display: block;
+}
+
+.collapsible.collapsed .channels-container {
+  display: none;
+}
+
+.channels-container {
+  margin-top: 16px;
+}
+
+.max-height-primary {
+  max-height: 150px;
+  overflow-y: scroll;
+}
+
+.max-height-secondary {
+  max-height: 250px;
+  overflow-y: scroll;
+}
+
+.single-channel {
+  @include flex-space-btw;
+  justify-content: flex-start;
+  gap: 8px;
+  padding: 8px 16px;
+  width: 100%;
+  border-radius: 15px;
+
+  &:hover {
+    background-color: var(--color-bg-default);
+    color: var(--color-secondary-hover);
+  }
+
+  svg {
+    height: 22px;
+    width: 22px;
+  }
+}
+
+.add-channel {
+  @include flex-space-btw;
+  justify-content: flex-start;
+  gap: 8px;
+  margin-top: 16px;
+  padding: 0 8px;
+
+  &:hover {
+    color: var(--color-secondary-hover);
+  }
+
+  svg {
+    height: 22px;
+    width: 22px;
+  }
+}
+
+.app-user {
+  @include flex-space-btw;
+  justify-content: flex-start;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 16px;
+
+  &:hover {
+    background-color: var(--color-bg-default);
+  }
+}
+
+.user-avatar {
+  border-radius: 50px;
+  height: 40px;
+  width: 40px;
 }
