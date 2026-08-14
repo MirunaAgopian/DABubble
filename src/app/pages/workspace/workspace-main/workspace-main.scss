@@ -1,4 +1,11 @@
+@import '../../../../styles/abstracts/mixins';
+
 .workspace-main {
-    background-color: var(--color-bg-default);
-    height: 100vh;
+  background-color: var(--color-bg-default);
+  height: 100vh;
+}
+
+.workspace-chat-area {
+  @include grid-three-col;
+  height: calc(100vh - 250px);
 }

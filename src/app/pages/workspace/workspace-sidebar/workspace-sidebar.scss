@@ -1,0 +1,63 @@
+@import '../../../../styles/abstracts/mixins';
+
+.sidebar-content {
+  @include flex-column-space-btw;
+  justify-content: flex-start;
+  gap: 30px;
+  background-color: var(--color-secondary-default);
+  border-radius: 30px;
+  height: 100%;
+  padding: 20px 16px;
+
+  &__header {
+    @include flex-space-btw;
+    width: 100%;
+  }
+}
+
+.header-logo {
+  height: 50px;
+}
+
+h3 {
+  color: var(--color-text-default);
+}
+
+.sidebar-content__channels {
+  width: 100%;
+}
+
+.sidebar-content__messages {
+    width: 100%;
+}
+
+//Buttons styling
+.action-btns {
+  @include flex-space-btw;
+  width: 100%;
+}
+
+.channels-btn {
+  @include flex-space-btw;
+  gap: 8px;
+  transition:
+    background-color 0.1s ease-in,
+    transform 0.1s ease-in;
+
+  &:hover {
+    color: var(--color-primary-default);
+    transform: translateY(-2px);
+  }
+}
+
+.collapsible svg {
+  transition: transform 0.25s ease;
+}
+
+.collapsible.collapsed svg.arrow-icon {
+  transform: rotate(-90deg);
+}
+
+.collapsible.expanded svg.arrow-icon {
+  transform: rotate(0deg);
+}

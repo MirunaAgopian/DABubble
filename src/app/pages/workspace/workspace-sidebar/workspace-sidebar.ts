@@ -6,4 +6,9 @@ import { Component } from '@angular/core';
   templateUrl: './workspace-sidebar.html',
   styleUrl: './workspace-sidebar.scss',
 })
-export class WorkspaceSidebar {}
+export class WorkspaceSidebar {
+  toggleCollapsible(section: HTMLElement) {
+    section.classList.toggle('expanded');
+    section.classList.toggle('collapsed');
+  }
+}

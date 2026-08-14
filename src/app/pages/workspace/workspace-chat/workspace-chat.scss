@@ -1,0 +1,9 @@
+@import '../../../../styles/abstracts/mixins';
+
+.chat-content {
+  @include flex-column-space-btw;
+  background-color: var(--color-secondary-default);
+  border-radius: 30px;
+  height: 100%;
+  padding: 20px 16px;
+}

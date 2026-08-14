@@ -88,3 +88,28 @@
     }
   }
 }
+
+.chat-btn {
+  border-radius: 50px;
+  padding: 8px 10px;
+  transition: background-color 0.25s ease-in;
+  color: var(--color-text-default);
+
+  &:hover {
+    background-color: var(--color-bg-default);
+    color: var(--color-primary-default);
+  }
+}
+
+.chat-btn-secondary {
+  border-radius: 50px;
+  width: 30px;
+  height: 30px;
+  transition: background-color 0.25s ease-in;
+  color: var(--color-text-default);
+
+  &:hover {
+    background-color: var(--color-bg-default);
+    color: var(--color-primary-default);
+  }
+}
