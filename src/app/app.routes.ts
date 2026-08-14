@@ -7,6 +7,9 @@ import { ResetPasswordRequest } from './pages/reset-password-request/reset-passw
 import { ResetPassword } from './pages/reset-password/reset-password';
 import { LegalNotice } from './pages/legal-notice/legal-notice';
 import { PrivacyPolicy } from './pages/privacy-policy/privacy-policy';
+import { WorkspaceMain } from './pages/workspace/workspace-main/workspace-main';
+import { WorkspaceThread } from './pages/workspace/workspace-thread/workspace-thread';
+import { WorkspaceChat } from './pages/workspace/workspace-chat/workspace-chat';
 
 export const routes: Routes = [
   { path: '', component: Start },
@@ -17,4 +20,22 @@ export const routes: Routes = [
   { path: 'reset-password', component: ResetPassword },
   { path: 'legal-notice', component: LegalNotice },
   { path: 'privacy-policy', component: PrivacyPolicy },
+  {
+    path: 'workspace',
+    component: WorkspaceMain,
+    children: [
+      {
+        path: 'channel/:id',
+        component: WorkspaceChat,
+      },
+      {
+        path: 'dm/:id',
+        component: WorkspaceChat,
+      },
+      {
+        path: 'thread/:id',
+        component: WorkspaceThread,
+      },
+    ],
+  },
 ];

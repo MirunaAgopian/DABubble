@@ -35,6 +35,6 @@ export class SignIn {
   }
 
   redirectToApp(){
-    this.router.navigate([]);
+    this.router.navigate(['workspace']);
   }
 }

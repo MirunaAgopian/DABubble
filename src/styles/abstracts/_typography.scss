@@ -16,6 +16,7 @@ $font-sizes: (
   text-regular: clamp(1rem, 1vw + 0.5rem, 18px),
   text-medium: clamp(1.1rem, 1vw + 0.6rem, 20px),
   text-small: clamp(0.8rem, 0.5vw + 0.4rem, 14px),
+  text-large: clamp(1.5rem, 3vw + 0.5rem, 30px),
 
   button: clamp(1rem, 1vw + 0.5rem, 18px)
 );

@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+.d-none {
+  display: none;
+}
+
 //global typography styling
 h1 {
   font-family: var(--font-regular);
@@ -46,8 +50,4 @@ button {
   font-family: var(--font-bold);
   font-weight: var(--font-weight-regular);
   font-size: var(--font-size-button);
-}
-
-.d-none {
-  display: none;
 }

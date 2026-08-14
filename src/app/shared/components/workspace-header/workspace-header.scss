@@ -1,0 +1,77 @@
+@import '../../../../styles/abstracts/mixins';
+
+.workspace-header {
+  @include flex-space-btw;
+  gap: 16px;
+  margin-bottom: clamp(20px, 8vh, 100px);
+
+  &__logo {
+    height: 80px;
+    width: 180px;
+  }
+
+  &__avatar {
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+  }
+
+  &__logo {
+    flex: 0 0 auto;
+  }
+
+  &__search {
+    flex: 1;
+    max-width: 800px;
+  }
+
+  &__search-input {
+    width: 100%;
+  }
+
+  &__user {
+    flex: 0 0 auto;
+  }
+
+  @media (max-height: 850px) {
+    margin-bottom: 16px;
+  }
+}
+
+// SEARCH Bar
+.workspace-header__input-container {
+  position: relative;
+  width: 100%;
+}
+
+::ng-deep .inputs-wrapper__icon {
+  position: absolute;
+  right: 16px;
+  left: auto !important;
+  top: 55% !important;
+  pointer-events: none;
+}
+
+.workspace-header__search-input {
+  padding: 16px;
+  padding-right: 48px;
+  border-radius: 30px;
+  background-color: var(--color-secondary-default);
+  outline: none;
+
+  &:focus::placeholder {
+    opacity: 0;
+  }
+}
+
+// USER container
+.workspace-header__user {
+  @include flex-space-btw;
+  gap: 16px;
+}
+
+.workspace-header__user-name {
+  font-family: var(--font-bold);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-text-large);
+}
