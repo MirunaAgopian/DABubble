@@ -2,19 +2,19 @@
   <img class="workspace-header__logo" src="/assets/img/icons/logo_header.svg" alt="app logo" />
 
   <div class="workspace-header__search">
-  <div class="workspace-header__input-container">
-    <app-input-icon type="search"></app-input-icon>
+    <div class="workspace-header__input-container">
+      <app-input-icon type="search"></app-input-icon>
 
-    <input
-      type="text"
-      class="workspace-header__search-input"
-      placeholder="Devspace durchsuchen"
-    />
+      <input
+        type="text"
+        class="workspace-header__search-input"
+        placeholder="Devspace durchsuchen"
+      />
+    </div>
   </div>
-</div>
 
   <button class="workspace-header__user">
-    <span class="workspace-header__user-name">Gast</span>
+    <span class="workspace-header__user-name">{{ currentUser?.name }}</span>
 
     <div class="workspace-header__avatar-status">
       <img
@@ -22,7 +22,14 @@
         src="/assets/img/avatars/default_user.png"
         alt="the avatar image"
       />
-      <div class="workspace-header__status-bullet"></div>
+      <div
+        class="workspace-header__status-bullet"
+        [ngClass]="{
+          'workspace-header__status-bullet--online': currentUser?.status === 'online',
+          'workspace-header__status-bullet--offline': currentUser?.status === 'offline',
+          'workspace-header__status-bullet--away': currentUser?.status === 'away',
+        }"
+      ></div>
     </div>
 
     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">

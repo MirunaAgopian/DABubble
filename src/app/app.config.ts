@@ -5,14 +5,12 @@ import { routes } from './app.routes';
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 import { environment } from '../environments/environment';
+import { getAuth } from 'firebase/auth';
 
 const firebaseApp = initializeApp(environment.firebase);
 export const db = getFirestore(firebaseApp);
+export const auth = getAuth(firebaseApp);
 
 export const appConfig: ApplicationConfig = {
-  providers: [
-    provideBrowserGlobalErrorListeners(),
-    provideRouter(routes),
-
-  ]
+  providers: [provideBrowserGlobalErrorListeners(), provideRouter(routes)],
 };

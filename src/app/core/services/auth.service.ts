@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
-import { createUserWithEmailAndPassword, getAuth, sendPasswordResetEmail, signInWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, sendPasswordResetEmail, signInWithEmailAndPassword } from 'firebase/auth';
 import { User } from '../interfaces/user.interface';
 import { doc, setDoc } from 'firebase/firestore';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import { db } from '../../app.config';
+import { db, auth } from '../../app.config';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  auth = getAuth();
+  auth = auth;
 
   async registerUser(name: string, email: string, password: string, avatarUrl: string) {
     const userCredentials = await createUserWithEmailAndPassword(this.auth, email, password);

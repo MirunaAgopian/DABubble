@@ -75,3 +75,32 @@
   font-weight: var(--font-weight-bold);
   font-size: var(--font-size-text-large);
 }
+
+.workspace-header {
+  &__avatar-status {
+    position: relative;
+  }
+
+  &__status-bullet {
+    position: absolute;
+    right: 5%;
+    top: 80%;
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    border: 2px solid var(--color-bg-default);
+    background-color: gray;
+  }
+
+  &__status-bullet--online {
+    background-color: #4caf50;
+  }
+
+  &__status-bullet--offline {
+    background-color: #9e9e9e;
+  }
+
+  &__status-bullet--away {
+    background-color: #ff9800;
+  }
+}

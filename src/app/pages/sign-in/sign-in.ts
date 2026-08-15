@@ -5,6 +5,7 @@ import { Header } from '../../shared/components/header/header';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { strongPasswordValidator } from '../../shared/utils/strong-password.validator';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -14,7 +15,7 @@ import { strongPasswordValidator } from '../../shared/utils/strong-password.vali
 })
 export class SignIn {
   router = inject(Router);
-
+  authService = inject(AuthService);
   form = new FormGroup({
     email: new FormControl('', {
       validators: [
@@ -36,5 +37,16 @@ export class SignIn {
 
   redirectToApp(){
     this.router.navigate(['workspace']);
+  }
+
+  async onSubmit(){
+    const { email, password } = this.form.value;
+
+    try {
+      await this.authService.loginUser(email ?? '', password ?? '');
+      this.router.navigate(['workspace']);
+    } catch(err){
+      console.error('Error on user sign-in:', err);
+    }
   }
 }
