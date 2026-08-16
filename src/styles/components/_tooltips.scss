@@ -26,3 +26,11 @@
   bottom: 30px;
   right: 30px;
 }
+
+.tooltip-secondary {
+  background-color: var(--color-secondary-default);
+  padding: 32px;
+  border-radius: 15px;
+  max-width: 250px;
+  width: 100%;
+}

@@ -9,3 +9,9 @@
   @include grid-three-col;
   height: calc(100vh - 250px);
 }
+
+.workspace-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(236, 238, 254, 0.5);
+}

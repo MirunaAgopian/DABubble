@@ -36,6 +36,25 @@
   }
 }
 
+.btn-pw-secondary {
+  height: 40px;
+  width: 200px;
+  border-radius: 15px;
+  background-color: unset;
+  color: black;
+  font-weight: var(--font-weight-bold);
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease;
+
+  &:hover {
+    background-color: var(--color-bg-default);
+    color: var(--color-primary-default);
+    transform: translateY(2px);
+  }
+}
+
 .btn-primary-blue {
   border-radius: 50px;
   background-color: var(--color-primary-default);

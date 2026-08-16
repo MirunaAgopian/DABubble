@@ -1,0 +1,7 @@
+@import '../../../../../styles/abstracts/mixins';
+
+.logout-container {
+ @include flex-column-space-btw;
+ gap: 16px;
+}
+
