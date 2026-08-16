@@ -1,11 +1,19 @@
 <section class="workspace-main">
   <main class="content-wrapper">
-    <app-workspace-header></app-workspace-header>
+    <app-workspace-header (openOverlay)="openOverlay($event)"></app-workspace-header>
     <section class="workspace-chat-area">
       <app-workspace-sidebar></app-workspace-sidebar>
       <app-workspace-chat></app-workspace-chat>
       <app-workspace-thread></app-workspace-thread>
     </section>
   </main>
-  <app-overlay class="workspace-overlay" (logout)="handleLogout()"></app-overlay>
+  @if (isOverlayOpen) {
+    <app-overlay
+      class="workspace-overlay"
+      [visible]="isOverlayOpen"
+      [view]="overlayView"
+      (logout)="handleLogout()"
+      (close)="closeOverlay()"
+    ></app-overlay>
+  }
 </section>

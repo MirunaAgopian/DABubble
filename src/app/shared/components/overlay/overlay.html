@@ -1,7 +1,16 @@
-<section class="content-wrapper outer-container">
+  <section class="content-wrapper outer-container" (click)="$event.stopPropagation()">
     <div class="workspace-overlay__dialogs tooltip-secondary">
-      <app-logout (clicked)="onLogout()"></app-logout>  
-      <!-- <app-profile></app-profile>
-      <app-edit-profile></app-edit-profile> -->
+      @if (view() === 'logout') {
+        <app-logout (clicked)="onLogout()"></app-logout>
+      }
+
+      @if (view() === 'profile') {
+        <app-profile></app-profile>
+      }
+
+      @if (view() === 'edit-profile') {
+        <app-edit-profile></app-edit-profile>
+      }
     </div>
-</section>
+  </section>
+

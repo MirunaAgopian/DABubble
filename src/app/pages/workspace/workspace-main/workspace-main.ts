@@ -18,14 +18,24 @@ export class WorkspaceMain {
   authService = inject(AuthService);
   router = inject(Router);
   inAppPresenceService = inject(InAppPresenceService);
-  
+  isOverlayOpen = false;
+  overlayView: 'profile' | 'edit-profile' | 'logout' | null = null;
 
   ngOnInit() {
     this.inAppPresenceService.startInactivityTimer();
   }
 
-  handleLogout(){
+  handleLogout() {
     this.authService.logoutUser();
     this.router.navigate(['sign-in']);
+  }
+
+  openOverlay(view: 'profile' | 'edit-profile' | 'logout') {
+    this.overlayView = view;
+    this.isOverlayOpen = true;
+  }
+
+  closeOverlay() {
+    this.isOverlayOpen = false;
   }
 }

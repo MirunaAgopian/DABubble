@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, output } from '@angular/core';
 import { InputIcon } from '../input-icon/input-icon';
 import { onAuthStateChanged } from 'firebase/auth';
 import { UserService } from '../../../core/services/user.service';
@@ -16,6 +16,7 @@ export class WorkspaceHeader {
   userService = inject(UserService);
   authService = inject(AuthService);
   cdr = inject(ChangeDetectorRef);
+  openOverlay = output<'profile' | 'edit-profile' | 'logout'>();
 
   currentUser: User | null = null;
   guestUser: User = {
