@@ -32,4 +32,8 @@ export class Overlay {
   onProfile() {
     this.switchView.emit('profile');
   }
+
+  onEdit(){
+    this.switchView.emit('edit-profile');
+  }
 }

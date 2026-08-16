@@ -5,11 +5,11 @@
     }
 
     @if (view() === 'profile') {
-      <app-profile [user] = 'user()'></app-profile>
+      <app-profile [user]="user()" (click)="onEdit()"></app-profile>
     }
 
     @if (view() === 'edit-profile') {
-      <app-edit-profile></app-edit-profile>
+      <app-edit-profile [user]="user()"></app-edit-profile>
     }
   </div>
 </section>

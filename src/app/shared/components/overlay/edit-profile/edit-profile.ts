@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
+import { User } from '../../../../core/interfaces/user.interface';
 
 @Component({
   selector: 'app-edit-profile',
@@ -6,4 +7,6 @@ import { Component } from '@angular/core';
   templateUrl: './edit-profile.html',
   styleUrl: './edit-profile.scss',
 })
-export class EditProfile {}
+export class EditProfile {
+  user = input<User | null>();
+}
