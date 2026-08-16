@@ -8,8 +8,13 @@ import { Component, EventEmitter, output } from '@angular/core';
 })
 export class Logout {
   clicked = output<void>();
+  profile = output<void>();
 
   onClick(){
     this.clicked.emit();
+  }
+
+  onProfileClick(){
+    this.profile.emit();
   }
 }

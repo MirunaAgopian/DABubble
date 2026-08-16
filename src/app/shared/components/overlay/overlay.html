@@ -1,16 +1,15 @@
-  <section class="content-wrapper outer-container" (click)="$event.stopPropagation()">
-    <div class="workspace-overlay__dialogs tooltip-secondary">
-      @if (view() === 'logout') {
-        <app-logout (clicked)="onLogout()"></app-logout>
-      }
+<section class="content-wrapper outer-container" (click)="$event.stopPropagation()">
+  <div class="workspace-overlay__dialogs tooltip-secondary">
+    @if (view() === 'logout') {
+      <app-logout (clicked)="onLogout()" (profile)="onProfile()"></app-logout>
+    }
 
-      @if (view() === 'profile') {
-        <app-profile></app-profile>
-      }
+    @if (view() === 'profile') {
+      <app-profile [user] = 'user()'></app-profile>
+    }
 
-      @if (view() === 'edit-profile') {
-        <app-edit-profile></app-edit-profile>
-      }
-    </div>
-  </section>
-
+    @if (view() === 'edit-profile') {
+      <app-edit-profile></app-edit-profile>
+    }
+  </div>
+</section>

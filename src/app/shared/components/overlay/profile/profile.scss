@@ -1,0 +1,67 @@
+@import '../../../../../styles/abstracts/mixins';
+
+h3 {
+  color: var(--color-text-default);
+}
+
+.profile-container {
+  @include flex-column-space-btw;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.avatar-img {
+  height: 150px;
+  width: 150px;
+  border-radius: 4px;
+}
+
+.edit-btn {
+  align-self: flex-end;
+  color: var(--color-text-accent);
+  font-weight: var(--font-weight-bold);
+  transition: transform 125ms ease-in;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.email-header {
+  @include flex-space-btw;
+  justify-content: flex-start;
+  width: 100%;
+  gap: 8px;
+  margin-bottom: 8px;
+  color: var(--color-text-default);
+
+  p {
+    color: var(--color-text-default);
+    font-weight: var(--font-weight-bold);
+    margin-top: 2px;
+  }
+}
+
+.email-address {
+  color: #1381ff;
+  letter-spacing: 1px;
+  font-size: var(--font-size-text-regular);
+}
+
+.user-status {
+  @include flex-space-btw;
+  justify-content: flex-start;
+  gap: 8px;
+}
+
+.status-bullet {
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background-color: #4caf50;
+}
+
+.status {
+  color: #4caf50;
+  font-size: var(--font-size-text-regular);
+}

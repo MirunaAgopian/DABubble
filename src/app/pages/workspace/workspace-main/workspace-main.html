@@ -1,6 +1,9 @@
 <section class="workspace-main">
   <main class="content-wrapper">
-    <app-workspace-header (openOverlay)="openOverlay($event)"></app-workspace-header>
+    <app-workspace-header
+      [user]="currentUser"
+      (openOverlay)="openOverlay($event)"
+    ></app-workspace-header>
     <section class="workspace-chat-area">
       <app-workspace-sidebar></app-workspace-sidebar>
       <app-workspace-chat></app-workspace-chat>
@@ -12,8 +15,10 @@
       class="workspace-overlay"
       [visible]="isOverlayOpen"
       [view]="overlayView"
+      [user]="currentUser"
       (logout)="handleLogout()"
       (close)="closeOverlay()"
+      (switchView)="onSwitchView($event)"
     ></app-overlay>
   }
 </section>

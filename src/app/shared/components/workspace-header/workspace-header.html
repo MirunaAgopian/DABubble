@@ -14,20 +14,16 @@
   </div>
 
   <button class="workspace-header__user" (click)="openOverlay.emit('logout')">
-    <span class="workspace-header__user-name">{{ currentUser?.name }}</span>
+    <span class="workspace-header__user-name">{{ user()?.name }}</span>
 
     <div class="workspace-header__avatar-status">
-      <img
-        class="workspace-header__avatar"
-        src="/assets/img/avatars/default_user.png"
-        alt="the avatar image"
-      />
+      <img class="workspace-header__avatar" [src]="user()?.avatarUrl" alt="the avatar image" />
       <div
         class="workspace-header__status-bullet"
         [ngClass]="{
-          'workspace-header__status-bullet--online': currentUser?.status === 'online',
-          'workspace-header__status-bullet--offline': currentUser?.status === 'offline',
-          'workspace-header__status-bullet--away': currentUser?.status === 'away',
+          'workspace-header__status-bullet--online': user()?.status === 'online',
+          'workspace-header__status-bullet--offline': user()?.status === 'offline',
+          'workspace-header__status-bullet--away': user()?.status === 'away',
         }"
       ></div>
     </div>
