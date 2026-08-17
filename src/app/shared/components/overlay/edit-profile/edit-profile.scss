@@ -5,6 +5,7 @@ h3 {
   font-size: var(--font-size-text-medium);
 }
 
+
 .edit-profile-container {
   @include flex-column-space-btw;
   align-items: flex-start;
@@ -20,9 +21,11 @@ h3 {
   justify-content: flex-start;
   gap: 8px;
   margin-bottom: 8px;
+  color: var(--color-text-default);
 
   p {
     margin-top: 2px;
+    color: var(--color-text-default);
   }
 }
 

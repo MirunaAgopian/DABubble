@@ -31,10 +31,15 @@
       </svg>
       <p>Vollständiger Name</p>
     </div>
-    <input type="text"  class="edit-profile-input"/>
+    <input
+      type="text"
+      class="edit-profile-input"
+      [value]="name()"
+      (input)="name.set($event.target.value)"
+    />
   </div>
   <div class="action-btns">
-    <button class="btn-secondary-blue set-width">Abbrechen</button>
-    <button class="btn-primary-blue set-width">Speichern</button>
+    <button class="btn-secondary-blue set-width" (click)="onClick()">Abbrechen</button>
+    <button class="btn-primary-blue set-width" (click)="onSave()">Speichern</button>
   </div>
 </section>

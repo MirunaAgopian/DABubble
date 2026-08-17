@@ -1,7 +1,7 @@
 <section class="workspace-main">
   <main class="content-wrapper">
     <app-workspace-header
-      [user]="currentUser"
+      [user]="currentUser()"
       (openOverlay)="openOverlay($event)"
     ></app-workspace-header>
     <section class="workspace-chat-area">
@@ -15,10 +15,11 @@
       class="workspace-overlay"
       [visible]="isOverlayOpen"
       [view]="overlayView"
-      [user]="currentUser"
+      [user]="currentUser()"
       (logout)="handleLogout()"
       (close)="closeOverlay()"
       (switchView)="onSwitchView($event)"
+      (updateUserName)="onUpdateName($event)"
     ></app-overlay>
   }
 </section>

@@ -9,7 +9,11 @@
     }
 
     @if (view() === 'edit-profile') {
-      <app-edit-profile [user]="user()"></app-edit-profile>
+      <app-edit-profile
+        [user]="user()"
+        (clicked)="onBackgroundClick()"
+        (save)="onSaveUserName($event)"
+      ></app-edit-profile>
     }
   </div>
 </section>

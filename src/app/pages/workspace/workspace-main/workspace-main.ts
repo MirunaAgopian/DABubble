@@ -1,4 +1,4 @@
-import { Component, inject, ChangeDetectorRef} from '@angular/core';
+import { Component, inject, ChangeDetectorRef, signal } from '@angular/core';
 import { WorkspaceHeader } from '../../../shared/components/workspace-header/workspace-header';
 import { WorkspaceChat } from '../workspace-chat/workspace-chat';
 import { WorkspaceSidebar } from '../workspace-sidebar/workspace-sidebar';
@@ -11,7 +11,6 @@ import { UserService } from '../../../core/services/user.service';
 import { onAuthStateChanged } from 'firebase/auth';
 import { User } from '../../../core/interfaces/user.interface';
 
-
 @Component({
   selector: 'app-workspace-main',
   imports: [WorkspaceHeader, WorkspaceChat, WorkspaceSidebar, WorkspaceThread, Overlay],
@@ -20,16 +19,13 @@ import { User } from '../../../core/interfaces/user.interface';
 })
 export class WorkspaceMain {
   authService = inject(AuthService);
+  userService = inject(UserService);
   router = inject(Router);
   inAppPresenceService = inject(InAppPresenceService);
-  isOverlayOpen = false;
-  overlayView: 'profile' | 'edit-profile' | 'logout' | null = null;
-
-  userService = inject(UserService);
   cdr = inject(ChangeDetectorRef);
 
-
-  currentUser: User | null = null;
+  isOverlayOpen = false;
+  overlayView: 'profile' | 'edit-profile' | 'logout' | null = null;
   guestUser: User = {
     id: 'guest',
     name: 'Gast',
@@ -40,21 +36,20 @@ export class WorkspaceMain {
     lastActive: Date.now(),
     status: 'online',
   };
+  currentUser = signal<User>(this.guestUser);
 
   ngOnInit() {
     this.inAppPresenceService.startInactivityTimer();
     onAuthStateChanged(this.authService.auth, async (user) => {
       if (user) {
         const data = await this.userService.getUser(user.uid);
-        this.currentUser = data as User;
+        this.currentUser.set(data as User);
       } else {
-        this.currentUser = this.guestUser;
+        this.currentUser.set(this.guestUser);
       }
       this.cdr.detectChanges();
     });
   }
-
-
 
   handleLogout() {
     this.authService.logoutUser();
@@ -71,7 +66,14 @@ export class WorkspaceMain {
   }
 
   onSwitchView(view: 'profile' | 'edit-profile' | 'logout') {
-  this.overlayView = view;
-}
+    this.overlayView = view;
+  }
 
+  async onUpdateName(newName: string) {
+    const user = this.currentUser();
+    if (!user) return;
+    await this.userService.updateUserName(this.currentUser().id, { name: newName });
+    this.currentUser.set({ ...this.currentUser(), name: newName });
+    this.closeOverlay();
+  }
 }

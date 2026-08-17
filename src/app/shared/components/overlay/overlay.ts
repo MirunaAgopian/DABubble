@@ -19,7 +19,8 @@ export class Overlay {
   view = input<'profile' | 'edit-profile' | 'logout' | null>();
   close = output<void>();
   switchView = output<'profile' | 'edit-profile' | 'logout'>();
-  user = input<User| null>();
+  user = input<User | null>();
+  updateUserName = output<string>();
 
   onLogout() {
     this.logout.emit();
@@ -33,7 +34,11 @@ export class Overlay {
     this.switchView.emit('profile');
   }
 
-  onEdit(){
+  onEdit() {
     this.switchView.emit('edit-profile');
+  }
+
+  onSaveUserName(event: string) {
+    this.updateUserName.emit(event);
   }
 }
