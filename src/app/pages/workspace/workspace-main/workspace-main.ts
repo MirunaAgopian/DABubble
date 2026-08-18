@@ -23,9 +23,10 @@ export class WorkspaceMain {
   router = inject(Router);
   inAppPresenceService = inject(InAppPresenceService);
   cdr = inject(ChangeDetectorRef);
-
   isOverlayOpen = false;
   overlayView: 'profile' | 'edit-profile' | 'logout' | null = null;
+  sidebarCollapsed = signal(false);
+  
   guestUser: User = {
     id: 'guest',
     name: 'Gast',
@@ -75,5 +76,9 @@ export class WorkspaceMain {
     await this.userService.updateUserName(this.currentUser().id, { name: newName });
     this.currentUser.set({ ...this.currentUser(), name: newName });
     this.closeOverlay();
+  }
+
+  toggleSidebar() {
+    this.sidebarCollapsed.update((v) => !v);
   }
 }

@@ -8,6 +8,48 @@
 .workspace-chat-area {
   @include grid-three-col;
   height: calc(100vh - 250px);
+  position: relative;
+
+  &--collapsed {
+    grid-template-columns: 1fr 360px;
+  }
+}
+
+.workspace-chat-area--collapsed app-workspace-sidebar {
+  display: none;
+}
+
+.sidebar-toggle {
+  &__button {
+    position: absolute;
+    bottom: 30%;
+    left: -140px;
+    @include flex-center;
+    transform: rotate(-90deg);
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.12);
+    border-radius: 0 0 15px 15px;
+    width: 280px;
+    padding: 4px 0;
+
+    &:hover {
+      color: var(--color-text-accent);
+      transform: rotate(-90deg) scale(1.1);
+    }
+
+    &:hover .sidebar-toggle__icon {
+      color: var(--color-text-accent);
+    }
+  }
+
+  &__icon {
+    height: 28px;
+    width: 28px;
+    transform: rotate(90deg);
+  }
+  &__button--collapsed .sidebar-toggle__icon {
+    transform: rotate(-90deg);
+  }
 }
 
 .workspace-overlay {
