@@ -30,7 +30,7 @@
 .tooltip-secondary {
   background-color: var(--color-secondary-default);
   padding: 32px;
-  border-radius: 15px;
+  border-radius: 15px 0 15px 15px;
   max-width: 300px;
   width: 100%;
 }

@@ -329,23 +329,27 @@
     </button>
     <!-- USERS SECTION -->
     <div class="channels-container max-height-secondary">
-      <!-- these should be rendered dynamically -->
-      <button class="app-user">
-        <img
-          class="user-avatar"
-          src="/assets/img/avatars/avatar_sofia_mueller.png"
-          alt="user-avatar"
-        />
-        <span>Sofia Hoffmann</span>
-      </button>
-      <button class="app-user">
-        <img
-          class="user-avatar"
-          src="/assets/img/avatars/avatar_steffen_hoffmann.png"
-          alt="user-avatar"
-        />
-        <span>Sefen Pan</span>
-      </button>
+      @for (user of users(); track user.id) {
+        <button class="app-user">
+          <div class="workspace-sidebar__avatar-status">
+            <img class="user-avatar" [src]="user.avatarUrl" alt="user-avatar" />
+            <div
+              class="workspace-sidebar__status-bullet"
+              [ngClass]="{
+                'workspace-sidebar__status-bullet--online': user?.status === 'online',
+                'workspace-sidebar__status-bullet--offline': user?.status === 'offline',
+                'workspace-sidebar__status-bullet--away': user?.status === 'away',
+              }"
+            ></div>
+          </div>
+          <span>
+            {{ user.name }}
+            @if (user.id === currentUser?.uid) {
+              <span>(Du)</span>
+            }
+          </span>
+        </button>
+      }
     </div>
   </section>
 </section>

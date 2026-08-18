@@ -1,35 +1,50 @@
-import { Injectable } from '@angular/core';
-import { collection, doc, getDoc, getDocs, updateDoc} from 'firebase/firestore';
-import { db } from '../../app.config'; 
+import { inject, Injectable } from '@angular/core';
+import { collection, doc, getDoc, updateDoc, onSnapshot} from 'firebase/firestore';
+import { db } from '../../app.config';
 import { User } from '../interfaces/user.interface';
+import { AuthService } from './auth.service';
+import { Observable } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  async getUser(uid: string){
+  authService = inject(AuthService);
+  async getUser(uid: string) {
     const ref = doc(db, 'users', uid);
     const snapshot = await getDoc(ref);
     return snapshot.exists() ? snapshot.data() : null;
   }
 
-  async getAllUsers(){
+//this function is an observale and automatically subscribes to changes-not an async promise
+  getAllUsersRealtime(): Observable<User[]> {
     const ref = collection(db, 'users');
-    const snapshot = await getDocs(ref);
-    return snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}));
+    return new Observable((subscriber) => {
+      return onSnapshot(ref, (snapshot) => {
+        const users = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })) as User[];
+        const currentUserId = this.authService.getCurrentUserId();
+        users.sort((a, b) => {
+          if (a.id === currentUserId) return -1;
+          if (b.id === currentUserId) return 1;
+          return a.name.localeCompare(b.name);
+        });
+        subscriber.next(users);
+      });
+    });
   }
 
-  async updateStatus(uid: string, status: 'online' | 'offline' | 'away'){
+  async updateStatus(uid: string, status: 'online' | 'offline' | 'away') {
     const ref = doc(db, 'users', uid);
-    await updateDoc(ref, {status});
+    await updateDoc(ref, { status });
   }
 
-  async updateLastActive(uid:string){
+  async updateLastActive(uid: string) {
     const ref = doc(db, 'users', uid);
-    await updateDoc(ref, {lastActive: Date.now()});
+    await updateDoc(ref, { lastActive: Date.now() });
   }
 
-  async updateUserName(uid:string, data: Partial<User>){
+  async updateUserName(uid: string, data: Partial<User>) {
     const ref = doc(db, 'users', uid);
     await updateDoc(ref, data);
   }
