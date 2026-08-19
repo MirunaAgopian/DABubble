@@ -1,47 +1,81 @@
 @import '../../../../../styles/abstracts/mixins';
 
 .chat-input {
-    width: 100%;
-    @include flex-column-space-btw;
-    border: 2px solid var(--color-border-light);
-    border-radius: 15px;
-    padding: 16px 16px 0 16px;
-    
+  width: 100%;
+  @include flex-column-space-btw;
+  border: 2px solid var(--color-border-light);
+  border-radius: 15px;
+  padding: 16px 16px 0 16px;
+  position: relative;
+  overflow: visible;
 
-    &:focus-within {
-        border: 2px solid var(--color-text-default);
-    }
+  &:focus-within {
+    border: 2px solid var(--color-text-default);
+  }
 }
 
 textarea {
-    width: 100%;
-    min-height: 80px;
-    resize: none
+  width: 100%;
+  min-height: 80px;
+  resize: none;
 }
 
 .chat-input__action-btns {
-    @include flex-space-btw;
-    width: 100%;
+  @include flex-space-btw;
+  width: 100%;
 }
 
 .emoji-tag-container {
-    @include flex-space-btw;
-    gap: 8px;
+  @include flex-space-btw;
+  gap: 8px;
 
-    svg {
-        margin-top: 3px;
-    }
+  svg {
+    margin-top: 3px;
+  }
 }
 
 button {
-    color: var(--color-text-placeholder);
+  color: var(--color-text-placeholder);
 }
 
-.send-msg {
-    color: var(--color-primary-default);
-    transition: color 0.25s ease-in;
+.send-msg-btn {
+  color: var(--color-primary-default);
+  transition: color 0.25s ease-in;
 
-    &:hover {
-        color: var(--color-primary-hover);
-    }
+  &:hover {
+    color: var(--color-primary-hover);
+  }
 }
+
+.emoji-picker-container {
+  position: absolute;
+  bottom: 30%;
+  left: 0;
+  z-index: 9999;
+  background: white;
+  padding: 16px 8px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+
+  max-height: 350px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+emoji-mart-anchors {
+  display: none !important;
+}
+
+emoji-search {
+  display: none !important;
+}
+
+.emoji-mart-category-label {
+    padding-bottom: 8px;
+}
+
+ngx-emoji {
+  padding: 4px; 
+  cursor: pointer;
+}
+

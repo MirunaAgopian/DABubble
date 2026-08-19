@@ -1,8 +1,8 @@
 <section class="chat-input">
-  <textarea type="text" placeholder="Starte eine neue Nachricht"></textarea>
+  <textarea #textarea type="text" placeholder="Starte eine neue Nachricht"></textarea>
   <div class="chat-input__action-btns">
     <div class="emoji-tag-container">
-      <button class="chat-btn-secondary">
+      <button #emojiButton class="chat-btn-secondary emoji-btn" (click)="toggleEmojiPicker()">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -29,7 +29,7 @@
           </g>
         </svg>
       </button>
-      <button class="chat-btn-secondary">
+      <button class="chat-btn-secondary add-user-btn">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -57,7 +57,7 @@
         </svg>
       </button>
     </div>
-    <button class="send-msg">
+    <button class="send-msg-btn">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="40"
@@ -85,4 +85,10 @@
       </svg>
     </button>
   </div>
+  <!-- EMOJI Picker -->
+  @if (emojiPickerOpen) {
+    <div #pickerContainer class="emoji-picker-container">
+      <emoji-mart (emojiSelect)="addEmoji($event)"></emoji-mart>
+    </div>
+  }
 </section>
