@@ -1,0 +1,47 @@
+@import '../../../../../styles/abstracts/mixins';
+
+.chat-input {
+    width: 100%;
+    @include flex-column-space-btw;
+    border: 2px solid var(--color-border-light);
+    border-radius: 15px;
+    padding: 16px 16px 0 16px;
+    
+
+    &:focus-within {
+        border: 2px solid var(--color-text-default);
+    }
+}
+
+textarea {
+    width: 100%;
+    min-height: 80px;
+    resize: none
+}
+
+.chat-input__action-btns {
+    @include flex-space-btw;
+    width: 100%;
+}
+
+.emoji-tag-container {
+    @include flex-space-btw;
+    gap: 8px;
+
+    svg {
+        margin-top: 3px;
+    }
+}
+
+button {
+    color: var(--color-text-placeholder);
+}
+
+.send-msg {
+    color: var(--color-primary-default);
+    transition: color 0.25s ease-in;
+
+    &:hover {
+        color: var(--color-primary-hover);
+    }
+}

@@ -1,9 +1,14 @@
-@import '../../../../styles/abstracts/mixins';
+@import '../../../../../styles/abstracts/mixins';
 
-.chat-content {
+.chat-shell {
   @include flex-column-space-btw;
   background-color: var(--color-secondary-default);
   border-radius: 30px;
   height: 100%;
+  width: 100%;
   padding: 20px 16px;
+}
+
+.chat-shell__composer {
+    width: 100%;
 }
