@@ -15,10 +15,11 @@
   <!-- SHARED MESSAGES -->
   <section class="chat-shell__messages">
     <app-chat-messages></app-chat-messages>
+    <!-- this also has 3 different UIs, for new message, direct message and group message -->
   </section>
 
   <!-- SHARED INPUT -->
   <section class="chat-shell__composer">
-    <app-chat-input></app-chat-input>
+    <app-chat-input (userAdded)="onUserAdded($event)"></app-chat-input>
   </section>
 </section>

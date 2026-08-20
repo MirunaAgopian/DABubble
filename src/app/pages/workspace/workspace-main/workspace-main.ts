@@ -38,6 +38,7 @@ export class WorkspaceMain {
     status: 'online',
   };
   currentUser = signal<User>(this.guestUser);
+  taggedUsers: User[] = [];
 
   ngOnInit() {
     this.inAppPresenceService.startInactivityTimer();
@@ -80,5 +81,13 @@ export class WorkspaceMain {
 
   toggleSidebar() {
     this.sidebarCollapsed.update((v) => !v);
+  }
+
+  //prepares the tagged user to be added in the sendMessage funciton 
+  // that I will defined inside the messageService
+  handleUserAdded(user: User) {
+    if (!this.taggedUsers.some((u) => u.id === user.id)) {
+      this.taggedUsers.push(user);
+    }
   }
 }

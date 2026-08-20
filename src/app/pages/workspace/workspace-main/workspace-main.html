@@ -8,6 +8,7 @@
       class="workspace-chat-area"
       [class.workspace-chat-area--collapsed]="sidebarCollapsed()"
     >
+    <!-- TOGGLE SIDEBAR BUTTON -->
       <button
         class="sidebar-toggle__button"
         (click)="toggleSidebar()"
@@ -32,8 +33,9 @@
           />
         </svg>
       </button>
+      <!-- MAIN CHAT COMPONENTS -->
       <app-workspace-sidebar></app-workspace-sidebar>
-      <app-chat-shell></app-chat-shell>
+      <app-chat-shell (userAdded)="handleUserAdded($event)"></app-chat-shell>
       <app-workspace-thread></app-workspace-thread>
     </section>
   </main>

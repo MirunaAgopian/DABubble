@@ -29,7 +29,7 @@
           </g>
         </svg>
       </button>
-      <button class="chat-btn-secondary add-user-btn">
+      <button #addUserButton class="chat-btn-secondary add-user-btn" (click)="toggleUserPicker()">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -89,6 +89,32 @@
   @if (emojiPickerOpen) {
     <div #pickerContainer class="emoji-picker-container">
       <emoji-mart (emojiSelect)="addEmoji($event)"></emoji-mart>
+    </div>
+  }
+  <!-- USERS container -->
+  @if (userPickerOpen) {
+    <div #usersContainer class="users-container">
+      @for (user of users(); track user.id) {
+        <button class="app-user" (click)="addUser(user)">
+          <div class="avatar-status">
+            <img class="user-avatar" [src]="user.avatarUrl" alt="user-avatar" />
+            <div
+              class="status-bullet"
+              [ngClass]="{
+                'status-bullet--online': user?.status === 'online',
+                'status-bullet--offline': user?.status === 'offline',
+                'status-bullet--away': user?.status === 'away',
+              }"
+            ></div>
+          </div>
+          <span>
+            {{ user.name }}
+            @if (user.id === currentUser?.uid) {
+              <span>(Du)</span>
+            }
+          </span>
+        </button>
+      }
     </div>
   }
 </section>
