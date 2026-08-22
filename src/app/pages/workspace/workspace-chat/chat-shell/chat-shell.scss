@@ -9,6 +9,12 @@
   padding: 20px 16px;
 }
 
+.chat-shell__messages {
+  flex: 1;          
+  overflow-y: auto;
+  width: 100%;
+}
+
 .chat-shell__composer {
     width: 100%;
 }

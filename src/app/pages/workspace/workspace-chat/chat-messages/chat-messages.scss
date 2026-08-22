@@ -1,0 +1,55 @@
+@import '../../../../../styles/abstracts/mixins';
+
+.chat-messages__container {
+  @include flex-column-space-btw;
+  justify-content: flex-end;
+  align-items: flex-start;
+  height: 100%;
+  padding: 16px 0;
+}
+
+.faded {
+  color: var(--color-text-placeholder);
+  font-size: var(--font-size-text-regular);
+}
+
+.accent {
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-text-medium);
+  align-self: flex-end;
+}
+
+.accent-secondary {
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-text-medium);
+  align-self: flex-start;
+}
+
+.txt-small {
+  font-size: var(--font-size-text-small);
+}
+
+.txt-bold {
+    font-weight: var(--font-weight-bold);
+}
+
+.mention {
+  color: var(--color-text-accent);
+}
+
+.dm-greeting {
+  @include flex-column-space-btw;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.avatar-name {
+  @include flex-space-btw;
+  gap: 16px;
+}
+
+.avatar {
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+}
