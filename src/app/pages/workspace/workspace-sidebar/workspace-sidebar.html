@@ -89,7 +89,7 @@
       </defs>
     </svg>
     <h3>Devspace</h3>
-    <button class="chat-btn">
+    <button class="chat-btn open-overlay">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -173,7 +173,7 @@
         </svg>
         <span class="bold-span">Channels</span>
       </button>
-      <button class="chat-btn-secondary">
+      <button class="chat-btn-secondary" (click)="openOverlayClicked()">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="30"
@@ -242,7 +242,7 @@
         </button>
       </div>
       <!-- Add channel button  -->
-      <button class="add-channel">
+      <button class="add-channel" (click)="openOverlayClicked()">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"

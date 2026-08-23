@@ -34,11 +34,12 @@
         </svg>
       </button>
       <!-- MAIN CHAT COMPONENTS -->
-      <app-workspace-sidebar></app-workspace-sidebar>
+      <app-workspace-sidebar (openOverlay)="openOverlay($event)"></app-workspace-sidebar>
       <app-chat-shell (userAdded)="handleUserAdded($event)"></app-chat-shell>
       <app-workspace-thread></app-workspace-thread>
     </section>
   </main>
+  <!-- WORKSPACE OVERLAY -->
   @if (isOverlayOpen) {
     <app-overlay
       class="workspace-overlay"

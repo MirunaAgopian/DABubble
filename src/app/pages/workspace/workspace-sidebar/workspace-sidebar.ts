@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, output } from '@angular/core';
 import { UserService } from '../../../core/services/user.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { NgClass } from '@angular/common';
@@ -14,6 +14,8 @@ export class WorkspaceSidebar {
   userService = inject(UserService);
   users = toSignal(this.userService.getAllUsersRealtime());
   authService = inject(AuthService);
+  openOverlay = output<string>();
+  
 
   get currentUser() {
     return this.authService.auth.currentUser;
@@ -22,5 +24,9 @@ export class WorkspaceSidebar {
   toggleCollapsible(section: HTMLElement) {
     section.classList.toggle('expanded');
     section.classList.toggle('collapsed');
+  }
+
+  openOverlayClicked(){
+    this.openOverlay.emit('create-channel');
   }
 }

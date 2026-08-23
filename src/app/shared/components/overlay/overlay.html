@@ -1,19 +1,30 @@
 <section class="content-wrapper outer-container" (click)="$event.stopPropagation()">
-  <div class="workspace-overlay__dialogs tooltip-secondary">
-    @if (view() === 'logout') {
-      <app-logout (clicked)="onLogout()" (profile)="onProfile()"></app-logout>
-    }
+  <!-- Upper right corner dialogs -->
+  @if (view() === 'logout' || view() === 'profile' || view() === 'edit-profile') {
+    <div class="workspace-overlay__dialogs tooltip-secondary">
+      @if (view() === 'logout') {
+        <app-logout (clicked)="onLogout()" (profile)="onProfile()"></app-logout>
+      }
 
-    @if (view() === 'profile') {
-      <app-profile [user]="user()" (click)="onEdit()"></app-profile>
-    }
+      @if (view() === 'profile') {
+        <app-profile [user]="user()" (click)="onEdit()"></app-profile>
+      }
 
-    @if (view() === 'edit-profile') {
-      <app-edit-profile
-        [user]="user()"
-        (clicked)="onBackgroundClick()"
-        (save)="onSaveUserName($event)"
-      ></app-edit-profile>
-    }
-  </div>
+      @if (view() === 'edit-profile') {
+        <app-edit-profile
+          [user]="user()"
+          (clicked)="onBackgroundClick()"
+          (save)="onSaveUserName($event)"
+        ></app-edit-profile>
+      }
+    </div>
+  }
+  <!-- Centered dialogs -->
+  @if (view() === 'create-channel') {
+    <div class="workspace-overlay__modals tooltip-tertiary">
+      @if (view() === 'create-channel') {
+        <app-create-channel (close)="onBackgroundClick()"></app-create-channel>
+      }
+    </div>
+  }
 </section>

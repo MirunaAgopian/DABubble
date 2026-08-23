@@ -24,7 +24,7 @@ export class WorkspaceMain {
   inAppPresenceService = inject(InAppPresenceService);
   cdr = inject(ChangeDetectorRef);
   isOverlayOpen = false;
-  overlayView: 'profile' | 'edit-profile' | 'logout' | null = null;
+  overlayView: 'profile' | 'edit-profile' | 'logout' | 'create-channel' | null = null;
   sidebarCollapsed = signal(false);
 
   guestUser: User = {
@@ -58,9 +58,16 @@ export class WorkspaceMain {
     this.router.navigate(['sign-in']);
   }
 
-  openOverlay(view: 'profile' | 'edit-profile' | 'logout') {
-    this.overlayView = view;
-    this.isOverlayOpen = true;
+  openOverlay(view: string) {
+    if (
+      view === 'profile' ||
+      view === 'edit-profile' ||
+      view === 'logout' ||
+      view === 'create-channel'
+    ) {
+      this.overlayView = view;
+      this.isOverlayOpen = true;
+    }
   }
 
   closeOverlay() {
@@ -83,7 +90,7 @@ export class WorkspaceMain {
     this.sidebarCollapsed.update((v) => !v);
   }
 
-  //prepares the tagged user to be added in the sendMessage funciton 
+  //prepares the tagged user to be added in the sendMessage funciton
   // that I will defined inside the messageService
   handleUserAdded(user: User) {
     if (!this.taggedUsers.some((u) => u.id === user.id)) {

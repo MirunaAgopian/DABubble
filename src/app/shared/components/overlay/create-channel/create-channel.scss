@@ -1,0 +1,54 @@
+@import '../../../../../styles/abstracts/mixins';
+
+.create-channel {
+  @include flex-column-space-btw;
+  align-items: flex-start;
+  gap: 16px;
+  color: var(--color-text-default);
+
+  h3,
+  h2 {
+    color: var(--color-text-default);
+  }
+
+  &__header {
+    @include flex-space-btw;
+    width: 100%;
+  }
+
+  &__close-btn {
+    svg {
+      margin-top: 4px;
+    }
+  }
+
+  &__submit-btn {
+    align-self: flex-end;
+  }
+
+  &__input {
+    width: 100%;
+    padding: 10px 8px;
+    border-radius: 15px;
+    background-color: var(--color-secondary-default);
+    border: 1px solid var(--color-primary-disabled);
+
+    &:hover {
+      border: 1px solid var(--color-text-accent-light);
+    }
+
+    &:focus {
+      border: 1px solid var(--color-primary-hover);
+    }
+  }
+}
+
+.create-channel__label--optional {
+  color: var(--color-text-placeholder);
+  font-weight: var(--font-weight-regular);
+}
+
+.create-channel__error {
+  color: var(--color-error);
+  font-size: var(--font-size-small);
+}
