@@ -1,10 +1,9 @@
 import { inject, Injectable } from '@angular/core';
-import { collection, doc, getDoc, updateDoc, onSnapshot} from 'firebase/firestore';
+import { collection, doc, getDoc, updateDoc, onSnapshot } from 'firebase/firestore';
 import { db } from '../../app.config';
 import { User } from '../interfaces/user.interface';
 import { AuthService } from './auth.service';
 import { Observable } from 'rxjs';
-
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +16,7 @@ export class UserService {
     return snapshot.exists() ? snapshot.data() : null;
   }
 
-//this function is an observale and automatically subscribes to changes-not an async promise
+  //this function is an observale and automatically subscribes to changes-not an async promise
   getAllUsersRealtime(): Observable<User[]> {
     const ref = collection(db, 'users');
     return new Observable((subscriber) => {
