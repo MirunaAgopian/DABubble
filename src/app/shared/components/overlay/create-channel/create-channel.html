@@ -36,15 +36,50 @@
   </p>
 
   <h3 class="create-channel__label">Channel-Name</h3>
-  <input type="text" class="create-channel__input" placeholder="# z.B. Kooperationsprojekte" />
-  <p class="create-channel__error">Bitte gib einen gültigen Channel-Namen ein.</p>
-
+  <input
+    type="text"
+    class="create-channel__input"
+    placeholder="# z.B. Kooperationsprojekte"
+    [formControl]="form.controls.name"
+  />
+  <p
+    class="create-channel__error"
+    [class.create-channel__error--visible]="
+      (form.controls.name.invalid && form.controls.name.touched && !nameExists()) ||
+      (nameExists() && form.controls.name.valid)
+    "
+  >
+    {{
+      form.controls.name.invalid && form.controls.name.touched && !nameExists()
+        ? 'Bitte gib einen gültigen Channel-Namen ein.'
+        : nameExists() && form.controls.name.valid
+          ? 'Dieser Name ist bereits vergeben.'
+          : ''
+    }}
+  </p>
   <h3 class="create-channel__label">
     Beschreibung <span class="create-channel__label--optional">(optional)</span>
   </h3>
-  <input type="text" class="create-channel__input" placeholder="Dein Text hier" />
-  <p class="create-channel__error">Die Beschreibung darf nicht länger als 200 Zeichen sein.</p>
+  <input
+    type="text"
+    class="create-channel__input"
+    placeholder="Dein Text hier"
+    [formControl]="form.controls.description"
+  />
+  <p
+    class="create-channel__error"
+    [class.create-channel__error--visible]="
+      form.controls.description.invalid && form.controls.description.touched
+    "
+  >
+    Die Beschreibung darf nicht länger als 200 Zeichen sein.
+  </p>
 
-  <!-- THIS BUTTON should be diabled!! -->
-  <button class="create-channel__submit-btn btn-primary-blue">Erstellen</button>
+  <button
+    class="create-channel__submit-btn btn-primary-blue"
+    [disabled]="form.invalid || nameExists() || loading()"
+    (click)="onSubmit()"
+  >
+    Erstellen
+  </button>
 </div>

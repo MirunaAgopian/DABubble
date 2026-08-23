@@ -23,7 +23,7 @@
   @if (view() === 'create-channel') {
     <div class="workspace-overlay__modals tooltip-tertiary">
       @if (view() === 'create-channel') {
-        <app-create-channel (close)="onBackgroundClick()"></app-create-channel>
+        <app-create-channel (close)="onBackgroundClick()" [user]="user()"></app-create-channel>
       }
     </div>
   }

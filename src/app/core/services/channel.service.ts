@@ -20,33 +20,33 @@ import { User } from '../interfaces/user.interface';
   providedIn: 'root',
 })
 export class ChannelService {
+  async isChannelNameTaken(name: string, excludeId?: string): Promise<boolean> {
+    const q = query(collection(db, 'channels'), where('name', '==', name));
+    const snapshot = await getDocs(q);
+    if (snapshot.empty) return false;
+    if (excludeId && snapshot.docs[0].id === excludeId) {
+      return false;
+    }
+    return true;
+  }
+
   async createChannel(
     name: string,
     currentUserId: string,
     currentUserName: string,
     description?: string,
   ) {
-    try {
-      const q = query(collection(db, 'channels'), where('name', '==', name));
-      const snapshot = await getDocs(q);
-
-      if (!snapshot.empty) {
-        throw new Error('Channel name already exists!');
-      }
-      const channelRef = doc(collection(db, 'channels'));
-      const newChannel: Channel = {
-        id: channelRef.id,
-        name,
-        description,
-        createdAt: Date.now(),
-        createdBy: currentUserId,
-        creatorName: currentUserName,
-        members: [currentUserId],
-      };
-      await setDoc(channelRef, newChannel);
-    } catch (error) {
-      console.error(error);
-    }
+    const channelRef = doc(collection(db, 'channels'));
+    const newChannel: Channel = {
+      id: channelRef.id,
+      name,
+      description,
+      createdAt: Date.now(),
+      createdBy: currentUserId,
+      creatorName: currentUserName,
+      members: [currentUserId],
+    };
+    await setDoc(channelRef, newChannel);
   }
 
   fetchChannels(): Observable<Channel[]> {
@@ -74,16 +74,11 @@ export class ChannelService {
   }
 
   async updateChannelData(channelId: string, newName: string, newDescription: string) {
-    try {
-      const q = query(collection(db, 'channels'), where('name', '==', newName));
-      const snapshot = await getDocs(q);
-      if (!snapshot.empty && snapshot.docs[0].id !== channelId) {
-        throw new Error('Channel name already exists!');
-      }
-      const ref = doc(db, 'channels', channelId);
-      await updateDoc(ref, { name: newName, description: newDescription });
-    } catch (error) {
-      console.error(error);
+    const taken = await this.isChannelNameTaken(newName, channelId);
+    if (taken) {
+      throw new Error('Channel name already exists!');
     }
+    const ref = doc(db, 'channels', channelId);
+    await updateDoc(ref, { name: newName, description: newDescription });
   }
 }

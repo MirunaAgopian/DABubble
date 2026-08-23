@@ -24,6 +24,10 @@
 
   &__submit-btn {
     align-self: flex-end;
+
+    &:disabled {
+      background-color: var(--color-primary-disabled);
+    }
   }
 
   &__input {
@@ -51,4 +55,10 @@
 .create-channel__error {
   color: var(--color-error);
   font-size: var(--font-size-small);
+  height: 20px;
+  visibility: hidden;
+}
+
+.create-channel__error--visible {
+  visibility: visible;
 }
