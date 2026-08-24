@@ -11,6 +11,7 @@ import {
   updateDoc,
   getDocs,
   where,
+  orderBy
 } from 'firebase/firestore';
 import { db } from '../../app.config';
 import { Observable } from 'rxjs';
@@ -51,9 +52,10 @@ export class ChannelService {
 
   fetchChannels(): Observable<Channel[]> {
     const ref = collection(db, 'channels');
+    const q = query(ref, orderBy('name', 'asc'));
 
     return new Observable((subscriber) => {
-      return onSnapshot(ref, (snapshot) => {
+      return onSnapshot(q, (snapshot) => {
         const channels = snapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),

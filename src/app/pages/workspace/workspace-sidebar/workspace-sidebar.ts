@@ -3,6 +3,7 @@ import { UserService } from '../../../core/services/user.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { NgClass } from '@angular/common';
 import { AuthService } from '../../../core/services/auth.service';
+import { ChannelService } from '../../../core/services/channel.service';
 
 @Component({
   selector: 'app-workspace-sidebar',
@@ -15,6 +16,8 @@ export class WorkspaceSidebar {
   users = toSignal(this.userService.getAllUsersRealtime());
   authService = inject(AuthService);
   openOverlay = output<string>();
+  channelService = inject(ChannelService);
+  channels = toSignal(this.channelService.fetchChannels());
   
 
   get currentUser() {
