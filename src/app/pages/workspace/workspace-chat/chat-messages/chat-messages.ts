@@ -1,5 +1,8 @@
-import { Component, input } from '@angular/core';
-import { User } from '../../../../core/interfaces/user.interface';
+import { Component, inject, computed } from '@angular/core';
+import { ChatStateService } from '../../../../core/services/chat-state.service';
+import { AuthService } from '../../../../core/services/auth.service';
+
+
 
 @Component({
   selector: 'app-chat-messages',
@@ -8,7 +11,11 @@ import { User } from '../../../../core/interfaces/user.interface';
   styleUrl: './chat-messages.scss',
 })
 export class ChatMessages {
-  mode = input<'new' | 'dm' | 'self' | 'channel'>('new');
-  selectedUser = input<User | null>(null);
-  selectedChannel = input(); //to be deined later with the channel interface
+  chatStateService = inject(ChatStateService);
+  authService = inject(AuthService);
+
+  mode = this.chatStateService.mode;
+  selectedUser = this.chatStateService.selectedUser;
+  selectedChannel = this.chatStateService.selectedChannel;
+  currentUserId = computed(()=> this.authService.getCurrentUserId());
 }

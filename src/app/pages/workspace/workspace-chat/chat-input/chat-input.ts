@@ -5,7 +5,6 @@ import {
   ViewEncapsulation,
   HostListener,
   inject,
-  viewChild,
   output,
 } from '@angular/core';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
@@ -14,6 +13,7 @@ import { AuthService } from '../../../../core/services/auth.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { NgClass } from '@angular/common';
 import { User } from '../../../../core/interfaces/user.interface';
+import { ChatStateService } from '../../../../core/services/chat-state.service';
 
 @Component({
   selector: 'app-chat-input',
@@ -28,12 +28,18 @@ export class ChatInput {
   @ViewChild('emojiButton') emojiButton!: ElementRef;
   @ViewChild('usersContainer') usersContainer!: ElementRef;
   @ViewChild('addUserButton') addUserButton!: ElementRef;
+
   emojiPickerOpen = false;
   userPickerOpen = false;
+
   userService = inject(UserService);
   authService = inject(AuthService);
+  chatStateService = inject(ChatStateService);
+
   users = toSignal(this.userService.getAllUsersRealtime());
   userAdded = output<User>();
+  placeholder = this.chatStateService.placeholder;
+
 
   get currentUser() {
     return this.authService.auth.currentUser;

@@ -1,23 +1,23 @@
 <section class="chat-messages__container">
   <section class="messages-greeting">
-    <!-- @if (mode === 'new') {
+    @if (mode() === 'new') {
       <p class="faded">Wähle jemanden aus, um eine neue Unterhaltung zu starten.</p>
-    } -->
+    }
 
-    <!-- @if (mode === 'dm') {
+    @if (mode() === 'dm') {
       <div class="dm-greeting">
       <div class="avatar-name">
-        <img [src]="selectedUser()?.avatar" class="avatar" />
+        <img [src]="selectedUser()?.avatarUrl" class="avatar" />
         <span class="accent">{{ selectedUser()?.name }}</span>
       </div>
-      <p class="faded">Diese Unterhaltung findet nur zwischen dir und <span class="mention">@{{ selectedUser?.name }}</span> statt.</p>
+      <p class="faded">Diese Unterhaltung findet nur zwischen dir und <span class="mention">@{{ selectedUser()?.name }}</span> statt.</p>
     </div>
-    } -->
+    }
 
-    <!-- @if (mode === 'self') {
+    @if (mode() === 'self') {
       <div class="dm-greeting">
       <div class="avatar-name">
-        <img [src]="selectedUser()?.avatar" class="avatar" />
+        <img [src]="selectedUser()?.avatarUrl" class="avatar" />
         <span class="accent">{{ selectedUser()?.name }}</span>
       </div>
       <p class="faded txt-small">
@@ -26,22 +26,22 @@
       besprechen.
     </p>
     </div>
-    } -->
+    }
 
-    <!-- 
-    @if (mode === 'channel') {
+    
+    @if (mode() === 'channel') {
     <div class="dm-greeting">
-        <span class="accent-secondary"># {{selectedChannel().name}} </span>
+        <span class="accent-secondary"># {{selectedChannel()?.name}} </span>
       <p class="faded">
-        @if (selectedChannel().createdBy === currentUserId()) {
+        @if (selectedChannel()?.createdBy === currentUserId()) {
         Du hast diesen Channel erstellt.
       } @else {
-        {{ selectedChannel().creatorName }} hat diesen Channel erstellt.
+        {{ selectedChannel()?.creatorName }} hat diesen Channel erstellt.
       } Das ist der Anfang des Channels
-        <span class="mention"># {{selectedChannel().name}}.</span>
+        <span class="mention"># {{selectedChannel()?.name}}.</span>
       </p>
     </div>
-    } -->
+    }
   </section>
 
   <!-- TO BE DEVELOPED LATER! -->

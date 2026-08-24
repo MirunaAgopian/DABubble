@@ -4,6 +4,10 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { NgClass } from '@angular/common';
 import { AuthService } from '../../../core/services/auth.service';
 import { ChannelService } from '../../../core/services/channel.service';
+import { ChatStateService } from '../../../core/services/chat-state.service';
+import { User } from '../../../core/interfaces/user.interface';
+import { Channel } from '../../../core/interfaces/channel.interface';
+
 
 @Component({
   selector: 'app-workspace-sidebar',
@@ -18,6 +22,7 @@ export class WorkspaceSidebar {
   openOverlay = output<string>();
   channelService = inject(ChannelService);
   channels = toSignal(this.channelService.fetchChannels());
+  chatState = inject(ChatStateService);
   
 
   get currentUser() {
@@ -31,5 +36,21 @@ export class WorkspaceSidebar {
 
   openOverlayClicked(){
     this.openOverlay.emit('create-channel');
+  }
+
+  openDM(user: User){
+    this.chatState.openDM(user);
+  }
+
+  openSelf(user: User){
+    this.chatState.openSelf(user);
+  }
+
+  openChannel(channel: Channel){
+    this.chatState.openChannel(channel);
+  }
+
+  startNewMessage(){
+    this.chatState.startNewMessage();
   }
 }

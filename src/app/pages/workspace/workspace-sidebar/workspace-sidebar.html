@@ -89,7 +89,8 @@
       </defs>
     </svg>
     <h3>Devspace</h3>
-    <button class="chat-btn open-overlay">
+    <!-- START NEW MESSAGE BUTTON -->
+    <button class="chat-btn open-overlay" (click)="startNewMessage()">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -212,7 +213,7 @@
       <!-- CHANNELS SECTION -->
       <div class="added-channels max-height-primary scroll-thin">
         @for (channel of channels(); track channel.id) {
-          <button class="single-channel">
+          <button class="single-channel" (click)="openChannel(channel)">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -331,7 +332,10 @@
     <!-- USERS SECTION -->
     <div class="channels-container max-height-secondary">
       @for (user of users(); track user.id) {
-        <button class="app-user">
+        <button
+          class="app-user"
+          (click)="user.id === currentUser?.uid ? openSelf(user) : openDM(user)"
+        >
           <div class="workspace-sidebar__avatar-status">
             <img class="user-avatar" [src]="user.avatarUrl" alt="user-avatar" />
             <div
