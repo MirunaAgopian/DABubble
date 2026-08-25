@@ -1,0 +1,66 @@
+@import '../../../../../../styles/abstracts/mixins';
+
+.header-container {
+  @include flex-column-space-btw;
+  gap: 8px;
+  align-items: flex-start;
+  position: relative;
+
+  &__title {
+    color: var(--color-text-default);
+  }
+
+  &__input {
+    padding-right: 36px;
+  }
+}
+
+.input-btn {
+  width: 100%;
+  position: relative;
+}
+
+.clear-btn {
+  position: absolute;
+  right: 12px;
+  top: 55%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  color: var(--color-secondary-default);
+  cursor: pointer;
+  padding: 0;
+  color: inherit;
+
+  &:hover {
+    color: var(--color-primary-default);
+  }
+}
+
+.header-container__send-to {
+  @include flex-column-space-btw;
+  gap: 4px;
+  align-items: flex-start;
+  height: 150px;
+  width: 100%;
+  background-color: var(--color-bg-default);
+  border: 1px solid var(--color-primary-hover);
+  border-radius: 0 0 0 30px;
+  overflow-y: scroll;
+  padding: 16px 30px;
+  position: absolute;
+  top: 85px;
+}
+
+.send-to-btn {
+  border-radius: 30px;
+  padding: 8px 16px;
+  width: 100%;
+  text-align: left;
+
+  &:hover {
+    background-color: var(--color-primary-hover);
+    color: var(--color-secondary-default);
+  }
+}

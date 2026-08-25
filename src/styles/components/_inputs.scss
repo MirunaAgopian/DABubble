@@ -11,3 +11,19 @@ input {
     border: 1px solid var(--color-primary-hover);
   }
 }
+
+.input-secondary {
+  width: 100%;
+  padding: 10px 8px;
+  border-radius: 15px;
+  background-color: var(--color-secondary-default);
+  border: 1px solid var(--color-primary-disabled);
+
+  &:hover {
+    border: 1px solid var(--color-text-accent-light);
+  }
+
+  &:focus {
+    border: 1px solid var(--color-primary-hover);
+  }
+}

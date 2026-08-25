@@ -1,22 +1,22 @@
 <section class="chat-shell">
   <!-- HEADER -->
-  <ng-container>
+  <!-- <ng-container>
     <app-chat-header-dm></app-chat-header-dm>
-  </ng-container>
+  </ng-container> -->
 
   <!-- <ng-container>
     <app-chat-header-group></app-chat-header-group>
-  </ng-container>
-
-  <ng-container>
-    <app-chat-header-new-message></app-chat-header-new-message>
   </ng-container> -->
+
+  <section class="chat-shell__header">
+    <ng-container>
+      <app-chat-header-new-message></app-chat-header-new-message>
+    </ng-container>
+  </section>
 
   <!-- SHARED MESSAGES -->
   <section class="chat-shell__messages">
     <app-chat-messages></app-chat-messages>
-    <!-- this also has 3 different UIs, for new message, direct message with a 
-     person and with yourself and group message -->
   </section>
 
   <!-- SHARED INPUT -->

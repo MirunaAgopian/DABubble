@@ -9,6 +9,8 @@ export class ChatStateService {
   mode = signal<'new' | 'dm' | 'self' | 'channel'>('new');
   selectedUser = signal<User | null>(null);
   selectedChannel = signal<Channel | null>(null);
+  showSendTo = signal(false);
+  mentionSomeone = signal<'user' | 'channel' | 'email' | null>(null);
 
   openDM(user: User) {
     this.mode.set('dm');
@@ -48,4 +50,12 @@ export class ChatStateService {
         return '';
     }
   });
+
+  toggleSendTo(show:boolean){
+    this.showSendTo.set(show);
+  }
+
+  setMentionedEntity(mode: 'user' | 'channel' | 'email' | null){
+    this.mentionSomeone.set(mode);
+  }
 }
