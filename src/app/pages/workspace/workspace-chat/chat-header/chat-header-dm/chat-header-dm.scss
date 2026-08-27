@@ -1,0 +1,66 @@
+@import '../../../../../../styles/abstracts/mixins';
+
+.header-container {
+  padding-bottom: 8px;
+  position: relative;
+}
+
+.header-container::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px; 
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.10),
+    rgba(0, 0, 0, 0)
+  );
+}
+
+.header-btn {
+  @include flex-space-btw;
+  gap: 8px;
+  position: relative;
+  padding: 4px 8px;
+  border-radius: 30px;
+
+  &:hover {
+    background-color: var(--color-bg-default);
+  }
+}
+
+.username {
+  color: var(--color-txt-default);
+  font-size: var(--font-size-text-medium);
+}
+
+.avatar-img-header {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+}
+
+.status-bullet-header {
+  position: absolute;
+  left: 44px;
+  bottom: 0;
+  height: 14px;
+  width: 14px;
+  border-radius: 50%;
+  border: 2px solid var(--color-bg-default);
+  background-color: gray;
+}
+
+.status-bullet-header.online {
+  background-color: #4caf50;
+}
+
+.status-bullet-header.offline {
+  background-color: #9e9e9e;
+}
+
+.status-bullet-header.away {
+  background-color: #ff9800;
+}

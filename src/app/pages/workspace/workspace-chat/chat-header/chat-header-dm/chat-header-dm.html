@@ -1,1 +1,22 @@
-<p>chat-header-dm works!</p>
+<section class="header-container">
+  @if (mode() === 'dm' || mode() === 'self') {
+    <button class="header-btn">
+      <div class="avtr-button">
+        <img class="avatar-img-header" [src]="selectedUser()?.avatarUrl" alt="user avatar" />
+        <div
+          class="status-bullet-header"
+          [ngClass]="{
+            online: selectedUser()?.status === 'online',
+            offline: selectedUser()?.status === 'offline',
+            away: selectedUser()?.status === 'away',
+          }"
+        ></div>
+      </div>
+      <h3 class="username">{{selectedUser()?.name}}
+        @if(selectedUser()?.id === currentUser){
+            <span>(Du)</span>
+        }
+      </h3>
+    </button>
+  }
+</section>
