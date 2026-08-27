@@ -24,8 +24,9 @@ export class WorkspaceMain {
   inAppPresenceService = inject(InAppPresenceService);
   cdr = inject(ChangeDetectorRef);
   isOverlayOpen = false;
-  overlayView: 'profile' | 'edit-profile' | 'logout' | 'create-channel' | null = null;
+  overlayView: 'profile' | 'edit-profile' | 'logout' | 'create-channel' | 'user-profile' | null = null;
   sidebarCollapsed = signal(false);
+  overlayUser = signal<User | null>(null);
 
   guestUser: User = {
     id: 'guest',
@@ -69,6 +70,13 @@ export class WorkspaceMain {
       this.isOverlayOpen = true;
     }
   }
+
+  openUserProfile(user: User) {
+  this.overlayUser.set(user);
+  this.overlayView = 'user-profile';
+  this.isOverlayOpen = true;
+}
+
 
   closeOverlay() {
     this.isOverlayOpen = false;

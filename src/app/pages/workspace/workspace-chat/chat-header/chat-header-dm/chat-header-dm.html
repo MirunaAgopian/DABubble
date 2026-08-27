@@ -1,6 +1,6 @@
 <section class="header-container">
   @if (mode() === 'dm' || mode() === 'self') {
-    <button class="header-btn">
+    <button class="header-btn" (click)="onOpenOverlay()">
       <div class="avtr-button">
         <img class="avatar-img-header" [src]="selectedUser()?.avatarUrl" alt="user avatar" />
         <div

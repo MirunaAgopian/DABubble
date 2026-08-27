@@ -2,7 +2,7 @@
   <!-- HEADER -->
   <section class="chat-shell__header">
     <ng-container>
-      <app-chat-header-dm></app-chat-header-dm>
+      <app-chat-header-dm (openOverlay)="onOpenOverlay($event)"></app-chat-header-dm>
     </ng-container>
   </section>
 

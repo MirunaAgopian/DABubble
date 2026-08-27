@@ -14,8 +14,13 @@ import { User } from '../../../../core/interfaces/user.interface';
 })
 export class ChatShell {
   userAdded = output<User>();
+  openOverlay  = output<User>();
 
   onUserAdded(user: User){
     this.userAdded.emit(user);
+  }
+
+  onOpenOverlay(user:User){
+    this.openOverlay.emit(user);
   }
 }

@@ -1,6 +1,10 @@
 <section class="content-wrapper outer-container" (click)="$event.stopPropagation()">
   <!-- Upper right corner dialogs -->
-  @if (view() === 'logout' || view() === 'profile' || view() === 'edit-profile') {
+  @if (
+    view() === 'logout' ||
+    view() === 'profile' ||
+    view() === 'edit-profile'
+  ) {
     <div class="workspace-overlay__dialogs tooltip-secondary">
       @if (view() === 'logout') {
         <app-logout (clicked)="onLogout()" (profile)="onProfile()"></app-logout>
@@ -20,10 +24,13 @@
     </div>
   }
   <!-- Centered dialogs -->
-  @if (view() === 'create-channel') {
-    <div class="workspace-overlay__modals tooltip-tertiary">
+  @if (view() === 'create-channel' || view() === 'user-profile') {
+    <div class="workspace-overlay__modals tooltip-quatrnary">
       @if (view() === 'create-channel') {
         <app-create-channel (close)="onBackgroundClick()" [user]="user()"></app-create-channel>
+      }
+      @if (view() === 'user-profile' && user()) {
+        <app-profile-secondary [user]="overlayUser()" (close)="onBackgroundClick()"></app-profile-secondary>
       }
     </div>
   }
