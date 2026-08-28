@@ -24,6 +24,7 @@ export class CreateChannel {
       validators: [Validators.maxLength(200)],
     }),
   });
+  addMembers = output<{ name: string; description: string }>();
 
   closeClicked() {
     this.close.emit();
@@ -32,8 +33,12 @@ export class CreateChannel {
   async onSubmit() {
     if (!this.prepareAndValidate()) return;
     const { name, description } = this.form.value;
+
     if (await this.checkDuplicateName(name!)) return;
-    await this.createChannel(name!, description ?? '');
+    this.addMembers.emit({
+      name: name!,
+      description: description ?? '',
+    });
   }
 
   private prepareAndValidate(): boolean {
@@ -47,16 +52,15 @@ export class CreateChannel {
   }
 
   async checkDuplicateName(name: string) {
-  if (!name) {
-    this.nameExists.set(false);
-    return;
+    if (!name) {
+      this.nameExists.set(false);
+      return;
+    }
+
+    const exists = await this.channelService.isChannelNameTaken(name);
+    this.nameExists.set(exists);
+    return exists;
   }
-
-  const exists = await this.channelService.isChannelNameTaken(name);
-  this.nameExists.set(exists);
-  return exists;
-}
-
 
   private async createChannel(name: string, description: string) {
     if (!this.user()) return;

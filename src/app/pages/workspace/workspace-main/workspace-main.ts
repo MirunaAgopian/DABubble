@@ -24,7 +24,14 @@ export class WorkspaceMain {
   inAppPresenceService = inject(InAppPresenceService);
   cdr = inject(ChangeDetectorRef);
   isOverlayOpen = false;
-  overlayView: 'profile' | 'edit-profile' | 'logout' | 'create-channel' | 'user-profile' | null = null;
+  overlayView:
+    | 'profile'
+    | 'edit-profile'
+    | 'logout'
+    | 'create-channel'
+    | 'user-profile'
+    | 'add-members'
+    | null = null;
   sidebarCollapsed = signal(false);
   overlayUser = signal<User | null>(null);
 
@@ -40,6 +47,7 @@ export class WorkspaceMain {
   };
   currentUser = signal<User>(this.guestUser);
   taggedUsers: User[] = [];
+  pendingChannelData = signal<{ name: string; description: string } | null>(null);
 
   ngOnInit() {
     this.inAppPresenceService.startInactivityTimer();
@@ -72,11 +80,10 @@ export class WorkspaceMain {
   }
 
   openUserProfile(user: User) {
-  this.overlayUser.set(user);
-  this.overlayView = 'user-profile';
-  this.isOverlayOpen = true;
-}
-
+    this.overlayUser.set(user);
+    this.overlayView = 'user-profile';
+    this.isOverlayOpen = true;
+  }
 
   closeOverlay() {
     this.isOverlayOpen = false;
@@ -104,5 +111,10 @@ export class WorkspaceMain {
     if (!this.taggedUsers.some((u) => u.id === user.id)) {
       this.taggedUsers.push(user);
     }
+  }
+
+  handleAddMembers(data: { name: string; description: string }) {
+    this.pendingChannelData.set(data);
+    this.overlayView = 'add-members';
   }
 }

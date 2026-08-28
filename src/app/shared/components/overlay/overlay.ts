@@ -5,10 +5,11 @@ import { EditProfile } from './edit-profile/edit-profile';
 import { User } from '../../../core/interfaces/user.interface';
 import { CreateChannel } from './create-channel/create-channel';
 import { ProfileSecondary } from './profile-secondary/profile-secondary';
+import { AddMembers } from './add-members/add-members';
 
 @Component({
   selector: 'app-overlay',
-  imports: [Logout, Profile, ProfileSecondary, EditProfile, CreateChannel],
+  imports: [Logout, Profile, ProfileSecondary, EditProfile, CreateChannel, AddMembers],
   templateUrl: './overlay.html',
   styleUrl: './overlay.scss',
   host: {
@@ -18,14 +19,16 @@ import { ProfileSecondary } from './profile-secondary/profile-secondary';
 export class Overlay {
   logout = output<void>();
   visible = input<boolean>();
-  view = input<'profile' | 'edit-profile' | 'logout' | 'create-channel' | 'user-profile' | null>();
+  view = input<
+    'profile' | 'edit-profile' | 'logout' | 'create-channel' | 'user-profile' | 'add-members' | null
+  >();
   close = output<void>();
   switchView = output<'profile' | 'edit-profile' | 'logout'>();
   user = input<User | null>();
-  // overlayUser = signal<User | null>(null);
   overlayUser = input<User | null>();
-
+  confirmAddMembers = output<User[]>();
   updateUserName = output<string>();
+  addMembers = output<{ name: string; description: string }>();
 
   onLogout() {
     this.logout.emit();
@@ -45,5 +48,13 @@ export class Overlay {
 
   onSaveUserName(event: string) {
     this.updateUserName.emit(event);
+  }
+
+  onConfirmAddMembers(selectedUsers: User[]) {
+    this.confirmAddMembers.emit(selectedUsers);
+  }
+  
+  onAddMembers(data: { name: string; description: string }) {
+    this.addMembers.emit(data);
   }
 }

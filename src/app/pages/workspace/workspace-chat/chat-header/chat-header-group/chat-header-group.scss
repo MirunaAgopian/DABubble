@@ -1,0 +1,72 @@
+@import '../../../../../../styles/abstracts/mixins';
+
+.header-container {
+  @include flex-space-btw;
+  padding-bottom: 8px;
+  position: relative;
+}
+
+.header-container::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0));
+}
+
+.header-btn-group {
+  @include flex-space-btw;
+  font-weight: var(--font-weight-bold);
+  padding: 4px 8px;
+  border-radius: 30px;
+
+  &:hover {
+    background-color: var(--color-bg-default);
+  }
+}
+
+.right-btns-container {
+  @include flex-space-btw;
+  gap: 8px;
+}
+
+.all-users-btn {
+  @include flex-space-btw;
+  gap: 4px;
+  padding: 4px 8px;
+  border-radius: 30px;
+
+  &:hover {
+    background-color: var(--color-bg-default);
+  }
+}
+
+.avatar-img-small {
+  border-radius: 50%;
+  height: 32px;
+  border: 2px solid var(--color-secondary-default);
+  margin-left: -10px;
+}
+
+.total-nr-users {
+  font-weight: var(--font-weight-bold);
+}
+
+.add-user-btn {
+  padding: 4px 8px;
+  border-radius: 30px;
+
+  svg {
+    color: var(--color-text-default);
+  }
+
+  &:hover {
+    background-color: var(--color-bg-default);
+
+    svg {
+      color: var(--color-secondary-active);
+    }
+  }
+}

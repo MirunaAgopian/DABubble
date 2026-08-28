@@ -83,4 +83,6 @@ export class ChannelService {
     const ref = doc(db, 'channels', channelId);
     await updateDoc(ref, { name: newName, description: newDescription });
   }
+
+
 }

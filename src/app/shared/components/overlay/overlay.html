@@ -1,10 +1,6 @@
 <section class="content-wrapper outer-container" (click)="$event.stopPropagation()">
-  <!-- Upper right corner dialogs -->
-  @if (
-    view() === 'logout' ||
-    view() === 'profile' ||
-    view() === 'edit-profile'
-  ) {
+  <!-- UPPER RIGHT CORNER DIALOGS -->
+  @if (view() === 'logout' || view() === 'profile' || view() === 'edit-profile') {
     <div class="workspace-overlay__dialogs tooltip-secondary">
       @if (view() === 'logout') {
         <app-logout (clicked)="onLogout()" (profile)="onProfile()"></app-logout>
@@ -23,15 +19,31 @@
       }
     </div>
   }
-  <!-- Centered dialogs -->
-  @if (view() === 'create-channel' || view() === 'user-profile') {
-    <div class="workspace-overlay__modals tooltip-quatrnary">
-      @if (view() === 'create-channel') {
-        <app-create-channel (close)="onBackgroundClick()" [user]="user()"></app-create-channel>
-      }
-      @if (view() === 'user-profile' && user()) {
-        <app-profile-secondary [user]="overlayUser()" (close)="onBackgroundClick()"></app-profile-secondary>
-      }
+  <!-- CENTERED DIALOGS-->
+  <!-- Create channel modal -->
+  @if (view() === 'create-channel') {
+    <div class="workspace-overlay__modals tooltip-tertiary">
+      <app-create-channel (close)="onBackgroundClick()" [user]="user()" (addMembers)="onAddMembers($event)"></app-create-channel>
+    </div>
+  }
+
+  <!-- Add users to channel modal -->
+  @if (view() === 'add-members') {
+    <div class="workspace-overlay__modals tooltip-tertiary">
+      <app-add-members
+        (close)="onBackgroundClick()"
+        (confirm)="onConfirmAddMembers($event)"
+      ></app-add-members>
+    </div>
+  }
+
+  <!-- User profile modal -->
+  @if (view() === 'user-profile' && user()) {
+    <div class="workspace-overlay__modals tooltip-quaternary">
+      <app-profile-secondary
+        [user]="overlayUser()"
+        (close)="onBackgroundClick()"
+      ></app-profile-secondary>
     </div>
   }
 </section>

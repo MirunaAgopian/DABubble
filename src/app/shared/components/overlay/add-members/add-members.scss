@@ -1,0 +1,79 @@
+@import '../../../../../styles/abstracts/mixins';
+
+.add-members {
+  @include flex-column-space-btw;
+  align-items: flex-start;
+  gap: 16px;
+  color: var(--color-text-default);
+
+  h3 {
+    color: var(--color-text-default);
+  }
+
+  &__header {
+    @include flex-space-btw;
+    width: 100%;
+  }
+
+  &__close-btn {
+    svg {
+      margin-top: 4px;
+    }
+  }
+
+  &__submit-btn {
+    align-self: flex-end;
+
+    &:disabled {
+      background-color: var(--color-primary-disabled);
+    }
+  }
+}
+
+.add-members__selections {
+  @include flex-column-space-btw;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.selection {
+  @include flex-space-btw;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.radio-btn {
+  @include flex-center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border-light);
+  transition: all 0.2s ease;
+}
+
+.radio-btn--active {
+  background: var(--color-text-accent);
+  transition: all 0.2s ease;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+}
+
+.accent {
+  color: var(--color-text-accent);
+}
+
+.add-members__input-wrapper {
+  height: 40px;
+  width: 100%;
+}
+
+.add-members__input {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+.add-members__input--visible {
+  opacity: 1;
+  pointer-events: auto;
+}
