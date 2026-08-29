@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, output, HostListener } from '@angular/core';
+import { Component, inject, output, input } from '@angular/core';
 import { User } from '../../../../core/interfaces/user.interface';
 import { UserService } from '../../../../core/services/user.service';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -17,11 +17,23 @@ export class AddMembers {
   close = output<void>();
   userService = inject(UserService);
   users = toSignal(this.userService.getAllUsersRealtime());
+  user = input<User | null>();
+  entwicklerteamUsers = toSignal(this.userService.getEntwicklerteamUsersRealtime(), {
+    initialValue: [],
+  });
+
   inputValue = '';
   dialogOpen = false;
 
   confirmSelection() {
-    this.confirm.emit(this.selectedUsers);
+    if (this.selectedOption === 'all') {
+      const all = this.entwicklerteamUsers();
+      console.log('ALL MEMBERS:', all);
+      this.confirm.emit(all);
+    } else {
+      console.log('SOME MEMBERS:', this.selectedUsers);
+      this.confirm.emit(this.selectedUsers);
+    }
   }
 
   selectOption(option: 'all' | 'some') {
@@ -57,5 +69,4 @@ export class AddMembers {
   get hiddenChipCount(): number {
     return Math.max(0, this.selectedUsers.length - 3);
   }
-
 }

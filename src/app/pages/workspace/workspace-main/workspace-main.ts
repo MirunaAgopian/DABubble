@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { UserService } from '../../../core/services/user.service';
 import { onAuthStateChanged } from 'firebase/auth';
 import { User } from '../../../core/interfaces/user.interface';
+import { ChannelService } from '../../../core/services/channel.service';
 
 @Component({
   selector: 'app-workspace-main',
@@ -18,9 +19,10 @@ import { User } from '../../../core/interfaces/user.interface';
   styleUrl: './workspace-main.scss',
 })
 export class WorkspaceMain {
+  router = inject(Router);
   authService = inject(AuthService);
   userService = inject(UserService);
-  router = inject(Router);
+  channelService = inject(ChannelService);
   inAppPresenceService = inject(InAppPresenceService);
   cdr = inject(ChangeDetectorRef);
   isOverlayOpen = false;
@@ -117,4 +119,23 @@ export class WorkspaceMain {
     this.pendingChannelData.set(data);
     this.overlayView = 'add-members';
   }
+
+
+  onConfirmAddMembers(selectedUsers: User[]) {
+  const channelData = this.pendingChannelData();
+  if (!channelData) return;
+
+  const memberIds = selectedUsers.map(u => u.id);
+  this.channelService.createChannel(
+    channelData.name,
+    this.currentUser().id,
+    this.currentUser().name,
+    memberIds,
+    channelData.description
+  );
+
+  this.pendingChannelData.set(null);
+  this.closeOverlay();
+}
+
 }

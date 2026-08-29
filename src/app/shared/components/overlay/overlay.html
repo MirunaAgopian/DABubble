@@ -23,7 +23,11 @@
   <!-- Create channel modal -->
   @if (view() === 'create-channel') {
     <div class="workspace-overlay__modals tooltip-tertiary">
-      <app-create-channel (close)="onBackgroundClick()" [user]="user()" (addMembers)="onAddMembers($event)"></app-create-channel>
+      <app-create-channel
+        (close)="onBackgroundClick()"
+        [user]="user()"
+        (addMembers)="onAddMembers($event)"
+      ></app-create-channel>
     </div>
   }
 
@@ -31,6 +35,7 @@
   @if (view() === 'add-members') {
     <div class="workspace-overlay__modals tooltip-tertiary">
       <app-add-members
+        [user]="user()"
         (close)="onBackgroundClick()"
         (confirm)="onConfirmAddMembers($event)"
       ></app-add-members>

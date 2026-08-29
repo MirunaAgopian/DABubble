@@ -11,7 +11,7 @@ import {
   updateDoc,
   getDocs,
   where,
-  orderBy
+  orderBy,
 } from 'firebase/firestore';
 import { db } from '../../app.config';
 import { Observable } from 'rxjs';
@@ -35,6 +35,7 @@ export class ChannelService {
     name: string,
     currentUserId: string,
     currentUserName: string,
+    members: string[],
     description?: string,
   ) {
     const channelRef = doc(collection(db, 'channels'));
@@ -45,7 +46,7 @@ export class ChannelService {
       createdAt: Date.now(),
       createdBy: currentUserId,
       creatorName: currentUserName,
-      members: [currentUserId],
+      members,
     };
     await setDoc(channelRef, newChannel);
   }
@@ -53,7 +54,6 @@ export class ChannelService {
   fetchChannels(): Observable<Channel[]> {
     const ref = collection(db, 'channels');
     const q = query(ref, orderBy('name', 'asc'));
-
     return new Observable((subscriber) => {
       return onSnapshot(q, (snapshot) => {
         const channels = snapshot.docs.map((doc) => ({
@@ -83,6 +83,4 @@ export class ChannelService {
     const ref = doc(db, 'channels', channelId);
     await updateDoc(ref, { name: newName, description: newDescription });
   }
-
-
 }

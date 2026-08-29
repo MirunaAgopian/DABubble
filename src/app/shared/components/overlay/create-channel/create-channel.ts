@@ -56,18 +56,9 @@ export class CreateChannel {
       this.nameExists.set(false);
       return;
     }
-
     const exists = await this.channelService.isChannelNameTaken(name);
     this.nameExists.set(exists);
     return exists;
-  }
-
-  private async createChannel(name: string, description: string) {
-    if (!this.user()) return;
-    await this.channelService.createChannel(name, this.user()!.id, this.user()!.name, description);
-
-    this.loading.set(false);
-    this.close.emit();
   }
 
   ngOnInit() {

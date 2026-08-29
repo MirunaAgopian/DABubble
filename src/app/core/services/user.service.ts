@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { collection, doc, getDoc, updateDoc, onSnapshot } from 'firebase/firestore';
+import { collection, doc, getDoc, updateDoc, onSnapshot, query, where } from 'firebase/firestore';
 import { db } from '../../app.config';
 import { User } from '../interfaces/user.interface';
 import { AuthService } from './auth.service';
@@ -28,6 +28,20 @@ export class UserService {
           if (b.id === currentUserId) return 1;
           return a.name.localeCompare(b.name);
         });
+        subscriber.next(users);
+      });
+    });
+  }
+
+  getEntwicklerteamUsersRealtime() {
+    const q = query(collection(db, 'channels'), where('name', '==', 'Entwicklerteam'));
+
+    return new Observable<User[]>((subscriber) => {
+      onSnapshot(q, async (snap) => {
+        const members = snap.empty ? [] : ((snap.docs[0].data()['members'] as string[]) ?? []);
+        const users = await Promise.all(
+          members.map((id) => getDoc(doc(db, 'users', id)).then((s) => s.data() as User)),
+        );
         subscriber.next(users);
       });
     });
