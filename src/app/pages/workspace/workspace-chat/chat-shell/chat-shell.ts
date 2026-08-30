@@ -5,6 +5,7 @@ import { ChatHeaderNewMessage } from '../chat-header/chat-header-new-message/cha
 import { ChatMessages } from '../chat-messages/chat-messages';
 import { ChatInput } from '../chat-input/chat-input';
 import { User } from '../../../../core/interfaces/user.interface';
+import { Channel } from '../../../../core/interfaces/channel.interface';
 
 @Component({
   selector: 'app-chat-shell',
@@ -14,13 +15,23 @@ import { User } from '../../../../core/interfaces/user.interface';
 })
 export class ChatShell {
   userAdded = output<User>();
-  openOverlay  = output<User>();
+  openOverlayUser = output<User>();
+  openOverlayView = output<string>();
+  openChannelDetails = output<Channel | null>();
 
-  onUserAdded(user: User){
+  onUserAdded(user: User) {
     this.userAdded.emit(user);
   }
 
-  onOpenOverlay(user:User){
-    this.openOverlay.emit(user);
+  onOpenOverlayUser(user: User) {
+    this.openOverlayUser.emit(user);
+  }
+
+  onOpenOverlayView(view: string) {
+    this.openOverlayView.emit(view);
+  }
+
+  onOpenChannelDetails(channel: Channel | null) {
+    this.openChannelDetails.emit(channel);
   }
 }

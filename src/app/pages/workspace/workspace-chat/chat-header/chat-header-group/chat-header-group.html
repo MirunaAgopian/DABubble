@@ -1,5 +1,5 @@
 <section class="header-container">
-  <button class="header-btn-group">
+  <button class="header-btn-group" (click)="onOpenOverlay()">
     # {{ selectedChannel()?.name }}
     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
       <mask
@@ -22,7 +22,7 @@
     </svg>
   </button>
   <div class="right-btns-container">
-    <button class="all-users-btn">
+    <button class="all-users-btn" (click)="onOpenOverlay()">
       @for (user of visibleUsers(); track user.id) {
         <img class="avatar-img-small" [src]="user.avatarUrl" alt="avatar" />
       }
@@ -34,7 +34,7 @@
         {{ channelUsers().length }}
       </span>
     </button>
-    <button class="add-user-btn">
+    <button class="add-user-btn" (click)="onOpenOverlay()">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"

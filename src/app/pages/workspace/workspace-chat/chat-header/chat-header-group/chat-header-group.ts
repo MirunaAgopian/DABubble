@@ -1,7 +1,8 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, output } from '@angular/core';
 import { ChatStateService } from '../../../../../core/services/chat-state.service';
 import { UserService } from '../../../../../core/services/user.service';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { Channel } from '../../../../../core/interfaces/channel.interface';
 
 @Component({
   selector: 'app-chat-header-group',
@@ -14,6 +15,8 @@ export class ChatHeaderGroup {
   userService = inject(UserService);
   selectedChannel = this.chatStateService.selectedChannel;
   allUsers = toSignal(this.userService.getAllUsersRealtime(), { initialValue: [] });
+  openOverlay = output<string>();
+  openChannelDetails = output<Channel | null>();
 
   channelUsers = computed(() => {
     const channel = this.selectedChannel();
@@ -32,4 +35,9 @@ export class ChatHeaderGroup {
     const users = this.channelUsers();
     return users.length > 3 ? users.length - 3 : 0;
   });
+
+  onOpenOverlay(){
+    this.openOverlay.emit('channel-details');
+    this.openChannelDetails.emit(this.selectedChannel());
+  }
 }

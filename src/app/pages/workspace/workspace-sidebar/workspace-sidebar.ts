@@ -19,7 +19,7 @@ export class WorkspaceSidebar {
   userService = inject(UserService);
   users = toSignal(this.userService.getAllUsersRealtime());
   authService = inject(AuthService);
-  openOverlay = output<string>();
+  openOverlay = output<'create-channel'>();
   channelService = inject(ChannelService);
   channels = toSignal(this.channelService.fetchChannels());
   chatState = inject(ChatStateService);

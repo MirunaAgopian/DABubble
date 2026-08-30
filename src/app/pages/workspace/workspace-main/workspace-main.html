@@ -8,7 +8,7 @@
       class="workspace-chat-area"
       [class.workspace-chat-area--collapsed]="sidebarCollapsed()"
     >
-    <!-- TOGGLE SIDEBAR BUTTON -->
+      <!-- TOGGLE SIDEBAR BUTTON -->
       <button
         class="sidebar-toggle__button"
         (click)="toggleSidebar()"
@@ -35,7 +35,12 @@
       </button>
       <!-- MAIN CHAT COMPONENTS -->
       <app-workspace-sidebar (openOverlay)="openOverlay($event)"></app-workspace-sidebar>
-      <app-chat-shell (userAdded)="handleUserAdded($event)" (openOverlay)="openUserProfile($event)"></app-chat-shell>
+      <app-chat-shell
+        (userAdded)="handleUserAdded($event)"
+        (openOverlayUser)="openUserProfile($event)"
+        (openOverlayView)="openOverlay($event)"
+        (openChannelDetails)="openChannelDetails($event)"
+      ></app-chat-shell>
       <app-workspace-thread></app-workspace-thread>
     </section>
   </main>
@@ -46,7 +51,8 @@
       [visible]="isOverlayOpen"
       [view]="overlayView"
       [user]="currentUser()"
-      [overlayUser] = "overlayUser()"
+      [overlayUser]="overlayUser()"
+      [overlayChannel] ="overlayChannel()"
       (logout)="handleLogout()"
       (close)="closeOverlay()"
       (switchView)="onSwitchView($event)"

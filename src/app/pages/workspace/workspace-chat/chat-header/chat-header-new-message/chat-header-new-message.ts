@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject,output } from '@angular/core';
 import { ChatStateService } from '../../../../../core/services/chat-state.service';
 import { UserService } from '../../../../../core/services/user.service';
 import { ChannelService } from '../../../../../core/services/channel.service';
@@ -16,6 +16,7 @@ export class ChatHeaderNewMessage {
   channelService = inject(ChannelService);
   channels = toSignal(this.channelService.fetchChannels());
   users = toSignal(this.userService.getAllUsersRealtime());
+  openOverlay = output<'new-message'>();
 
   onInput(event: Event) {
     const value = (event.target as HTMLInputElement).value;

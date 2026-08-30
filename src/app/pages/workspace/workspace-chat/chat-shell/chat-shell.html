@@ -2,16 +2,18 @@
   <!-- HEADER -->
   <!-- <section class="chat-shell__header">
     <ng-container>
-      <app-chat-header-dm (openOverlay)="onOpenOverlay($event)"></app-chat-header-dm>
+      <app-chat-header-dm (openOverlay)="onOpenOverlayUser($event)"></app-chat-header-dm>
     </ng-container>
   </section> -->
 
   <section class="chat-shell__header">
     <ng-container>
-      <app-chat-header-group></app-chat-header-group>
+      <app-chat-header-group
+        (openOverlay)="onOpenOverlayView($event)"
+        (openChannelDetails)="onOpenChannelDetails($event)"
+      ></app-chat-header-group>
     </ng-container>
   </section>
-
 
   <!-- <section class="chat-shell__header">
     <ng-container>

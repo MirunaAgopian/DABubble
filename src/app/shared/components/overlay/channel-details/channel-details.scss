@@ -1,0 +1,70 @@
+@import '../../../../../styles/abstracts/mixins';
+
+.channel-details {
+  @include flex-column-space-btw;
+  align-items: flex-start;
+  gap: 16px;
+
+  &__header {
+    @include flex-space-btw;
+    width: 100%;
+  }
+}
+
+.space-btw {
+  @include flex-column-space-btw;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.channel-details__container {
+  border: 1px solid var(--color-border-light);
+  width: 100%;
+  padding: 16px;
+  border-radius: 15px;
+}
+
+.channel-details__creator {
+  @include flex-column-space-btw;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.leave-chat-btn {
+  align-self: flex-end;
+  width: 150px;
+}
+
+.neutral-col {
+  color: var(--color-text-default);
+}
+
+.accent-color {
+  color: var(--color-text-accent);
+}
+
+.bold-font {
+  font-weight: var(--font-weight-bold);
+}
+
+.font-large {
+  font-size: var(--font-size-text-regular);
+}
+
+.font-small {
+  font-size: var(--font-size-text-small);
+
+  &:hover {
+    font-weight: var(--font-weight-bold);
+  }
+}
+
+.mt {
+  margin-top: 3px;
+}
+
+.separation-line {
+  background-color: var(--color-border-light);
+  width: 100%;
+  height: 2px;
+}

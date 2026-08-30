@@ -9,8 +9,25 @@
 }
 
 .workspace-overlay__modals {
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, 50%);
+  transform: translate(-50%, -50%);
 }
+
+.workspace-overlay__modals--center-left {
+  position: fixed;
+  top: 54%;
+  left: 30%;
+  transform: translateY(-50%);
+  //to be adapted for responsiveness for device heights and widths!
+}
+
+.workspace-overlay__modals--center-right {
+  position: fixed;
+  top: 50%;
+  left: 75%;
+  transform: translateY(-50%);
+  //to be adapted for responsiveness for device heights and widths!
+}
+

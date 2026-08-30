@@ -51,4 +51,16 @@
       ></app-profile-secondary>
     </div>
   }
+
+  <!-- CENTERED-LEFT DIALOG -->
+  <!-- Channel details -->
+
+  @if (view() === 'channel-details') {
+    <div class="workspace-overlay__modals--center-left tooltip-channel-details">
+      <app-channel-details
+        (close)="onBackgroundClick()"
+        [channel]="overlayChannel()"
+      ></app-channel-details>
+    </div>
+  }
 </section>

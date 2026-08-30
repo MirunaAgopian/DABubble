@@ -11,6 +11,7 @@ import { UserService } from '../../../core/services/user.service';
 import { onAuthStateChanged } from 'firebase/auth';
 import { User } from '../../../core/interfaces/user.interface';
 import { ChannelService } from '../../../core/services/channel.service';
+import { Channel } from '../../../core/interfaces/channel.interface';
 
 @Component({
   selector: 'app-workspace-main',
@@ -26,6 +27,8 @@ export class WorkspaceMain {
   inAppPresenceService = inject(InAppPresenceService);
   cdr = inject(ChangeDetectorRef);
   isOverlayOpen = false;
+  sidebarCollapsed = signal(false);
+
   overlayView:
     | 'profile'
     | 'edit-profile'
@@ -33,9 +36,8 @@ export class WorkspaceMain {
     | 'create-channel'
     | 'user-profile'
     | 'add-members'
+    | 'channel-details'
     | null = null;
-  sidebarCollapsed = signal(false);
-  overlayUser = signal<User | null>(null);
 
   guestUser: User = {
     id: 'guest',
@@ -47,9 +49,11 @@ export class WorkspaceMain {
     lastActive: Date.now(),
     status: 'online',
   };
+  overlayUser = signal<User | null>(null);
   currentUser = signal<User>(this.guestUser);
   taggedUsers: User[] = [];
   pendingChannelData = signal<{ name: string; description: string } | null>(null);
+  overlayChannel = signal<Channel | null>(null);
 
   ngOnInit() {
     this.inAppPresenceService.startInactivityTimer();
@@ -74,7 +78,8 @@ export class WorkspaceMain {
       view === 'profile' ||
       view === 'edit-profile' ||
       view === 'logout' ||
-      view === 'create-channel'
+      view === 'create-channel' ||
+      view === 'channel-details'
     ) {
       this.overlayView = view;
       this.isOverlayOpen = true;
@@ -84,6 +89,12 @@ export class WorkspaceMain {
   openUserProfile(user: User) {
     this.overlayUser.set(user);
     this.overlayView = 'user-profile';
+    this.isOverlayOpen = true;
+  }
+
+  openChannelDetails(channel: Channel | null) {
+    this.overlayChannel.set(channel);
+    this.overlayView = 'channel-details';
     this.isOverlayOpen = true;
   }
 
@@ -120,22 +131,20 @@ export class WorkspaceMain {
     this.overlayView = 'add-members';
   }
 
-
   onConfirmAddMembers(selectedUsers: User[]) {
-  const channelData = this.pendingChannelData();
-  if (!channelData) return;
+    const channelData = this.pendingChannelData();
+    if (!channelData) return;
 
-  const memberIds = selectedUsers.map(u => u.id);
-  this.channelService.createChannel(
-    channelData.name,
-    this.currentUser().id,
-    this.currentUser().name,
-    memberIds,
-    channelData.description
-  );
+    const memberIds = selectedUsers.map((u) => u.id);
+    this.channelService.createChannel(
+      channelData.name,
+      this.currentUser().id,
+      this.currentUser().name,
+      memberIds,
+      channelData.description,
+    );
 
-  this.pendingChannelData.set(null);
-  this.closeOverlay();
-}
-
+    this.pendingChannelData.set(null);
+    this.closeOverlay();
+  }
 }
