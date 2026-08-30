@@ -23,10 +23,16 @@
   </button>
   <div class="right-btns-container">
     <button class="all-users-btn">
-      @for (user of channelUsers(); track user) {
-        <img class="avatar-img-small" [src]="user.avatarUrl" alt="avatar images of chat users" />
+      @for (user of visibleUsers(); track user.id) {
+        <img class="avatar-img-small" [src]="user.avatarUrl" alt="avatar" />
       }
-      <span class="total-nr-users">{{ channelUsers().length }}</span>
+
+      @if (extraUserCount() > 0) {
+        <span class="extra-count">+{{ extraUserCount() }}</span>
+      }
+      <span class="total-nr-users">
+        {{ channelUsers().length }}
+      </span>
     </button>
     <button class="add-user-btn">
       <svg

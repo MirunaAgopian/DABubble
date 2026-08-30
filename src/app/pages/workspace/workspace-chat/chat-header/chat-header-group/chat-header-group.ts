@@ -2,7 +2,6 @@ import { Component, computed, inject } from '@angular/core';
 import { ChatStateService } from '../../../../../core/services/chat-state.service';
 import { UserService } from '../../../../../core/services/user.service';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ChannelService } from '../../../../../core/services/channel.service';
 
 @Component({
   selector: 'app-chat-header-group',
@@ -22,5 +21,15 @@ export class ChatHeaderGroup {
 
     if (!channel) return [];
     return users.filter((u) => channel.members.includes(u.id));
+  });
+
+  visibleUsers = computed(() => {
+    const users = this.channelUsers();
+    return users.slice(0, 3);
+  });
+
+  extraUserCount = computed(() => {
+    const users = this.channelUsers();
+    return users.length > 3 ? users.length - 3 : 0;
   });
 }

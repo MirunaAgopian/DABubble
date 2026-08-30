@@ -22,6 +22,7 @@
   padding: 4px 8px;
   border-radius: 30px;
 
+
   &:hover {
     background-color: var(--color-bg-default);
   }
@@ -35,8 +36,9 @@
 .all-users-btn {
   @include flex-space-btw;
   gap: 4px;
-  padding: 4px 8px;
+  padding: 4px 16px;
   border-radius: 30px;
+ 
 
   &:hover {
     background-color: var(--color-bg-default);
@@ -69,4 +71,17 @@
       color: var(--color-secondary-active);
     }
   }
+}
+
+.extra-count {
+  @include flex-center;
+  height: 24px;
+  width: 24px;
+  border-radius: 50%;
+  background-color: var(--color-bg-start);
+  padding: 13px;
+  font-size: var(--font-size-text-small);
+  color: var(--color-secondary-default);
+  border: 2px solid var(--color-secondary-default);
+  margin-left: -10px;
 }
