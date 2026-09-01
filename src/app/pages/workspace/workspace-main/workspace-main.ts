@@ -12,6 +12,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { User } from '../../../core/interfaces/user.interface';
 import { ChannelService } from '../../../core/services/channel.service';
 import { Channel } from '../../../core/interfaces/channel.interface';
+import { ChatStateService } from '../../../core/services/chat-state.service';
 
 @Component({
   selector: 'app-workspace-main',
@@ -24,7 +25,9 @@ export class WorkspaceMain {
   authService = inject(AuthService);
   userService = inject(UserService);
   channelService = inject(ChannelService);
+  chatStateService = inject(ChatStateService);
   inAppPresenceService = inject(InAppPresenceService);
+  chatState = inject(ChatStateService);
   cdr = inject(ChangeDetectorRef);
   isOverlayOpen = false;
   sidebarCollapsed = signal(false);
@@ -53,7 +56,7 @@ export class WorkspaceMain {
   currentUser = signal<User>(this.guestUser);
   taggedUsers: User[] = [];
   pendingChannelData = signal<{ name: string; description: string } | null>(null);
-  overlayChannel = signal<Channel | null>(null);
+  overlayChannel = this.chatState.selectedChannel;
 
   ngOnInit() {
     this.inAppPresenceService.startInactivityTimer();

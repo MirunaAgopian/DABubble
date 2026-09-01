@@ -30,24 +30,71 @@
       </svg>
     </button>
   </div>
-  <div class="channel-details__container space-btw">
-    <div class="channel-details__header">
-      <span class="bold-font">Channel-Name</span>
-      <button class="accent-color font-small">Bearbeiten</button>
+  <div class="channel-details__wrapper">
+    <div class="channel-details__animation-area-name">
+      @if (!isEditingName) {
+        <div class="channel-details__container space-btw fade-slide-in">
+          <div class="channel-details__header">
+            <span class="bold-font">Channel-Name</span>
+            <button class="accent-color font-small" (click)="isEditingName = true">
+              Bearbeiten
+            </button>
+          </div>
+          <p># {{ channel()?.name }}</p>
+        </div>
+      }
+
+      @if (isEditingName) {
+        <div class="channel-details__container space-btw fade-slide-in">
+          <div class="channel-details__header">
+            <span class="bold-font">Channel-Name</span>
+            <button class="accent-color font-small" (click)="saveName()">Speichern</button>
+          </div>
+          <input
+            class="input-secondary"
+            [(ngModel)]="editedName"
+            [placeholder]="'# ' + channel()?.name"
+          />
+        </div>
+      }
     </div>
-    <p># {{ channel()?.name }}</p>
   </div>
-  <div class="channel-details__container space-btw">
-    <div class="channel-details__header">
-      <span class="bold-font">Beschreibung</span>
-      <button class="accent-color font-small">Bearbeiten</button>
+
+  <div class="channel-details__wrapper">
+    <div class="channel-details__animation-area-description">
+      @if (!isEditingDescription) {
+        <div class="channel-details__container fade-slide-in space-btw">
+          <div class="channel-details__header">
+            <span class="bold-font">Beschreibung</span>
+            <button class="accent-color font-small" (click)="isEditingDescription = true">
+              Bearbeiten
+            </button>
+          </div>
+
+          <p>{{ channel()?.description }}</p>
+        </div>
+      }
+
+      @if (isEditingDescription) {
+        <div
+          class="channel-details__container space-btw fade-slide-in channel-details__container--edit"
+        >
+          <div class="channel-details__header">
+            <span class="bold-font">Beschreibung</span>
+            <button class="accent-color font-small" (click)="saveDescription()">Speichern</button>
+          </div>
+
+          <input class="input-secondary" [(ngModel)]="editedDescription" />
+        </div>
+      }
     </div>
-    <p>{{ channel()?.description }}</p>
+
     <div class="separation-line"></div>
     <div class="channel-details__creator">
       <span class="bold-font">Erstellt von</span>
       <span class="font-large accent-color">{{ channel()?.creatorName }}</span>
     </div>
   </div>
-  <button class="btn-primary-blue leave-chat-btn bold-font font-small">Channel verlassen</button>
+
+  <button class="btn-primary-blue leave-chat-btn bold-font font-small" (click)="leaveChannel()">Channel verlassen</button>
 </section>

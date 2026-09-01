@@ -64,6 +64,19 @@ export class ChannelService {
       });
     });
   }
+  
+  fetchChannelById(channelId: string): Observable<Channel> {
+    const ref = doc(db, 'channels', channelId);
+    return new Observable((subscriber) => {
+      return onSnapshot(ref, (snapshot) => {
+        const channel = {
+          id: snapshot.id,
+          ...snapshot.data(),
+        } as Channel;
+        subscriber.next(channel);
+      });
+    });
+  }
 
   async addMember(channelId: string, user: User) {
     const ref = doc(db, 'channels', channelId);
