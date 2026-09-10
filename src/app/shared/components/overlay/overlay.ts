@@ -8,10 +8,20 @@ import { ProfileSecondary } from './profile-secondary/profile-secondary';
 import { AddMembers } from './add-members/add-members';
 import { ChannelDetails } from './channel-details/channel-details';
 import { Channel } from '../../../core/interfaces/channel.interface';
+import { HeaderAddMembersPrimary } from './header-add-members-primary/header-add-members-primary';
 
 @Component({
   selector: 'app-overlay',
-  imports: [Logout, Profile, ProfileSecondary, EditProfile, CreateChannel, AddMembers, ChannelDetails],
+  imports: [
+    Logout,
+    Profile,
+    ProfileSecondary,
+    EditProfile,
+    CreateChannel,
+    AddMembers,
+    ChannelDetails,
+    HeaderAddMembersPrimary,
+  ],
   templateUrl: './overlay.html',
   styleUrl: './overlay.scss',
   host: {
@@ -37,6 +47,7 @@ export class Overlay {
     | 'user-profile'
     | 'add-members'
     | 'channel-details'
+    | 'header-add-members-primary'
     | null
   >();
 

@@ -3,6 +3,7 @@ import { ChatStateService } from '../../../../../core/services/chat-state.servic
 import { UserService } from '../../../../../core/services/user.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Channel } from '../../../../../core/interfaces/channel.interface';
+import { log } from 'firebase/firestore/pipelines';
 
 @Component({
   selector: 'app-chat-header-group',
@@ -40,4 +41,9 @@ export class ChatHeaderGroup {
     this.openOverlay.emit('channel-details');
     this.openChannelDetails.emit(this.selectedChannel());
   }
+
+  onOpenHeaderAddMembersPrimary(){
+    this.openOverlay.emit('header-add-members-primary');
+  }
+
 }

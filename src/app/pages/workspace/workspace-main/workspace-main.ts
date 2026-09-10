@@ -40,6 +40,7 @@ export class WorkspaceMain {
     | 'user-profile'
     | 'add-members'
     | 'channel-details'
+    | 'header-add-members-primary'
     | null = null;
 
   guestUser: User = {
@@ -82,7 +83,8 @@ export class WorkspaceMain {
       view === 'edit-profile' ||
       view === 'logout' ||
       view === 'create-channel' ||
-      view === 'channel-details'
+      view === 'channel-details' ||
+      view === 'header-add-members-primary'
     ) {
       this.overlayView = view;
       this.isOverlayOpen = true;

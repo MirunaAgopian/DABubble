@@ -1,0 +1,52 @@
+@import './../../../../../styles/abstracts/mixins';
+
+.users-container__header {
+  @include flex-space-btw;
+  width: 100%;
+  color: var(--color-text-default);
+
+  svg {
+    margin-top: 3px;
+  }
+}
+
+.default {
+  color: var(--color-text-default);
+}
+
+.no-scroll {
+  overflow-y: hidden;
+}
+
+.header-users {
+  @include flex-column-space-btw;
+  align-items: flex-start;
+  width: 100%;
+  gap: 8px;
+  overflow-y: scroll;
+}
+
+.header-users__app-user {
+  width: 100%;
+  @include flex-space-btw;
+  justify-content: flex-start;
+  gap: 8px;
+  padding: 4px;
+
+  &:hover {
+    background-color: var(--color-bg-default);
+  }
+}
+
+.add-users-btn {
+  color: var(--color-text-default);
+  @include flex-space-btw;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 30px;
+
+  &:hover {
+    background-color: var(--color-bg-default);
+    color: var(--color-text-accent-light);
+  }
+}

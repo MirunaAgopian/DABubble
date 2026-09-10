@@ -22,7 +22,7 @@
     </svg>
   </button>
   <div class="right-btns-container">
-    <button class="all-users-btn" (click)="onOpenOverlay()">
+    <button class="all-users-btn" (click)="onOpenHeaderAddMembersPrimary()">
       @for (user of visibleUsers(); track user.id) {
         <img class="avatar-img-small" [src]="user.avatarUrl" alt="avatar" />
       }
@@ -34,7 +34,7 @@
         {{ channelUsers().length }}
       </span>
     </button>
-    <button class="add-user-btn" (click)="onOpenOverlay()">
+    <button class="add-user-btn" >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"

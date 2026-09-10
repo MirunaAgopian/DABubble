@@ -63,4 +63,13 @@
       ></app-channel-details>
     </div>
   }
+
+  <!-- CENTERED-RIGHT DIALOGS -->
+  @if (view() === 'header-add-members-primary') {
+    <div class="workspace-overlay__modals--center-right">
+      <app-header-add-members-primary
+        (close)="onBackgroundClick()"
+      ></app-header-add-members-primary>
+    </div>
+  }
 </section>
