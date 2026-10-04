@@ -28,10 +28,8 @@ export class AddMembers {
   confirmSelection() {
     if (this.selectedOption === 'all') {
       const all = this.entwicklerteamUsers();
-      console.log('ALL MEMBERS:', all);
       this.confirm.emit(all);
     } else {
-      console.log('SOME MEMBERS:', this.selectedUsers);
       this.confirm.emit(this.selectedUsers);
     }
   }

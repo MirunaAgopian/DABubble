@@ -16,6 +16,7 @@ export class HeaderAddMembersPrimary {
   allUsers = toSignal(this.userService.getAllUsersRealtime());
   selectedChannel = this.chatStateService.selectedChannel;
   close = output<void>();
+  openAddMembersSecondary = output<void>();
 
   channelUsers = computed(() => {
     const channel = this.selectedChannel();
@@ -27,5 +28,9 @@ export class HeaderAddMembersPrimary {
 
   onClose(){
     this.close.emit();
+  }
+  
+  onAddMembers(){
+    this.openAddMembersSecondary.emit();
   }
 }

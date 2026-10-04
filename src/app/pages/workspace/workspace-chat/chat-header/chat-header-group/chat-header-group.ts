@@ -46,4 +46,8 @@ export class ChatHeaderGroup {
     this.openOverlay.emit('header-add-members-primary');
   }
 
+  onOpenHeaderAddMembersSecondary(){
+    this.openOverlay.emit('header-add-members-secondary')
+  }
+
 }

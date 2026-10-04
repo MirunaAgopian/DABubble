@@ -9,6 +9,7 @@ import { AddMembers } from './add-members/add-members';
 import { ChannelDetails } from './channel-details/channel-details';
 import { Channel } from '../../../core/interfaces/channel.interface';
 import { HeaderAddMembersPrimary } from './header-add-members-primary/header-add-members-primary';
+import { HeaderAddMembersSecondary } from './header-add-members-secondary/header-add-members-secondary';
 
 @Component({
   selector: 'app-overlay',
@@ -21,6 +22,7 @@ import { HeaderAddMembersPrimary } from './header-add-members-primary/header-add
     AddMembers,
     ChannelDetails,
     HeaderAddMembersPrimary,
+    HeaderAddMembersSecondary,
   ],
   templateUrl: './overlay.html',
   styleUrl: './overlay.scss',
@@ -48,8 +50,10 @@ export class Overlay {
     | 'add-members'
     | 'channel-details'
     | 'header-add-members-primary'
+    | 'header-add-members-secondary'
     | null
   >();
+  changeView = output<'header-add-members-primary' | 'header-add-members-secondary'>();
 
   onLogout() {
     this.logout.emit();

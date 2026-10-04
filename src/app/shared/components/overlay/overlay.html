@@ -69,7 +69,14 @@
     <div class="workspace-overlay__modals--center-right">
       <app-header-add-members-primary
         (close)="onBackgroundClick()"
+        (openAddMembersSecondary)="changeView.emit('header-add-members-secondary')"
       ></app-header-add-members-primary>
     </div>
   }
+  <!-- also create the add membes secondary dialog! -->
+   @if(view() === 'header-add-members-secondary') {
+    <div class="workspace-overlay__modals--center-right">
+      <app-header-add-members-secondary (close)="onBackgroundClick()"></app-header-add-members-secondary>
+    </div>
+   }
 </section>

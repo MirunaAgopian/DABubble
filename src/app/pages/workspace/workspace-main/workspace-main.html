@@ -52,13 +52,14 @@
       [view]="overlayView"
       [user]="currentUser()"
       [overlayUser]="overlayUser()"
-      [overlayChannel] ="overlayChannel()"
+      [overlayChannel]="overlayChannel()"
       (logout)="handleLogout()"
       (close)="closeOverlay()"
       (switchView)="onSwitchView($event)"
       (updateUserName)="onUpdateName($event)"
       (addMembers)="handleAddMembers($event)"
       (confirmAddMembers)="onConfirmAddMembers($event)"
+      (changeView)="overlayView = $event"
     ></app-overlay>
   }
 </section>
