@@ -1,26 +1,31 @@
 <section class="chat-shell">
   <!-- HEADER -->
-  <!-- <section class="chat-shell__header">
+  @if (chatState.mode() === 'dm') {
+    <section class="chat-shell__header">
     <ng-container>
       <app-chat-header-dm (openOverlay)="onOpenOverlayUser($event)"></app-chat-header-dm>
     </ng-container>
-  </section> -->
-
-  <section class="chat-shell__header">      
-    <ng-container>
-      <app-chat-header-group
-        (openOverlay)="onOpenOverlayView($event)"
-        (openChannelDetails)="onOpenChannelDetails($event)"
-      ></app-chat-header-group>
-    </ng-container>
   </section>
+  }
 
-  <!-- <section class="chat-shell__header">
+  @if (chatState.mode() === 'channel') {
+    <section class="chat-shell__header">
+      <ng-container>
+        <app-chat-header-group
+          (openOverlay)="onOpenOverlayView($event)"
+          (openChannelDetails)="onOpenChannelDetails($event)"
+        ></app-chat-header-group>
+      </ng-container>
+    </section>
+  }
+
+  @if(chatState.mode() === 'new') {
+    <section class="chat-shell__header">
     <ng-container>
       <app-chat-header-new-message></app-chat-header-new-message>
     </ng-container>
-  </section> -->
-
+  </section>
+  }
   <!-- SHARED MESSAGES -->
   <section class="chat-shell__messages">
     <app-chat-messages></app-chat-messages>

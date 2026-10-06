@@ -1,4 +1,4 @@
-import { Component, output } from '@angular/core';
+import { Component, inject, output } from '@angular/core';
 import { ChatHeaderDm } from '../chat-header/chat-header-dm/chat-header-dm';
 import { ChatHeaderGroup } from '../chat-header/chat-header-group/chat-header-group';
 import { ChatHeaderNewMessage } from '../chat-header/chat-header-new-message/chat-header-new-message';
@@ -6,6 +6,7 @@ import { ChatMessages } from '../chat-messages/chat-messages';
 import { ChatInput } from '../chat-input/chat-input';
 import { User } from '../../../../core/interfaces/user.interface';
 import { Channel } from '../../../../core/interfaces/channel.interface';
+import { ChatStateService } from '../../../../core/services/chat-state.service';
 
 @Component({
   selector: 'app-chat-shell',
@@ -18,6 +19,7 @@ export class ChatShell {
   openOverlayUser = output<User>();
   openOverlayView = output<string>();
   openChannelDetails = output<Channel | null>();
+  chatState = inject(ChatStateService);
 
   onUserAdded(user: User) {
     this.userAdded.emit(user);
