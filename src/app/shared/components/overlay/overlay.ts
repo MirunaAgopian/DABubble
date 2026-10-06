@@ -10,6 +10,7 @@ import { ChannelDetails } from './channel-details/channel-details';
 import { Channel } from '../../../core/interfaces/channel.interface';
 import { HeaderAddMembersPrimary } from './header-add-members-primary/header-add-members-primary';
 import { HeaderAddMembersSecondary } from './header-add-members-secondary/header-add-members-secondary';
+import { log } from 'firebase/firestore/pipelines';
 
 @Component({
   selector: 'app-overlay',
@@ -53,7 +54,10 @@ export class Overlay {
     | 'header-add-members-secondary'
     | null
   >();
-  changeView = output<'header-add-members-primary' | 'header-add-members-secondary'>();
+  changeView = output<
+    'header-add-members-primary' | 'header-add-members-secondary' | 'user-profile'
+  >();
+  selectedUser = output<User>();
 
   onLogout() {
     this.logout.emit();
@@ -81,5 +85,10 @@ export class Overlay {
 
   onAddMembers(data: { name: string; description: string }) {
     this.addMembers.emit(data);
+  }
+
+  onOpenUserProfile(user: User) {
+    this.selectedUser.emit(user);
+    this.changeView.emit('user-profile');
   }
 }

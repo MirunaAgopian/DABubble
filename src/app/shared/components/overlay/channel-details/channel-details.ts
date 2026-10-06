@@ -61,9 +61,7 @@ export class ChannelDetails {
     const channel = this.channel();
     const user = this.userService.authService.getCurrentUserId();
     if (!user) return;
-
     await this.channelService.removeMember(channel!.id, { id: user } as User);
-    this.chatStateService.selectedChannel.set(null);
     this.close.emit();
   }
 }

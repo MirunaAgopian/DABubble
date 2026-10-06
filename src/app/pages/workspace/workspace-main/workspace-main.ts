@@ -154,4 +154,8 @@ export class WorkspaceMain {
     this.pendingChannelData.set(null);
     this.closeOverlay();
   }
+
+  onSelectedUser(user: User) {
+    this.overlayUser.set(user);
+  }
 }

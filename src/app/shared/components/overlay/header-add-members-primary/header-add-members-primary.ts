@@ -3,6 +3,7 @@ import { UserService } from '../../../../core/services/user.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ChatStateService } from '../../../../core/services/chat-state.service';
 import { CommonModule } from '@angular/common';
+import { User } from '../../../../core/interfaces/user.interface';
 
 @Component({
   selector: 'app-header-add-members-primary',
@@ -17,20 +18,25 @@ export class HeaderAddMembersPrimary {
   selectedChannel = this.chatStateService.selectedChannel;
   close = output<void>();
   openAddMembersSecondary = output<void>();
+  openUserProfile = output<User>();
 
   channelUsers = computed(() => {
     const channel = this.selectedChannel();
     const users = this.allUsers();
 
-    if(!channel) return;
+    if (!channel) return;
     return users?.filter((u) => channel.members.includes(u.id));
   });
 
-  onClose(){
+  onClose() {
     this.close.emit();
   }
-  
-  onAddMembers(){
+
+  onAddMembers() {
     this.openAddMembersSecondary.emit();
+  }
+
+  openUserProfileOverlay(user: User) {
+    this.openUserProfile.emit(user);
   }
 }

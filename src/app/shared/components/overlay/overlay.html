@@ -69,6 +69,7 @@
     <div class="workspace-overlay__modals--center-right">
       <app-header-add-members-primary
         (close)="onBackgroundClick()"
+        (openUserProfile)="onOpenUserProfile($event)"
         (openAddMembersSecondary)="changeView.emit('header-add-members-secondary')"
       ></app-header-add-members-primary>
     </div>
