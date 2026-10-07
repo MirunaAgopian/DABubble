@@ -6,46 +6,89 @@
 
     @if (mode() === 'dm') {
       <div class="dm-greeting">
-      <div class="avatar-name">
-        <img [src]="selectedUser()?.avatarUrl" class="avatar" />
-        <span class="accent">{{ selectedUser()?.name }}</span>
+        <div class="avatar-name">
+          <img [src]="selectedUser()?.avatarUrl" class="avatar" />
+          <span class="accent">{{ selectedUser()?.name }}</span>
+        </div>
+        <p class="faded">
+          Diese Unterhaltung findet nur zwischen dir und
+          <span class="mention">@{{ selectedUser()?.name }}</span> statt.
+        </p>
       </div>
-      <p class="faded">Diese Unterhaltung findet nur zwischen dir und <span class="mention">@{{ selectedUser()?.name }}</span> statt.</p>
-    </div>
     }
 
     @if (mode() === 'self') {
       <div class="dm-greeting">
-      <div class="avatar-name">
-        <img [src]="selectedUser()?.avatarUrl" class="avatar" />
-        <span class="accent">{{ selectedUser()?.name }}</span>
+        <div class="avatar-name">
+          <img [src]="selectedUser()?.avatarUrl" class="avatar" />
+          <span class="accent">{{ selectedUser()?.name }}</span>
+        </div>
+        <p class="faded txt-small">
+          <span class="txt-bold">Dieser Raum ist nut für dich da. </span>Mache dir Notizen, liste
+          deine To-Dos auf, bewahre Links und Dateien griffbereit auf. Du kannst hier auch gerne
+          Dinge mit dir selbst besprechen.
+        </p>
       </div>
-      <p class="faded txt-small">
-      <span class="txt-bold">Dieser Raum ist nut für dich da. </span>Mache dir Notizen, liste deine To-Dos auf,
-      bewahre Links und Dateien griffbereit auf. Du kannst hier auch gerne Dinge mit dir selbst
-      besprechen.
-    </p>
-    </div>
     }
 
-    
     @if (mode() === 'channel') {
-    <div class="dm-greeting">
-        <span class="accent-secondary"># {{selectedChannel()?.name}} </span>
-      <p class="faded">
-        @if (selectedChannel()?.createdBy === currentUserId()) {
-        Du hast diesen Channel erstellt.
-      } @else {
-        {{ selectedChannel()?.creatorName }} hat diesen Channel erstellt.
-      } Das ist der Anfang des Channels
-        <span class="mention"># {{selectedChannel()?.name}}.</span>
-      </p>
-    </div>
+      <div class="dm-greeting">
+        <span class="accent-secondary"># {{ selectedChannel()?.name }} </span>
+        <p class="faded">
+          @if (selectedChannel()?.createdBy === currentUserId()) {
+            Du hast diesen Channel erstellt.
+          } @else {
+            {{ selectedChannel()?.creatorName }} hat diesen Channel erstellt.
+          }
+          Das ist der Anfang des Channels
+          <span class="mention"># {{ selectedChannel()?.name }}.</span>
+        </p>
+      </div>
     }
   </section>
 
   <!-- TO BE DEVELOPED LATER! -->
-  <section class="messages-thread">
+  <section class="messages-history">
     <!-- later: To display here replies, message bubbles, timestamps -->
+
+    <div class="message-separator">
+      <div class="line"></div>
+      <div class="bubble"><p>Donnerstag, 8. Oktober</p></div>
+      <div class="line"></div>
+    </div>
+
+    <div class="chat-message">
+      <img class="avatar-img" src="/assets/img/avatars/avatar_elias_neumann.png" />
+      <div class="message-content external-message">
+        <div class="user-timestamp">
+          <button class="txt-bold txt-small">User Name</button>
+          <p class="txt-small faded">15:23 Uhr</p>
+        </div>
+        <p class="message-buble">this is a chat message from an user to me - left corner</p>
+        <div class="answers">
+          <button class="txt-small accent-tertiary">2 Antworten</button>
+          <p class="txt-small faded">Letzte Antwort 11:23</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-message own-message">
+      <div class="message-content own-message">
+        <div class="user-timestamp">
+          <button class="txt-bold txt-small">User Name</button>
+          <p class="txt-small faded">15:23 Uhr</p>
+        </div>
+        <p class="message-buble">and this message is from me - right corner</p>
+        <div class="answers">
+          <button class="txt-small accent-tertiary">2 Antworten</button>
+          <p class="txt-small faded">Letzte Antwort 11:23</p>
+        </div>
+      </div>
+      <img class="avatar-img" src="/assets/img/avatars/avatar_elias_neumann.png" />
+    </div>
+
   </section>
 </section>
+
+<!-- add emoticons and reactions
+ finish own-message styling -->

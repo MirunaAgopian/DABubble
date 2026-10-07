@@ -1,8 +1,10 @@
-import { Component, inject,output } from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
 import { ChatStateService } from '../../../../../core/services/chat-state.service';
 import { UserService } from '../../../../../core/services/user.service';
 import { ChannelService } from '../../../../../core/services/channel.service';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { Channel } from '../../../../../core/interfaces/channel.interface';
+import { User } from '../../../../../core/interfaces/user.interface';
 
 @Component({
   selector: 'app-chat-header-new-message',
@@ -50,5 +52,16 @@ export class ChatHeaderNewMessage {
     input.value = '';
     this.chatStateService.toggleSendTo(false);
     this.chatStateService.setMentionedEntity(null);
+  }
+
+  onClick(item: User | Channel) {
+    if (this.chatStateService.mentionSomeone() === 'user') {
+      this.chatStateService.openDM(item as User);
+    }
+
+    if (this.chatStateService.mentionSomeone() === 'channel') {
+      this.chatStateService.openChannel(item as Channel);
+    }
+    this.chatStateService.toggleSendTo(false);
   }
 }

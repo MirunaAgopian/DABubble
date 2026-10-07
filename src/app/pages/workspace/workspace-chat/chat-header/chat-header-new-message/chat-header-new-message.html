@@ -41,13 +41,13 @@
     <div class="header-container__send-to">
       @if (chatStateService.mentionSomeone() === 'user') {
         @for (user of users(); track user.id) {
-          <button class="send-to-btn">@ {{ user.name }}</button>
+          <button class="send-to-btn" (click)="onClick(user)">@ {{ user.name }}</button>
         }
       }
 
       @if (chatStateService.mentionSomeone() === 'channel') {
         @for (channel of channels(); track channel.id) {
-          <button class="send-to-btn"># {{ channel.name }}</button>
+          <button class="send-to-btn" (click)="onClick(channel)"># {{ channel.name }}</button>
         }
       }
 
