@@ -64,13 +64,14 @@
   max-height: 300px;
   padding-top: 20px;
   padding-right: 4px;
+
 }
 
 .message-separator {
   @include flex-space-btw;
   width: 100%;
   gap: 1px;
-  margin: 8px 0;
+  margin-bottom: 30px;
 }
 
 .line {
@@ -87,71 +88,3 @@
   @include flex-space-btw;
 }
 
-.chat-message {
-  display: flex;
-  gap: 8px;
-  padding: 8px 0;
-}
-
-.chat-message:hover {
-  background-color: var(--color-bg-default);
-}
-
-.chat-message:hover .message-buble {
-  background-color: white;
-}
-
-.message-content {
-  @include flex-column-space-btw;
-  // align-items: flex-start;
-  gap: 4px;
-}
-
-.own-message {
-  align-items: flex-end;
-  justify-content: flex-end;
-}
-
-.own-message img {
-  justify-self: flex-start;
-  align-self: flex-start;
-}
-
-.external-message {
-  align-items: flex-start;
-  justify-content: flex-end;
-}
-
-.avatar-img {
-  height: 50px;
-  width: 50px;
-  border-radius: 50%;
-}
-
-.user-timestamp {
-  @include flex-space-btw;
-  gap: 8px;
-}
-
-.user-timestamp button:hover {
-  color: var(--color-primary-default);
-}
-
-.message-buble {
-  background-color: var(--color-bg-default);
-  padding: 8px;
-  border-radius: 0 20px 20px 20px;
-}
-
-.answers {
-  @include flex-space-btw;
-  gap: 8px;
-}
-
-.answers button:hover {
-  font-weight: var(--font-weight-bold);
-}
-
-.answers p:hover {
-  color: var(--color-text-default);
-}
