@@ -1,4 +1,4 @@
-import { Component, inject, computed } from '@angular/core';
+import { Component, inject, computed, signal } from '@angular/core';
 import { ChatStateService } from '../../../../core/services/chat-state.service';
 import { AuthService } from '../../../../core/services/auth.service';
 
@@ -18,4 +18,5 @@ export class ChatMessages {
   selectedUser = this.chatStateService.selectedUser;
   selectedChannel = this.chatStateService.selectedChannel;
   currentUserId = computed(()=> this.authService.getCurrentUserId());
+
 }

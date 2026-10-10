@@ -119,6 +119,12 @@
   border-radius: 20px 20px 0 20px;
   @include flex-space-btw;
   gap: 8px;
+  opacity: 0;
+  transition: opacity 150ms ease-in-out;
+}
+
+.chat-message-external:hover .hover-bubble-external {
+  opacity: 1;
 }
 
 .hover-bubble-external button {
@@ -150,6 +156,12 @@
   border-radius: 20px 20px 0 20px;
   @include flex-space-btw;
   gap: 8px;
+  opacity: 0;
+  transition: opacity 150ms ease-in-out;
+}
+
+.chat-message-own:hover .hover-bubble-own {
+  opacity: 1;
 }
 
 .hover-bubble-own button {
