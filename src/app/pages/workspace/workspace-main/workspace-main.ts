@@ -44,18 +44,8 @@ export class WorkspaceMain {
     | 'header-add-members-secondary'
     | null = null;
 
-  guestUser: User = {
-    id: 'guest',
-    name: 'Gast',
-    email: 'guest@da-bubble.de',
-    avatarUrl: '/assets/img/avatars/default_user.png',
-    provider: 'password',
-    createdAt: Date.now(),
-    lastActive: Date.now(),
-    status: 'online',
-  };
   overlayUser = signal<User | null>(null);
-  currentUser = signal<User>(this.guestUser);
+  currentUser = this.chatStateService.currentUser;
   taggedUsers: User[] = [];
   pendingChannelData = signal<{ name: string; description: string } | null>(null);
   overlayChannel = this.chatState.selectedChannel;
@@ -65,9 +55,12 @@ export class WorkspaceMain {
     onAuthStateChanged(this.authService.auth, async (user) => {
       if (user) {
         const data = await this.userService.getUser(user.uid);
-        this.currentUser.set(data as User);
+        // this.currentUser.set(data as User);
+        this.chatStateService.currentUser.set(data as User);
       } else {
-        this.currentUser.set(this.guestUser);
+        const guest = await this.userService.getUser('guest');
+        // this.currentUser.set(guest as User);
+        this.chatStateService.currentUser.set(guest as User);
       }
       this.cdr.detectChanges();
     });
@@ -113,24 +106,25 @@ export class WorkspaceMain {
     this.overlayView = view;
   }
 
-  async onUpdateName(newName: string) {
-    const user = this.currentUser();
-    if (!user) return;
-    await this.userService.updateUserName(this.currentUser().id, { name: newName });
-    this.currentUser.set({ ...this.currentUser(), name: newName });
-    this.closeOverlay();
-  }
-
   toggleSidebar() {
     this.sidebarCollapsed.update((v) => !v);
   }
 
-  //prepares the tagged user to be added in the sendMessage funciton
-  // that I will defined inside the messageService
-  handleUserAdded(user: User) {
-    if (!this.taggedUsers.some((u) => u.id === user.id)) {
-      this.taggedUsers.push(user);
-    }
+  async onUpdateName(newName: string) {
+    const user = this.currentUser();
+
+    if (!user) return;
+
+    await this.userService.updateUserName(user.id, {
+      name: newName,
+    });
+
+    this.currentUser.set({
+      ...user,
+      name: newName,
+    });
+
+    this.closeOverlay();
   }
 
   handleAddMembers(data: { name: string; description: string }) {
@@ -140,13 +134,16 @@ export class WorkspaceMain {
 
   onConfirmAddMembers(selectedUsers: User[]) {
     const channelData = this.pendingChannelData();
-    if (!channelData) return;
+    const user = this.currentUser();
+
+    if (!channelData || !user) return;
 
     const memberIds = selectedUsers.map((u) => u.id);
+
     this.channelService.createChannel(
       channelData.name,
-      this.currentUser().id,
-      this.currentUser().name,
+      user.id,
+      user.name,
       memberIds,
       channelData.description,
     );

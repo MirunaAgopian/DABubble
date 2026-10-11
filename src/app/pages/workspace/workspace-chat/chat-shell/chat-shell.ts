@@ -15,15 +15,11 @@ import { ChatStateService } from '../../../../core/services/chat-state.service';
   styleUrl: './chat-shell.scss',
 })
 export class ChatShell {
-  userAdded = output<User>();
   openOverlayUser = output<User>();
   openOverlayView = output<string>();
   openChannelDetails = output<Channel | null>();
   chatState = inject(ChatStateService);
 
-  onUserAdded(user: User) {
-    this.userAdded.emit(user);
-  }
 
   onOpenOverlayUser(user: User) {
     this.openOverlayUser.emit(user);

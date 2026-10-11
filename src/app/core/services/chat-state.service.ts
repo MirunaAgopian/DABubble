@@ -11,6 +11,7 @@ export class ChatStateService {
   mode = signal<'new' | 'dm' | 'self' | 'channel'>('new');
   selectedUser = signal<User | null>(null);
   selectedChannel = signal<Channel | null>(null);
+  currentUser = signal<User | null>(null);
   showSendTo = signal(false);
   mentionSomeone = signal<'user' | 'channel' | 'email' | null>(null);
   channelService = inject(ChannelService);

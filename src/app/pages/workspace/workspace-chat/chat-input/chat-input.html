@@ -57,7 +57,7 @@
         </svg>
       </button>
     </div>
-    <button class="send-msg-btn">
+    <button class="send-msg-btn" (click)="sendMessage()">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="40"
@@ -109,7 +109,7 @@
           </div>
           <span>
             {{ user.name }}
-            @if (user.id === currentUser?.uid) {
+            @if (user.id === currentUser()?.id) {
               <span>(Du)</span>
             }
           </span>

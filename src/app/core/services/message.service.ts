@@ -22,7 +22,7 @@ export class MessageService {
     const newMessage: Message = {
       ...message,
       id: ref.id,
-      createdAt: new Date(),
+      createdAt: Date.now(),
     };
     await setDoc(ref, newMessage);
     return newMessage;

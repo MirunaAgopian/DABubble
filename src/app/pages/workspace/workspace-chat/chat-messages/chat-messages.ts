@@ -45,8 +45,6 @@ export class ChatMessages {
     this.messageSubscription = this.messageService
       .getMessages(targetType, targetId)
       .subscribe((messages) => {
-        console.log(messages);
-
         this.messages.set(messages);
       });
   }
