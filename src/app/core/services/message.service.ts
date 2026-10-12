@@ -9,6 +9,7 @@ import {
   updateDoc,
   where,
   getDoc,
+  orderBy,
 } from 'firebase/firestore';
 import { db } from '../../app.config';
 import { Observable } from 'rxjs';
@@ -38,6 +39,7 @@ export class MessageService {
       collection(db, 'messages'),
       where('targetType', '==', targetType),
       where('targetId', '==', targetId),
+      orderBy('createdAt', 'asc'),
     );
 
     return new Observable((subscriber) => {

@@ -35,7 +35,7 @@
       <div class="dm-greeting">
         <span class="accent-secondary"># {{ selectedChannel()?.name }} </span>
         <p class="faded">
-          @if (selectedChannel()?.createdBy === currentUserId()) {
+          @if (selectedChannel()?.createdBy === currentUser()?.id) {
             Du hast diesen Channel erstellt.
           } @else {
             {{ selectedChannel()?.creatorName }} hat diesen Channel erstellt.
@@ -58,7 +58,7 @@
     </div> -->
 
     @for (message of messages(); track message.id) {
-      @if (message.senderId === currentUserId()) {
+      @if (message.senderId === currentUser()?.id) {
         <section class="chat-message-own">
           <div class="message-content-own">
             <div class="user-timestamp">
@@ -388,4 +388,6 @@
 </section>
 
 <!-- add emoti next to letzte enwtoert -->
-<!-- fix the Date-Pipe error from inside the console.log at Elias Neumann -->
+<!-- I see as a guest user also the messages Miruna Test sent to Elias Neumann 
+ I need to render the messages according to the CurrentUser!! so that the external messages
+ do not become everything elias neumann has gotten in his chat!!-->

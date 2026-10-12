@@ -14,6 +14,7 @@ import { NgClass } from '@angular/common';
 import { User } from '../../../../core/interfaces/user.interface';
 import { ChatStateService } from '../../../../core/services/chat-state.service';
 import { MessageService } from '../../../../core/services/message.service';
+import { DmConversationService } from '../../../../core/services/dm-conversation.service';
 
 @Component({
   selector: 'app-chat-input',
@@ -36,6 +37,7 @@ export class ChatInput {
   authService = inject(AuthService);
   chatStateService = inject(ChatStateService);
   messageService = inject(MessageService);
+  dmConversationService = inject(DmConversationService);
 
   users = toSignal(this.userService.getAllUsersRealtime());
   placeholder = this.chatStateService.placeholder;
@@ -89,54 +91,63 @@ export class ChatInput {
     }
   }
 
-  async sendMessage() {
-    const text = this.textarea.nativeElement.value.trim();
-
-    if (!text) return;
-
-    const currentUser = this.currentUser();
-
-    if (!currentUser) return;
-
+  async getTarget() {
     const mode = this.mode();
-
-    let targetType: 'dm' | 'channel' | 'self';
-    let targetId: string;
-
     if (mode === 'channel') {
       const channel = this.selectedChannel();
-
-      if (!channel) return;
-
-      targetType = 'channel';
-      targetId = channel.id;
-    } else if (mode === 'dm') {
-      const user = this.selectedUser();
-
-      if (!user) return;
-
-      targetType = 'dm';
-      targetId = user.id;
-    } else if (mode === 'self') {
-      const user = this.selectedUser();
-
-      if (!user) return;
-
-      targetType = 'self';
-      targetId = user.id;
-    } else {
-      return;
+      if (!channel) return null;
+      return {
+        targetType: 'channel' as const,
+        targetId: channel.id,
+      };
     }
 
+    if (mode === 'dm') {
+      const user = this.selectedUser();
+      if (!user) return null;
+      const currentUser = this.currentUser();
+      if (!currentUser) return null;
+      const dm = await this.dmConversationService.getOrCreateDM(currentUser.id, user.id);
+      return {
+        targetType: 'dm' as const,
+        targetId: dm.id,
+      };
+    }
+
+    if (mode === 'self') {
+      const user = this.selectedUser();
+      if (!user) return null;
+      return {
+        targetType: 'self' as const,
+        targetId: user.id,
+      };
+    }
+
+    return null;
+  }
+
+  async sendMessage() {
+    const text = this.textarea.nativeElement.value.trim();
+    if (!text) return;
+    const currentUser = this.currentUser();
+    if (!currentUser) return;
+    const target = await this.getTarget();
+    if (!target) return;
     await this.messageService.createMessage({
       senderId: currentUser.id,
       text,
-      targetType,
-      targetId,
+      targetType: target.targetType,
+      targetId: target.targetId,
       mentionUserIds: this.mentionedUsers.map((user) => user.id),
     });
-
     this.textarea.nativeElement.value = '';
     this.mentionedUsers = [];
+  }
+
+  onEnter(event: Event) {
+    if (!(event as KeyboardEvent).shiftKey) {
+      event.preventDefault();
+      this.sendMessage();
+    }
   }
 }

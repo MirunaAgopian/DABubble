@@ -8,6 +8,7 @@ import { User } from '../../../../core/interfaces/user.interface';
 import { UserService } from '../../../../core/services/user.service';
 import { DatePipe } from '@angular/common';
 import { effect } from '@angular/core';
+import { DmConversationService } from '../../../../core/services/dm-conversation.service';
 
 @Component({
   selector: 'app-chat-messages',
@@ -19,11 +20,12 @@ export class ChatMessages {
   chatStateService = inject(ChatStateService);
   authService = inject(AuthService);
   messageService = inject(MessageService);
+  dmConversationService = inject(DmConversationService);
   userService = inject(UserService);
   mode = this.chatStateService.mode;
   selectedUser = this.chatStateService.selectedUser;
   selectedChannel = this.chatStateService.selectedChannel;
-  currentUserId = computed(() => this.authService.getCurrentUserId());
+  currentUser = this.chatStateService.currentUser;
   messages = signal<Message[]>([]);
   users = signal<User[]>([]);
   private messageSubscription?: Subscription;
@@ -53,6 +55,13 @@ export class ChatMessages {
     return this.users().find((user) => user.id === userId);
   }
 
+  async openDM(userId: string) {
+    const currentUser = this.currentUser();
+    if (!currentUser) return;
+    const dm = await this.dmConversationService.getOrCreateDM(currentUser.id, userId);
+    this.loadMessages('dm', dm.id);
+  }
+
   loadMessagesEffect = effect(() => {
     const mode = this.mode();
     if (mode === 'channel') {
@@ -73,7 +82,8 @@ export class ChatMessages {
       const user = this.selectedUser();
 
       if (user) {
-        this.loadMessages('dm', user.id);
+        // this.loadMessages('dm', user.id);
+        this.openDM(user.id)
       }
     }
   });

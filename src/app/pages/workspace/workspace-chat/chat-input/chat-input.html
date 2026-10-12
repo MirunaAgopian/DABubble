@@ -1,5 +1,10 @@
 <section class="chat-input">
-  <textarea #textarea type="text" [placeholder]="placeholder()"></textarea>
+  <textarea
+    #textarea
+    type="text"
+    [placeholder]="placeholder()"
+    (keydown.enter)="onEnter($event)"
+  ></textarea>
   <div class="chat-input__action-btns">
     <div class="emoji-tag-container">
       <button #emojiButton class="chat-btn-secondary emoji-btn" (click)="toggleEmojiPicker()">
