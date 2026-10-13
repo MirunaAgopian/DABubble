@@ -1,4 +1,4 @@
-import { Component, inject, computed, signal } from '@angular/core';
+import { Component, inject, signal, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { ChatStateService } from '../../../../core/services/chat-state.service';
 import { AuthService } from '../../../../core/services/auth.service';
 import { Message } from '../../../../core/interfaces/message.interface';
@@ -9,10 +9,11 @@ import { UserService } from '../../../../core/services/user.service';
 import { DatePipe } from '@angular/common';
 import { effect } from '@angular/core';
 import { DmConversationService } from '../../../../core/services/dm-conversation.service';
+import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 
 @Component({
   selector: 'app-chat-messages',
-  imports: [DatePipe],
+  imports: [DatePipe, PickerComponent],
   templateUrl: './chat-messages.html',
   styleUrl: './chat-messages.scss',
 })
@@ -30,6 +31,8 @@ export class ChatMessages {
   users = signal<User[]>([]);
   private messageSubscription?: Subscription;
   private userSubscription?: Subscription;
+
+  openedEmojiPickerMessageId: string | null = null;
 
   ngOnInit() {
     this.loadUsers();
@@ -82,11 +85,48 @@ export class ChatMessages {
       const user = this.selectedUser();
 
       if (user) {
-        // this.loadMessages('dm', user.id);
-        this.openDM(user.id)
+        this.openDM(user.id);
       }
     }
   });
+
+  private getDayKey(timestamp: number): string {
+    return new Date(timestamp).toDateString();
+  }
+
+  shouldShowDateSeparator(index: number): boolean {
+    const messages = this.messages();
+    if (index === 0) {
+      return true;
+    }
+    return (
+      this.getDayKey(messages[index].createdAt) !== this.getDayKey(messages[index - 1].createdAt)
+    );
+  }
+
+  formatSeparatorDate(timestamp: number): string {
+    return new Intl.DateTimeFormat('de-DE', {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+    }).format(timestamp);
+  }
+
+  toggleEmojiPicker(messageId: string) {
+    this.openedEmojiPickerMessageId =
+      this.openedEmojiPickerMessageId === messageId ? null : messageId;
+  }
+
+  @HostListener('document:click', ['$event'])
+  handleClickOutside(event: Event) {
+    const target = event.target as HTMLElement;
+    const insidePicker = target.closest('.emoji-picker-container-chat-messages');
+    const emojiButton = target.closest('.reaction-btn-open-emoji-picker');
+
+    if (!insidePicker && !emojiButton) {
+      this.openedEmojiPickerMessageId = null;
+    }
+  }
 
   ngOnDestroy() {
     this.messageSubscription?.unsubscribe();

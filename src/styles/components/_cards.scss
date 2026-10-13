@@ -96,19 +96,6 @@
   color: var(--color-primary-default);
 }
 
-.answers {
-  @include flex-space-btw;
-  gap: 8px;
-}
-
-.answers button:hover {
-  font-weight: var(--font-weight-bold);
-}
-
-.answers p:hover {
-  color: var(--color-text-default);
-}
-
 .hover-bubble-external {
   position: absolute;
   top: -30px;
@@ -182,4 +169,70 @@
 .hover-bubble-own button svg:hover {
   color: var(--color-primary-default);
 }
+// Styling of the answers-reaction container
+.answers-reactions-container {
+  @include flex-space-btw;
+  gap: 16px;
+}
 
+.answers {
+  @include flex-space-btw;
+  gap: 8px;
+}
+
+.answers button:hover {
+  font-weight: var(--font-weight-bold);
+}
+
+.answers p:hover {
+  color: var(--color-text-default);
+}
+
+.reactions {
+  @include flex-space-btw;
+  gap: 8px;
+}
+
+.added-reaction {
+  border: 1px solid var(--color-border-light);
+  border-radius: 15px;
+  height: 26px;
+  width: 40px;
+}
+
+.added-reaction svg {
+  margin-top: 3px;
+  height: 18px;
+}
+
+.reactions .reaction-btn-open-emoji-picker:hover {
+  color: var(--color-primary-default);
+}
+
+.reactions .reaction-btn-open-emoji-picker {
+  margin-top: 3px;
+}
+
+.emoji-picker-container-chat-messages {
+  height: 200px;
+  width: 250px;
+  background-color: white;
+  border: 2px solid var(--color-border-light);
+  border-radius: 15px;
+  padding: 8px;
+  position: absolute;
+  left: 55%;
+  top: -160px;
+  transform: translateX(-50%);
+  overflow-y: scroll;
+   overflow-x: hidden;
+}
+
+.emoji-picker-container-chat-messages .emoji-mart {
+  height: 300px;
+  width: 250px;
+}
+
+.emoji-picker-container-chat-messages .emoji-mart-category {
+    width: 250px;
+}
