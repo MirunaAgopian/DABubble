@@ -10,6 +10,8 @@ import { DatePipe } from '@angular/common';
 import { effect } from '@angular/core';
 import { DmConversationService } from '../../../../core/services/dm-conversation.service';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
+import { lessThanOrEqual } from 'firebase/firestore/pipelines';
+import { Reaction } from '../../../../core/interfaces/reaction.interface';
 
 @Component({
   selector: 'app-chat-messages',
@@ -36,6 +38,11 @@ export class ChatMessages {
 
   ngOnInit() {
     this.loadUsers();
+  }
+
+  ngOnDestroy() {
+    this.messageSubscription?.unsubscribe();
+    this.userSubscription?.unsubscribe();
   }
 
   loadUsers() {
@@ -128,8 +135,24 @@ export class ChatMessages {
     }
   }
 
-  ngOnDestroy() {
-    this.messageSubscription?.unsubscribe();
-    this.userSubscription?.unsubscribe();
+  async toggleReaction(message: Message, emoji: string) {
+    const currentUser = this.currentUser();
+    if (!currentUser) return;
+    const existingReaction = message.reactions?.find((reaction) => reaction.emoji == emoji);
+    const hasReacted = existingReaction?.userIds.includes(currentUser.id);
+
+    if (hasReacted) {
+      await this.messageService.removeReaction(message.id, emoji, currentUser.id);
+    } else {
+      await this.messageService.addReaction(message.id, emoji, currentUser.id);
+    }
+  }
+
+  getFirstReactionUserName(reaction: Reaction): string {
+    return this.getUserById(reaction.userIds[0])?.name ?? '';
+  }
+
+  getAdditionalReactionCount(reaction: Reaction): number {
+    return Math.max(reaction.userIds.length - 1, 0);
   }
 }

@@ -70,7 +70,7 @@
 }
 
 .message-buble-own {
-  background-color: var(--color-primary-default);
+  background-color: var(--color-primary-hover);
   padding: 8px;
   border-radius: 20px 0 20px 20px;
   color: white;
@@ -198,6 +198,7 @@
   border-radius: 15px;
   height: 26px;
   width: 40px;
+  position: relative;
 }
 
 .added-reaction svg {
@@ -225,7 +226,8 @@
   top: -160px;
   transform: translateX(-50%);
   overflow-y: scroll;
-   overflow-x: hidden;
+  overflow-x: hidden;
+  z-index: 9999;
 }
 
 .emoji-picker-container-chat-messages .emoji-mart {
@@ -234,5 +236,33 @@
 }
 
 .emoji-picker-container-chat-messages .emoji-mart-category {
-    width: 250px;
+  width: 250px;
+}
+
+.reaction-tooltip {
+  background-color: var(--color-primary-default);
+  height: 90px;
+  width: 150px;
+  padding: 8px;
+  color: white;
+  @include flex-column-space-btw;
+  border-radius: 20px 20px 0 20px;
+  position: absolute;
+  top: -90px;
+  right: 30px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 150ms ease-in-out;
+}
+
+.reaction-tooltip span {
+  font-size: var(--font-size-text-small);
+}
+
+.reaction-tooltip .username {
+  font-weight: bold;
+}
+
+.added-reaction:hover .reaction-tooltip {
+  opacity: 1;
 }
