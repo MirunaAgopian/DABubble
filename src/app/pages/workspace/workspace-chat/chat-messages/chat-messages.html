@@ -65,7 +65,18 @@
               <p class="txt-small faded">{{ message.createdAt | date: 'HH:mm' }}</p>
               <button class="txt-bold txt-small">{{ getUserById(message.senderId)?.name }}</button>
             </div>
-            <p class="message-buble-own">{{ message.text }}</p>
+            @if (editingMessageId === message.id) {
+              <div class="editing-container">
+                <textarea [(ngModel)]="editedText" name="edit-message" id="edit_message"></textarea>
+                <div class="action-btns">
+                  <button class="btn-secondary-blue" (click)="cancelEditing()">Abbrechen</button>
+                  <button class="btn-primary-blue" (click)="saveEditedMessage(message)">Speichern</button>
+                </div>
+              </div>
+            } @else {
+              <p class="message-buble-own">{{ message.text }}</p>
+            }
+
             <div class="answers-reactions-container">
               <!-- THREAD ANSWERS -->
               <div class="answers">
@@ -260,7 +271,7 @@
                 </g>
               </svg>
             </button>
-            <button class="reaction-btn-edit-message">
+            <button class="reaction-btn-edit-message" (click)="openEditingMode(message)">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -288,8 +299,6 @@
               </svg>
             </button>
           </div>
-          <!-- to be developed -->
-          <!-- <div class="hover-bubble-reactions"></div> -->
 
           <!-- EMOJI Picker -->
           @if (openedEmojiPickerMessageId === message.id) {
@@ -501,9 +510,6 @@
               </svg>
             </button>
           </div>
-          <!-- to be developed -->
-          <!-- <div class="hover-bubble-reactions"></div> -->
-
           <!-- EMOJI Picker -->
           @if (openedEmojiPickerMessageId === message.id) {
             <div class="emoji-picker-container-chat-messages">

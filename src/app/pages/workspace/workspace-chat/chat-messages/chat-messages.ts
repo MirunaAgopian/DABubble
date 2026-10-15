@@ -1,4 +1,12 @@
-import { Component, inject, signal, HostListener, ViewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  inject,
+  signal,
+  HostListener,
+  ViewChild,
+  ElementRef,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { ChatStateService } from '../../../../core/services/chat-state.service';
 import { AuthService } from '../../../../core/services/auth.service';
 import { Message } from '../../../../core/interfaces/message.interface';
@@ -12,10 +20,11 @@ import { DmConversationService } from '../../../../core/services/dm-conversation
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 import { lessThanOrEqual } from 'firebase/firestore/pipelines';
 import { Reaction } from '../../../../core/interfaces/reaction.interface';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-chat-messages',
-  imports: [DatePipe, PickerComponent],
+  imports: [DatePipe, PickerComponent, FormsModule],
   templateUrl: './chat-messages.html',
   styleUrl: './chat-messages.scss',
 })
@@ -33,8 +42,11 @@ export class ChatMessages {
   users = signal<User[]>([]);
   private messageSubscription?: Subscription;
   private userSubscription?: Subscription;
+  private cdr = inject(ChangeDetectorRef);
 
   openedEmojiPickerMessageId: string | null = null;
+  editingMessageId: string | null = null;
+  editedText = '';
 
   ngOnInit() {
     this.loadUsers();
@@ -154,5 +166,21 @@ export class ChatMessages {
 
   getAdditionalReactionCount(reaction: Reaction): number {
     return Math.max(reaction.userIds.length - 1, 0);
+  }
+
+  openEditingMode(message: Message) {
+    this.editingMessageId = message.id;
+    this.editedText = message.text;
+  }
+
+  cancelEditing() {
+    this.editingMessageId = null;
+    this.editedText = '';
+  }
+
+  async saveEditedMessage(message: Message) {
+    await this.messageService.updateMessage(message.id, this.editedText);
+    this.editingMessageId = null;
+    this.cdr.detectChanges();
   }
 }

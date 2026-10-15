@@ -30,7 +30,7 @@ export class MessageService {
   }
 
   async updateMessage(messageId: string, text: string) {
-    const ref = doc(collection(db, 'messages', messageId));
+    const ref = doc(db, 'messages', messageId);
     await updateDoc(ref, { text });
   }
 
