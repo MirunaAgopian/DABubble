@@ -68,9 +68,9 @@
             @if (editingMessageId === message.id) {
               <div class="editing-container">
                 <textarea [(ngModel)]="editedText" name="edit-message" id="edit_message"></textarea>
-                <div class="action-btns">
-                  <button class="btn-secondary-blue" (click)="cancelEditing()">Abbrechen</button>
-                  <button class="btn-primary-blue" (click)="saveEditedMessage(message)">Speichern</button>
+                <div class="action-btns-container">
+                  <button class="btn-secondary-blue action-btns" (click)="cancelEditing()">Abbrechen</button>
+                  <button class="btn-primary-blue action-btns" (click)="saveEditedMessage(message)">Speichern</button>
                 </div>
               </div>
             } @else {
@@ -97,7 +97,7 @@
                         <span class="added-emoji">{{ reaction.emoji }}</span>
                         <span class="username">{{ getFirstReactionUserName(reaction) }}</span>
                         @if (reaction.userIds.length > 1) {
-                          <span class="username">{{ reaction.userIds.length - 1 }}</span>
+                          <span class="username">+{{ reaction.userIds.length - 1 }}</span>
                         }
                         <span>hat reagiert</span>
                       </div>
@@ -337,7 +337,7 @@
                         <span class="added-emoji">{{ reaction.emoji }}</span>
                         <span class="username">{{ getFirstReactionUserName(reaction) }}</span>
                         @if (reaction.userIds.length > 1) {
-                          <span class="username">{{ reaction.userIds.length - 1 }}</span>
+                          <span class="username">+{{ reaction.userIds.length - 1 }}</span>
                         }
                         <span>hat reagiert</span>
                       </div>
@@ -522,4 +522,3 @@
   </section>
 </section>
 
-<!-- I also need to add the posibility to edit a message -->

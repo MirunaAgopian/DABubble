@@ -37,17 +37,11 @@ export class InAppPresenceService {
     if (this.currentStatus === status) {
       return;
     }
-
     this.currentStatus = status;
-
     const user = this.authService.auth.currentUser;
-
     if (!user) {
       return;
     }
-
-    console.log('Updating status:', status);
-
     this.userService.updateStatus(user.uid, status);
   }
 }

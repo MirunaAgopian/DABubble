@@ -31,6 +31,7 @@ export class WorkspaceMain {
   cdr = inject(ChangeDetectorRef);
   isOverlayOpen = false;
   sidebarCollapsed = signal(false);
+  threadCollapsed = signal(false);
 
   overlayView:
     | 'profile'
@@ -55,11 +56,9 @@ export class WorkspaceMain {
     onAuthStateChanged(this.authService.auth, async (user) => {
       if (user) {
         const data = await this.userService.getUser(user.uid);
-        // this.currentUser.set(data as User);
         this.chatStateService.currentUser.set(data as User);
       } else {
         const guest = await this.userService.getUser('guest');
-        // this.currentUser.set(guest as User);
         this.chatStateService.currentUser.set(guest as User);
       }
       this.cdr.detectChanges();
@@ -108,6 +107,10 @@ export class WorkspaceMain {
 
   toggleSidebar() {
     this.sidebarCollapsed.update((v) => !v);
+  }
+
+  toggleThread() {
+    this.threadCollapsed.update((v) => !v);
   }
 
   async onUpdateName(newName: string) {

@@ -7,6 +7,7 @@
     <section
       class="workspace-chat-area"
       [class.workspace-chat-area--collapsed]="sidebarCollapsed()"
+      [class.workspace-chat-area--thread-collapsed]="threadCollapsed()"
     >
       <!-- TOGGLE SIDEBAR BUTTON -->
       <button
@@ -40,7 +41,7 @@
         (openOverlayView)="openOverlay($event)"
         (openChannelDetails)="openChannelDetails($event)"
       ></app-chat-shell>
-      <app-workspace-thread></app-workspace-thread>
+      <app-workspace-thread (closeThread)="toggleThread()"></app-workspace-thread>
     </section>
   </main>
   <!-- WORKSPACE OVERLAY -->

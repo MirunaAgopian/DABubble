@@ -5,5 +5,51 @@
   background-color: var(--color-secondary-default);
   border-radius: 30px;
   height: 100%;
-   padding: 20px 16px;
+  padding: 20px 16px;
+}
+
+.thread-header {
+  @include flex-space-btw;
+  width: 100%;
+  position: relative;
+  height: 48px;
+}
+
+.thread-header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px; 
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.10),
+    rgba(0, 0, 0, 0)
+  );
+}
+
+.thread-header__info {
+  @include flex-space-btw;
+  gap: 8px;
+
+  h3 {
+    color: var(--color-text-default);
+  }
+
+  span {
+    color: var(--color-text-accent);
+  }
+}
+
+.thread-header span {
+  justify-self: flex-start;
+}
+
+.thread-header svg {
+  margin-top: 3px;
+}
+
+.thread-composer {
+  width: 100%;
 }

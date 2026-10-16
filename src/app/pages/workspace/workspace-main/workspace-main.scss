@@ -19,6 +19,14 @@
   display: none;
 }
 
+.workspace-chat-area--thread-collapsed {
+  grid-template-columns: 366px 1fr;
+}
+
+.workspace-chat-area--thread-collapsed app-workspace-thread {
+  display: none;
+}
+
 .sidebar-toggle {
   &__button {
     position: absolute;
