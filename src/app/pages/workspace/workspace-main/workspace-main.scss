@@ -27,6 +27,10 @@
   display: none;
 }
 
+.workspace-chat-area--collapsed.workspace-chat-area--thread-collapsed {
+  grid-template-columns: 1fr;
+}
+
 .sidebar-toggle {
   &__button {
     position: absolute;

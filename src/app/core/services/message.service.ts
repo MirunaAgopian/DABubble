@@ -90,7 +90,10 @@ export class MessageService {
   }
 
   //for later
-  getThreadMessages() {}
-  replyToThread() {}
-  getThreadCount() {}
+  getThreadsByMessageId(){}
+  addThread(){}
+  updateThread(){}
+  getThreadStats(){
+    //nr of replies + timestamp
+  }
 }

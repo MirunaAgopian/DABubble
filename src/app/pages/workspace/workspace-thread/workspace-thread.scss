@@ -1,5 +1,13 @@
 @import '../../../../styles/abstracts/mixins';
 
+.txt-small {
+  font-size: var(--font-size-text-small);
+}
+
+.txt-bold {
+  font-weight: var(--font-weight-bold);
+}
+
 .thread-content {
   @include flex-column-space-btw;
   background-color: var(--color-secondary-default);
@@ -16,17 +24,13 @@
 }
 
 .thread-header::after {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
-  height: 3px; 
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.10),
-    rgba(0, 0, 0, 0)
-  );
+  height: 3px;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0));
 }
 
 .thread-header__info {
@@ -52,4 +56,12 @@
 
 .thread-composer {
   width: 100%;
+}
+
+.thread-messages {
+  width: 100%;
+  height: 100%;
+  max-height: 300px;
+  padding-top: 20px;
+  padding-right: 4px;
 }

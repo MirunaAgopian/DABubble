@@ -43,10 +43,10 @@ export class ChatMessages {
   private messageSubscription?: Subscription;
   private userSubscription?: Subscription;
   private cdr = inject(ChangeDetectorRef);
-
   openedEmojiPickerMessageId: string | null = null;
   editingMessageId: string | null = null;
   editedText = '';
+  selectedMessage: Message | null = null;
 
   ngOnInit() {
     this.loadUsers();
@@ -183,4 +183,8 @@ export class ChatMessages {
     this.editingMessageId = null;
     this.cdr.detectChanges();
   }
+
+   openThread(message: Message){
+    this.selectedMessage = message;
+   }
 }
