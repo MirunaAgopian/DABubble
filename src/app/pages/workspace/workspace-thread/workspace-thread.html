@@ -2,7 +2,12 @@
   <section class="thread-header">
     <div class="thread-header__info">
       <h3>Thread</h3>
-      <span>#Entwicklerteam</span>
+      @if (chatStateService.mode() === 'channel') {
+        <span>#{{ chatStateService.selectedChannel()?.name }}</span>
+      }
+      @if (chatStateService.mode() === 'dm' || chatStateService.mode() === 'self') {
+        <span>@{{ chatStateService.selectedUser()?.name }}</span>
+      }
     </div>
     <button class="chat-btn-secondary" (click)="onCloseClick()">
       <svg
@@ -55,7 +60,7 @@
             <button class="added-reaction">
               <span></span>
               <div class="reaction-tooltip-secondary">
-                <span class="added-emoji txt-small">bla</span>
+                <span class="added-emoji">Emoji</span>
                 <span class="username txt-small">Miruna agopian</span>
                 <span class="username txt-small">+2</span>
                 <span class="txt-small">hat reagiert</span>

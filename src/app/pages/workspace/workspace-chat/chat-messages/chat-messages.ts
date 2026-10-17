@@ -46,7 +46,7 @@ export class ChatMessages {
   openedEmojiPickerMessageId: string | null = null;
   editingMessageId: string | null = null;
   editedText = '';
-  selectedMessage: Message | null = null;
+  // selectedMessage: Message | null = null;
 
   ngOnInit() {
     this.loadUsers();
@@ -184,7 +184,11 @@ export class ChatMessages {
     this.cdr.detectChanges();
   }
 
-   openThread(message: Message){
-    this.selectedMessage = message;
-   }
+  // openThread(message: Message) {
+  //   this.selectedMessage = message;
+  // }
+
+  openThread(message: Message) {
+    this.chatStateService.selectedThreadMessage.set(message);
+  }
 }

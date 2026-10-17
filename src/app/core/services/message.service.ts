@@ -13,6 +13,7 @@ import {
 } from 'firebase/firestore';
 import { db } from '../../app.config';
 import { Observable } from 'rxjs';
+import { Thread } from '../interfaces/thread.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -89,11 +90,42 @@ export class MessageService {
     await updateDoc(ref, { reactions });
   }
 
-  //for later
-  getThreadsByMessageId(){}
-  addThread(){}
-  updateThread(){}
-  getThreadStats(){
+  // Thread methods
+  getThreadsByMessageId(messageId: string): Observable<Thread[]> {
+    const messageQuery = query(
+      collection(db, 'threads'),
+      where('parentMessageId', '==', messageId),
+      orderBy('createdAt', 'asc'),
+    );
+
+    return new Observable((subscriber) => {
+      return onSnapshot(messageQuery, (snapshot) => {
+        const threads = snapshot.docs.map((doc) => ({ ...doc.data() })) as Thread[];
+        subscriber.next(threads);
+      });
+    });
+  }
+
+  async addThread(thread: Omit<Thread, 'id' | 'createdAt'>) {
+    const ref = doc(collection(db, 'threads'));
+    const newThread: Thread = {
+      ...thread,
+      id: ref.id,
+      createdAt: Date.now(),
+    };
+    await setDoc(ref, newThread);
+    return newThread;
+  }
+
+  async updateThread(threadId: string, text: string) {
+    const ref = doc(db, 'threads', threadId);
+    await updateDoc(ref, { text });
+  }
+
+  async addThreadReaction(){}
+  async removeThreadReaction(){}
+
+  getThreadStats() {
     //nr of replies + timestamp
   }
 }

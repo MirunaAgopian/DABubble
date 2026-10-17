@@ -3,6 +3,7 @@ import { User } from '../interfaces/user.interface';
 import { Channel } from '../interfaces/channel.interface';
 import { ChannelService } from './channel.service';
 import { Subscription } from 'rxjs';
+import { Message } from '../interfaces/message.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +13,7 @@ export class ChatStateService {
   selectedUser = signal<User | null>(null);
   selectedChannel = signal<Channel | null>(null);
   currentUser = signal<User | null>(null);
+  selectedThreadMessage = signal<Message | null>(null);
   showSendTo = signal(false);
   mentionSomeone = signal<'user' | 'channel' | 'email' | null>(null);
   channelService = inject(ChannelService);
