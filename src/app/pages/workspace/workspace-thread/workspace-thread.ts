@@ -7,6 +7,7 @@ import { DatePipe } from '@angular/common';
 import { User } from '../../../core/interfaces/user.interface';
 import { UserService } from '../../../core/services/user.service';
 import { Subscription } from 'rxjs';
+import { Reaction } from '../../../core/interfaces/reaction.interface';
 
 @Component({
   selector: 'app-workspace-thread',
@@ -54,8 +55,23 @@ export class WorkspaceThread {
     return this.users().find((user) => user.id === userId);
   }
 
+   getFirstReactionUserName(reaction: Reaction): string {
+    return this.getUserById(reaction.userIds[0])?.name ?? '';
+  }
+
   onCloseClick() {
     this.closeThread.emit();
     this.chatStateService.selectedThreadMessage.set(null);
   }
 }
+
+// implement getAdditionalReactionCount(reaction: Reaction): number {
+  //   return Math.max(reaction.userIds.length - 1, 0);
+  // } on workspace-thrad
+
+  // also add the emoji-picker on the workspace-thread
+
+  //also implement the edit-view on thread!
+
+  //then implement send reply inside thread
+  //then implement 'nr of answers' inside chat-messages.html
