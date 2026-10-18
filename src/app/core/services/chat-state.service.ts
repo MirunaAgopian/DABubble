@@ -23,12 +23,14 @@ export class ChatStateService {
     this.mode.set('dm');
     this.selectedUser.set(user);
     this.selectedChannel.set(null);
+    this.selectedThreadMessage.set(null);
   }
 
   openSelf(user: User) {
     this.mode.set('self');
     this.selectedUser.set(user);
     this.selectedChannel.set(null);
+    this.selectedThreadMessage.set(null);
   }
 
   openChannel(channel: Channel) {
@@ -40,12 +42,14 @@ export class ChatStateService {
       .subscribe((updatedChannel) => {
         this.selectedChannel.set(updatedChannel);
       });
+      this.selectedThreadMessage.set(null);
   }
 
   startNewMessage() {
     this.mode.set('new');
     this.selectedUser.set(null);
     this.selectedChannel.set(null);
+    this.selectedThreadMessage.set(null);
   }
 
   placeholder = computed(() => {

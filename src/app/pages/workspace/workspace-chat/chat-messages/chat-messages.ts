@@ -18,7 +18,6 @@ import { DatePipe } from '@angular/common';
 import { effect } from '@angular/core';
 import { DmConversationService } from '../../../../core/services/dm-conversation.service';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
-import { lessThanOrEqual } from 'firebase/firestore/pipelines';
 import { Reaction } from '../../../../core/interfaces/reaction.interface';
 import { FormsModule } from '@angular/forms';
 
@@ -46,7 +45,6 @@ export class ChatMessages {
   openedEmojiPickerMessageId: string | null = null;
   editingMessageId: string | null = null;
   editedText = '';
-  // selectedMessage: Message | null = null;
 
   ngOnInit() {
     this.loadUsers();
@@ -183,10 +181,6 @@ export class ChatMessages {
     this.editingMessageId = null;
     this.cdr.detectChanges();
   }
-
-  // openThread(message: Message) {
-  //   this.selectedMessage = message;
-  // }
 
   openThread(message: Message) {
     this.chatStateService.selectedThreadMessage.set(message);
