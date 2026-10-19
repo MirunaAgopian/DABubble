@@ -5,6 +5,8 @@ import {
   ViewEncapsulation,
   HostListener,
   inject,
+  input,
+  computed,
 } from '@angular/core';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 import { UserService } from '../../../../core/services/user.service';
@@ -32,6 +34,7 @@ export class ChatInput {
 
   emojiPickerOpen = false;
   userPickerOpen = false;
+  isUsedInThread = input(false);
 
   userService = inject(UserService);
   authService = inject(AuthService);
@@ -40,12 +43,19 @@ export class ChatInput {
   dmConversationService = inject(DmConversationService);
 
   users = toSignal(this.userService.getAllUsersRealtime());
-  placeholder = this.chatStateService.placeholder;
   mentionedUsers: User[] = [];
   selectedUser = this.chatStateService.selectedUser;
   selectedChannel = this.chatStateService.selectedChannel;
   mode = this.chatStateService.mode;
   currentUser = this.chatStateService.currentUser;
+
+  placeholder = computed(() => {
+    if (this.isUsedInThread()) {
+      return 'Antwort hinzufügen...';
+    }
+
+    return this.chatStateService.placeholder();
+  });
 
   addEmoji(event: any) {
     this.textarea.nativeElement.value += event.emoji.native;
@@ -127,6 +137,13 @@ export class ChatInput {
   }
 
   async sendMessage() {
+    if (this.isUsedInThread()) {
+      return this.sendThreadMessage();
+    }
+    return this.sendChatMessage();
+  }
+
+  async sendChatMessage() {
     const text = this.textarea.nativeElement.value.trim();
     if (!text) return;
     const currentUser = this.currentUser();
@@ -139,6 +156,25 @@ export class ChatInput {
       targetType: target.targetType,
       targetId: target.targetId,
       mentionUserIds: this.mentionedUsers.map((user) => user.id),
+    });
+    this.textarea.nativeElement.value = '';
+    this.mentionedUsers = [];
+  }
+
+  async sendThreadMessage() {
+    const text = this.textarea.nativeElement.value.trim();
+    if (!text) return;
+    const currentUser = this.currentUser();
+    if (!currentUser) return;
+    const selectedMessage = this.chatStateService.selectedThreadMessage();
+    if (!selectedMessage) return;
+    await this.messageService.createThread({
+      parentMessageId: selectedMessage.id,
+      text,
+      userId: currentUser.id,
+      userName: currentUser.name,
+      userAvatar: currentUser.avatarUrl,
+      reactions: [],
     });
     this.textarea.nativeElement.value = '';
     this.mentionedUsers = [];

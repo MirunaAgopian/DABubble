@@ -1,17 +1,18 @@
-import { Component, inject, output, input, effect, signal } from '@angular/core';
+import { Component, inject, output, input, effect, signal, ChangeDetectorRef } from '@angular/core';
 import { ChatInput } from '../workspace-chat/chat-input/chat-input';
 import { ChatStateService } from '../../../core/services/chat-state.service';
 import { Thread } from '../../../core/interfaces/thread.interface';
 import { MessageService } from '../../../core/services/message.service';
-import { DatePipe } from '@angular/common';
+import { DatePipe, NgClass } from '@angular/common';
 import { User } from '../../../core/interfaces/user.interface';
 import { UserService } from '../../../core/services/user.service';
 import { Subscription } from 'rxjs';
 import { Reaction } from '../../../core/interfaces/reaction.interface';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-workspace-thread',
-  imports: [ChatInput, DatePipe],
+  imports: [ChatInput, DatePipe, FormsModule, NgClass],
   templateUrl: './workspace-thread.html',
   styleUrl: './workspace-thread.scss',
 })
@@ -22,17 +23,32 @@ export class WorkspaceThread {
   closeThread = output<void>();
   threads: Thread[] = [];
   users = signal<User[]>([]);
+  currentUser = this.chatStateService.currentUser;
   selectedMessage = this.chatStateService.selectedThreadMessage;
   private userSubscription?: Subscription;
+  private threadSubscription?: Subscription;
+  editingMessageId: string | null = null;
+  editedText = '';
+  editingSelectedMessage = false;
+  private cdr = inject(ChangeDetectorRef);
 
-  ngOnInit(){
+  ngOnInit() {
     this.loadUsers();
   }
 
+  ngOnDestroy() {
+    this.threadSubscription?.unsubscribe();
+    this.userSubscription?.unsubscribe();
+  }
+
   loadThreads(messageId: string) {
-    this.messageService.getThreadsByMessageId(messageId).subscribe((threads) => {
-      this.threads = threads;
-    });
+    this.threadSubscription?.unsubscribe();
+    this.threadSubscription = this.messageService
+      .getThreadsByMessageId(messageId)
+      .subscribe((threads) => {
+        console.log('THREADS UPDATE', threads);
+        this.threads = threads;
+      });
   }
 
   loadUsers() {
@@ -55,7 +71,7 @@ export class WorkspaceThread {
     return this.users().find((user) => user.id === userId);
   }
 
-   getFirstReactionUserName(reaction: Reaction): string {
+  getFirstReactionUserName(reaction: Reaction): string {
     return this.getUserById(reaction.userIds[0])?.name ?? '';
   }
 
@@ -63,15 +79,54 @@ export class WorkspaceThread {
     this.closeThread.emit();
     this.chatStateService.selectedThreadMessage.set(null);
   }
+
+  openEditingModeThread(thread: Thread) {
+    this.editingMessageId = thread.id;
+    this.editedText = thread.text;
+  }
+
+  openEditingModeSelectedMessage() {
+    this.editingSelectedMessage = true;
+    this.editedText = this.selectedMessage()?.text ?? '';
+  }
+
+  cancelThreadEditing() {
+    this.editingMessageId = null;
+    this.editedText = '';
+  }
+
+  cancelSelectedMessageEditing() {
+    this.editingSelectedMessage = false;
+    this.editedText = '';
+  }
+
+  async saveEditedThreadMessage(thread: Thread) {
+    await this.messageService.updateThread(thread.id, this.editedText);
+    this.editingMessageId = null;
+    this.cdr.detectChanges();
+  }
+
+  async saveEditedSelectedMessage() {
+    const message = this.selectedMessage();
+    if (!message) return;
+    await this.messageService.updateMessage(message.id, this.editedText);
+    this.chatStateService.selectedThreadMessage.set({
+      ...message,
+      text: this.editedText,
+    });
+    this.editingSelectedMessage = false;
+    this.editedText = '';
+    this.cdr.detectChanges();
+  }
 }
 
 // implement getAdditionalReactionCount(reaction: Reaction): number {
-  //   return Math.max(reaction.userIds.length - 1, 0);
-  // } on workspace-thrad
+//   return Math.max(reaction.userIds.length - 1, 0);
+// } on workspace-thrad
 
-  // also add the emoji-picker on the workspace-thread
+// also add the emoji-picker on the workspace-thread
 
-  //also implement the edit-view on thread!
+//also TEST implement the edit-view on thread!
 
-  //then implement send reply inside thread
-  //then implement 'nr of answers' inside chat-messages.html
+//then implement send reply inside thread
+//then implement 'nr of answers' inside chat-messages.html

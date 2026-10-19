@@ -1,12 +1,4 @@
-import {
-  Component,
-  inject,
-  signal,
-  HostListener,
-  ViewChild,
-  ElementRef,
-  ChangeDetectorRef,
-} from '@angular/core';
+import { Component, inject, signal, HostListener, ChangeDetectorRef } from '@angular/core';
 import { ChatStateService } from '../../../../core/services/chat-state.service';
 import { AuthService } from '../../../../core/services/auth.service';
 import { Message } from '../../../../core/interfaces/message.interface';
@@ -178,6 +170,13 @@ export class ChatMessages {
 
   async saveEditedMessage(message: Message) {
     await this.messageService.updateMessage(message.id, this.editedText);
+    const selected = this.chatStateService.selectedThreadMessage();
+    if (selected?.id === message.id) {
+      this.chatStateService.selectedThreadMessage.set({
+        ...selected,
+        text: this.editedText,
+      });
+    }
     this.editingMessageId = null;
     this.cdr.detectChanges();
   }

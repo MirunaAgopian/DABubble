@@ -106,7 +106,7 @@ export class MessageService {
     });
   }
 
-  async addThread(thread: Omit<Thread, 'id' | 'createdAt'>) {
+  async createThread(thread: Omit<Thread, 'id' | 'createdAt'>) {
     const ref = doc(collection(db, 'threads'));
     const newThread: Thread = {
       ...thread,
