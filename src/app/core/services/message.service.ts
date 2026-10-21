@@ -122,10 +122,23 @@ export class MessageService {
     await updateDoc(ref, { text });
   }
 
-  async addThreadReaction(){}
-  async removeThreadReaction(){}
+  async addThreadReaction() {}
+  async removeThreadReaction() {}
 
-  getThreadStats() {
-    //nr of replies + timestamp
+  getThreadStats(messageId: string) {
+    const threadQuery = query(
+      collection(db, 'threads'),
+      where('parentMessageId', '==', messageId),
+      orderBy('createdAt', 'asc'),
+    );
+    return new Observable((subscriber) => {
+      return onSnapshot(threadQuery, (snapshot) => {
+        const threads = snapshot.docs.map((doc) => doc.data() as Thread);
+        subscriber.next({
+          replyCount: threads.length,
+          lastReplyTimestamp: threads.length > 0 ? threads[threads.length - 1].createdAt : null,
+        });
+      });
+    });
   }
 }

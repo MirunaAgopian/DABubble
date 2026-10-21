@@ -69,8 +69,12 @@
               <div class="editing-container">
                 <textarea [(ngModel)]="editedText" name="edit-message" id="edit_message"></textarea>
                 <div class="action-btns-container">
-                  <button class="btn-secondary-blue action-btns" (click)="cancelEditing()">Abbrechen</button>
-                  <button class="btn-primary-blue action-btns" (click)="saveEditedMessage(message)">Speichern</button>
+                  <button class="btn-secondary-blue action-btns" (click)="cancelEditing()">
+                    Abbrechen
+                  </button>
+                  <button class="btn-primary-blue action-btns" (click)="saveEditedMessage(message)">
+                    Speichern
+                  </button>
                 </div>
               </div>
             } @else {
@@ -79,11 +83,19 @@
 
             <div class="answers-reactions-container">
               <!-- THREAD ANSWERS -->
-              <div class="answers">
-                <!-- to be rendered dynamically!! -->
-                <button class="txt-small accent-tertiary">2 Antworten</button>
-                <p class="txt-small faded">Letzte Antwort 11:23</p>
-              </div>
+              @if ((threadStats[message.id]?.replyCount ?? 0) > 0) {
+                <div class="answers">
+                  <button class="txt-small accent-tertiary" (click)="openThread(message)">
+                    {{ threadStats[message.id]?.replyCount }} Antworten
+                  </button>
+
+                  <p class="txt-small faded">
+                    Letzte Antwort
+                    {{ threadStats[message.id]?.lastReplyTimestamp | date: 'HH:mm' }}
+                  </p>
+                </div>
+              }
+
               <!-- ADDED REACTIONS -->
               @if (message.reactions?.length) {
                 <div class="reactions">
@@ -319,11 +331,19 @@
               {{ message.text }}
             </p>
             <div class="answers-reactions-container">
-              <div class="answers">
-                <!-- THREAD ANSWERS -->
-                <button class="txt-small accent-tertiary">2 Antworten</button>
-                <p class="txt-small faded">Letzte Antwort 11:23</p>
-              </div>
+              <!-- THREAD ANSWERS -->
+              @if ((threadStats[message.id]?.replyCount ?? 0) > 0) {
+                <div class="answers">
+                  <button class="txt-small accent-tertiary" (click)="openThread(message)">
+                    {{ threadStats[message.id]?.replyCount }} Antworten
+                  </button>
+
+                  <p class="txt-small faded">
+                    Letzte Antwort
+                    {{ threadStats[message.id]?.lastReplyTimestamp | date: 'HH:mm' }}
+                  </p>
+                </div>
+              }
               <!-- ADDED REACTIONS -->
               @if (message.reactions?.length) {
                 <div class="reactions">

@@ -46,8 +46,8 @@ export class WorkspaceThread {
     this.threadSubscription = this.messageService
       .getThreadsByMessageId(messageId)
       .subscribe((threads) => {
-        console.log('THREADS UPDATE', threads);
         this.threads = threads;
+        this.cdr.detectChanges();
       });
   }
 
@@ -128,5 +128,3 @@ export class WorkspaceThread {
 
 //also TEST implement the edit-view on thread!
 
-//then implement send reply inside thread
-//then implement 'nr of answers' inside chat-messages.html

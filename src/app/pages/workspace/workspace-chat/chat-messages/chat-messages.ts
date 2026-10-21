@@ -37,6 +37,7 @@ export class ChatMessages {
   openedEmojiPickerMessageId: string | null = null;
   editingMessageId: string | null = null;
   editedText = '';
+  threadStats: Record<string, { replyCount: number; lastReplyTimestamp: number | null }> = {};
 
   ngOnInit() {
     this.loadUsers();
@@ -60,6 +61,10 @@ export class ChatMessages {
       .getMessages(targetType, targetId)
       .subscribe((messages) => {
         this.messages.set(messages);
+
+        messages.forEach((message) => {
+          this.loadThreadStats(message.id);
+        });
       });
   }
 
@@ -183,5 +188,15 @@ export class ChatMessages {
 
   openThread(message: Message) {
     this.chatStateService.selectedThreadMessage.set(message);
+  }
+
+  loadThreadStats(messageId: string) {
+    this.messageService.getThreadStats(messageId).subscribe((stats) => {
+      this.threadStats[messageId] = stats as {
+        replyCount: number;
+        lastReplyTimestamp: number | null;
+      };
+      this.cdr.detectChanges();
+    });
   }
 }
