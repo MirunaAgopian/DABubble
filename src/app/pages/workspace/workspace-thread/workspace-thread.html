@@ -38,7 +38,7 @@
     </button>
   </section>
 
-  <section class="thread-messages-container">
+  <section #messagesContainer class="thread-messages-container">
     <!-- Selected-message container -->
     <section class="selected-message-container">
       @if (selectedMessage()) {
@@ -300,6 +300,14 @@
         }
       }
     </section>
+
+    @if (threads.length > 0) {
+      <div class="separator">
+        <div class="separation-line"></div>
+
+        <p>{{ threads.length }} Antworten</p>
+      </div>
+    }
 
     <!-- THREAD MESSAGES -->
 

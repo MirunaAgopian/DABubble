@@ -75,7 +75,17 @@
 }
 
 .selected-message-container {
-  margin-top:32px;
+  margin-top: 32px;
 }
 
+.separator {
+  @include flex-center;
+  color: var(--color-secondary-hover);
+  gap: 8px;
+}
 
+.separation-line {
+  height: 1px;
+  background-color: var(--color-secondary-hover);
+  flex: 1;
+}

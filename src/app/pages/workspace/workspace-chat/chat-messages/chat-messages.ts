@@ -1,4 +1,4 @@
-import { Component, inject, signal, HostListener, ChangeDetectorRef } from '@angular/core';
+import { Component, inject, signal, HostListener, ChangeDetectorRef, output } from '@angular/core';
 import { ChatStateService } from '../../../../core/services/chat-state.service';
 import { AuthService } from '../../../../core/services/auth.service';
 import { Message } from '../../../../core/interfaces/message.interface';
@@ -38,6 +38,7 @@ export class ChatMessages {
   editingMessageId: string | null = null;
   editedText = '';
   threadStats: Record<string, { replyCount: number; lastReplyTimestamp: number | null }> = {};
+  messagesUpdated = output<void>();
 
   ngOnInit() {
     this.loadUsers();
@@ -65,6 +66,7 @@ export class ChatMessages {
         messages.forEach((message) => {
           this.loadThreadStats(message.id);
         });
+        this.messagesUpdated.emit();
       });
   }
 
@@ -199,4 +201,6 @@ export class ChatMessages {
       this.cdr.detectChanges();
     });
   }
+
+  
 }

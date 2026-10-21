@@ -1,4 +1,4 @@
-import { Component, inject, output } from '@angular/core';
+import { Component, inject, output, ViewChild, ElementRef } from '@angular/core';
 import { ChatHeaderDm } from '../chat-header/chat-header-dm/chat-header-dm';
 import { ChatHeaderGroup } from '../chat-header/chat-header-group/chat-header-group';
 import { ChatHeaderNewMessage } from '../chat-header/chat-header-new-message/chat-header-new-message';
@@ -19,7 +19,8 @@ export class ChatShell {
   openOverlayView = output<string>();
   openChannelDetails = output<Channel | null>();
   chatState = inject(ChatStateService);
-
+  @ViewChild('chatMessagesContainer')
+  chatMessagesContainer!: ElementRef<HTMLDivElement>;
 
   onOpenOverlayUser(user: User) {
     this.openOverlayUser.emit(user);
@@ -31,5 +32,12 @@ export class ChatShell {
 
   onOpenChannelDetails(channel: Channel | null) {
     this.openChannelDetails.emit(channel);
+  }
+
+  scrollToBottom() {
+    setTimeout(() => {
+      this.chatMessagesContainer.nativeElement.scrollTop =
+        this.chatMessagesContainer.nativeElement.scrollHeight;
+    });
   }
 }

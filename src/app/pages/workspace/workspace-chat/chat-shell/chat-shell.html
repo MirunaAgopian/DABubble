@@ -26,9 +26,10 @@
     </ng-container>
   </section>
   }
+  
   <!-- SHARED MESSAGES -->
-  <section class="chat-shell__messages">
-    <app-chat-messages></app-chat-messages>
+  <section  #chatMessagesContainer class="chat-shell__messages">
+    <app-chat-messages (messagesUpdated)="scrollToBottom()"></app-chat-messages>
   </section>
 
   <!-- SHARED INPUT -->

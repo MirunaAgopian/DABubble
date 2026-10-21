@@ -1,4 +1,13 @@
-import { Component, inject, output, input, effect, signal, ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  inject,
+  output,
+  effect,
+  signal,
+  ChangeDetectorRef,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
 import { ChatInput } from '../workspace-chat/chat-input/chat-input';
 import { ChatStateService } from '../../../core/services/chat-state.service';
 import { Thread } from '../../../core/interfaces/thread.interface';
@@ -31,6 +40,8 @@ export class WorkspaceThread {
   editedText = '';
   editingSelectedMessage = false;
   private cdr = inject(ChangeDetectorRef);
+  @ViewChild('messagesContainer')
+  messagesContainer!: ElementRef<HTMLDivElement>;
 
   ngOnInit() {
     this.loadUsers();
@@ -48,6 +59,7 @@ export class WorkspaceThread {
       .subscribe((threads) => {
         this.threads = threads;
         this.cdr.detectChanges();
+         this.scrollToBottom();
       });
   }
 
@@ -118,6 +130,13 @@ export class WorkspaceThread {
     this.editedText = '';
     this.cdr.detectChanges();
   }
+
+  scrollToBottom() {
+    if (this.messagesContainer) {
+      this.messagesContainer.nativeElement.scrollTop =
+        this.messagesContainer.nativeElement.scrollHeight;
+    }
+  }
 }
 
 // implement getAdditionalReactionCount(reaction: Reaction): number {
@@ -127,4 +146,3 @@ export class WorkspaceThread {
 // also add the emoji-picker on the workspace-thread
 
 //also TEST implement the edit-view on thread!
-
