@@ -74,4 +74,14 @@ export class ChatStateService {
   setMentionedEntity(mode: 'user' | 'channel' | 'email' | null) {
     this.mentionSomeone.set(mode);
   }
+
+  resetChatState() {
+  this.mode.set('new');
+  this.selectedUser.set(null);
+  this.selectedChannel.set(null);
+  this.selectedThreadMessage.set(null);
+  this.showSendTo.set(false);
+  this.mentionSomeone.set(null);
+  this.channelSubscription?.unsubscribe();
+}
 }

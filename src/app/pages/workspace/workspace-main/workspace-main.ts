@@ -66,6 +66,7 @@ export class WorkspaceMain {
   }
 
   handleLogout() {
+    this.chatStateService.resetChatState();
     this.authService.logoutUser();
     this.router.navigate(['sign-in']);
   }
