@@ -240,6 +240,35 @@
   width: 250px;
 }
 
+.emoji-picker-container-thread-messages {
+  height: 150px;
+  width: 200px;
+  background-color: white;
+  border: 2px solid var(--color-border-light);
+  border-radius: 15px;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  overflow-y: scroll;
+  overflow-x: hidden;
+  z-index: 9999;
+
+}
+
+.emoji-picker-container-thread-messages .emoji-mart {
+  width: 150px;
+}
+
+.emoji-picker-container-thread-messages .emoji-mart-category {
+  width: 200px;
+}
+
+.emoji-picker-container-thread-messages .emoji-mart-category-label {
+  padding-left: 8px;
+  padding-top: 2px;
+}
+
 .reaction-tooltip {
   background-color: var(--color-primary-default);
   height: 90px;
@@ -256,10 +285,26 @@
   transition: opacity 150ms ease-in-out;
 }
 
-.reaction-tooltip-secondary{
+.reaction-tooltip-secondary {
+  background-color: var(--color-primary-default);
+  height: 90px;
+  width: 150px;
+  padding: 8px;
+  color: white;
+  @include flex-column-space-btw;
+ border-radius: 20px 20px 20px 0;
+  position: absolute;
+  top: -90px;
+  left: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 150ms ease-in-out;
+}
+
+.reaction-tooltip-tertiary{
   background-color: var(--color-primary-default);
   height: 100px;
-  width: 120px;
+  width: 110px;
   padding: 2px;
   color: white;
   @include flex-column-space-btw;
@@ -267,7 +312,7 @@
   border-radius: 20px 20px 20px 0;
   position: absolute;
   top: -100px;
-  left: 20px;
+  left: 10px;
   opacity: 0;
   pointer-events: none;
   transition: opacity 150ms ease-in-out;
@@ -286,6 +331,10 @@
 }
 
 .added-reaction:hover .reaction-tooltip-secondary {
+  opacity: 1;
+}
+
+.added-reaction:hover .reaction-tooltip-tertiary {
   opacity: 1;
 }
 

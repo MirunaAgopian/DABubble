@@ -51,6 +51,18 @@ export class MessageService {
     });
   }
 
+  getMessageByIdRealtime(messageId: string): Observable<Message> {
+    const ref = doc(db, 'messages', messageId);
+
+    return new Observable((subscriber) => {
+      return onSnapshot(ref, (snapshot) => {
+        if (snapshot.exists()) {
+          subscriber.next(snapshot.data() as Message);
+        }
+      });
+    });
+  }
+
   async addReaction(messageId: string, emoji: string, userId: string) {
     const ref = doc(db, 'messages', messageId);
     const snapshot = await getDoc(ref);
@@ -122,8 +134,43 @@ export class MessageService {
     await updateDoc(ref, { text });
   }
 
-  async addThreadReaction() {}
-  async removeThreadReaction() {}
+  async addThreadReaction(threadId: string, emoji: string, userId: string) {
+    const ref = doc(db, 'threads', threadId);
+    const snapshot = await getDoc(ref);
+    if (!snapshot.exists()) return;
+    const thread = snapshot.data() as Thread;
+    const reactions = [...(thread.reactions ?? [])];
+    const existingReaction = reactions.find((reaction) => reaction.emoji === emoji);
+    if (existingReaction) {
+      if (!existingReaction.userIds.includes(userId)) {
+        existingReaction.userIds.push(userId);
+      }
+    } else {
+      reactions.push({
+        emoji,
+        userIds: [userId],
+      });
+    }
+    await updateDoc(ref, { reactions });
+  }
+
+  async removeThreadReaction(threadId: string, emoji: string, userId: string) {
+    const ref = doc(db, 'threads', threadId);
+    const snapshot = await getDoc(ref);
+    if (!snapshot.exists()) return;
+    const thread = snapshot.data() as Thread;
+    const updatedReactions = (thread.reactions ?? []).map((reaction) => {
+      if (reaction.emoji !== emoji) {
+        return reaction;
+      }
+      return {
+        ...reaction,
+        userIds: reaction.userIds.filter((id) => id !== userId),
+      };
+    });
+    const reactions = updatedReactions.filter((reaction) => reaction.userIds.length > 0);
+    await updateDoc(ref, { reactions });
+  }
 
   getThreadStats(messageId: string) {
     const threadQuery = query(

@@ -353,7 +353,7 @@
                       (click)="toggleReaction(message, reaction.emoji)"
                     >
                       <span>{{ reaction.emoji }}</span>
-                      <div class="reaction-tooltip">
+                      <div class="reaction-tooltip-secondary">
                         <span class="added-emoji">{{ reaction.emoji }}</span>
                         <span class="username">{{ getFirstReactionUserName(reaction) }}</span>
                         @if (reaction.userIds.length > 1) {
