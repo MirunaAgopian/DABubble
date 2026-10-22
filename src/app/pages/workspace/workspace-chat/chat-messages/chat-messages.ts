@@ -39,6 +39,7 @@ export class ChatMessages {
   editedText = '';
   threadStats: Record<string, { replyCount: number; lastReplyTimestamp: number | null }> = {};
   messagesUpdated = output<void>();
+  previousMessageCount = 0;
 
   ngOnInit() {
     this.loadUsers();
@@ -61,12 +62,15 @@ export class ChatMessages {
     this.messageSubscription = this.messageService
       .getMessages(targetType, targetId)
       .subscribe((messages) => {
+        const shouldScroll = messages.length > this.previousMessageCount;
         this.messages.set(messages);
-
+        this.previousMessageCount = messages.length;
         messages.forEach((message) => {
           this.loadThreadStats(message.id);
         });
-        this.messagesUpdated.emit();
+        if (shouldScroll) {
+          this.messagesUpdated.emit();
+        }
       });
   }
 
@@ -201,6 +205,4 @@ export class ChatMessages {
       this.cdr.detectChanges();
     });
   }
-
-  
 }

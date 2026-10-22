@@ -46,6 +46,7 @@ export class WorkspaceThread {
   @ViewChild('messagesContainer')
   messagesContainer!: ElementRef<HTMLDivElement>;
   openedEmojiPickerMessageId: string | null = null;
+  previousThreadCount = 0;
 
   ngOnInit() {
     this.loadUsers();
@@ -62,9 +63,13 @@ export class WorkspaceThread {
     this.threadSubscription = this.messageService
       .getThreadsByMessageId(messageId)
       .subscribe((threads) => {
+        const shouldScroll = threads.length > this.previousThreadCount;
         this.threads = threads;
+        this.previousThreadCount = threads.length;
         this.cdr.detectChanges();
-        this.scrollToBottom();
+        if (shouldScroll) {
+          this.scrollToBottom();
+        }
       });
   }
 
@@ -198,4 +203,3 @@ export class WorkspaceThread {
     }
   }
 }
-
