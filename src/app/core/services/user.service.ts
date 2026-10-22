@@ -4,6 +4,7 @@ import { db } from '../../app.config';
 import { User } from '../interfaces/user.interface';
 import { AuthService } from './auth.service';
 import { Observable } from 'rxjs';
+import { ChatStateService } from './chat-state.service';
 
 @Injectable({
   providedIn: 'root',
@@ -17,17 +18,17 @@ export class UserService {
   }
 
   //this function is an observale and automatically subscribes to changes-not an async promise
+
   getAllUsersRealtime(): Observable<User[]> {
     const ref = collection(db, 'users');
+
     return new Observable((subscriber) => {
       return onSnapshot(ref, (snapshot) => {
-        const users = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })) as User[];
-        const currentUserId = this.authService.getCurrentUserId();
-        users.sort((a, b) => {
-          if (a.id === currentUserId) return -1;
-          if (b.id === currentUserId) return 1;
-          return a.name.localeCompare(b.name);
-        });
+        const users = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        })) as User[];
+
         subscriber.next(users);
       });
     });

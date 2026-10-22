@@ -1,4 +1,4 @@
-import { Component, inject, output } from '@angular/core';
+import { Component, inject, output, computed } from '@angular/core';
 import { UserService } from '../../../core/services/user.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { NgClass } from '@angular/common';
@@ -23,11 +23,27 @@ export class WorkspaceSidebar {
   channelService = inject(ChannelService);
   channels = toSignal(this.channelService.fetchChannels());
   chatState = inject(ChatStateService);
+  currentUser = this.chatState.currentUser;
   
+  sortedUsers = computed(() => {
+  const users = this.users() ?? [];
+  const currentUser = this.currentUser();
 
-  get currentUser() {
-    return this.authService.auth.currentUser;
-  }
+  if (!currentUser) return users;
+
+  return [...users]
+    .filter((user) =>
+      currentUser.id === 'guest'
+        ? true
+        : user.id !== 'guest'
+    )
+    .sort((a, b) => {
+      if (a.id === currentUser.id) return -1;
+      if (b.id === currentUser.id) return 1;
+      return a.name.localeCompare(b.name);
+    });
+});
+
 
   toggleCollapsible(section: HTMLElement) {
     section.classList.toggle('expanded');
