@@ -49,7 +49,7 @@ export class AuthService {
       id: uid,
       name: user.displayName || '',
       email: user.email || '',
-      avatarUrl: user.photoURL || '',
+      avatarUrl: user.photoURL || '/assets/img/avatars/default_user.png',
       provider: 'google',
       createdAt: Date.now(),
       lastActive: Date.now(),

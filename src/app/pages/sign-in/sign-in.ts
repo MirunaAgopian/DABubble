@@ -16,6 +16,7 @@ import { AuthService } from '../../core/services/auth.service';
 export class SignIn {
   router = inject(Router);
   authService = inject(AuthService);
+
   form = new FormGroup({
     email: new FormControl('', {
       validators: [
@@ -25,9 +26,7 @@ export class SignIn {
       ],
     }),
     password: new FormControl('', {
-      validators: [
-        Validators.required, strongPasswordValidator
-      ]
+      validators: [Validators.required, strongPasswordValidator],
     }),
   });
 
@@ -35,18 +34,27 @@ export class SignIn {
     this.router.navigate(['reset-password-req']);
   }
 
-  redirectToApp(){
+  redirectToApp() {
     this.router.navigate(['workspace']);
   }
 
-  async onSubmit(){
+  async onSubmit() {
     const { email, password } = this.form.value;
 
     try {
       await this.authService.loginUser(email ?? '', password ?? '');
       this.router.navigate(['workspace']);
-    } catch(err){
+    } catch (err) {
       console.error('Error on user sign-in:', err);
+    }
+  }
+
+  async signInWithGoogle() {
+    try {
+      await this.authService.loginWithGoogle();
+      this.router.navigate(['/workspace']);
+    } catch (error) {
+      console.error('Google login failed:', error);
     }
   }
 }
