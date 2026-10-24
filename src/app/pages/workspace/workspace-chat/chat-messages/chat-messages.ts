@@ -87,23 +87,25 @@ export class ChatMessages {
 
   loadMessagesEffect = effect(() => {
     const mode = this.mode();
+    if (mode === 'new') {
+      this.messageSubscription?.unsubscribe();
+      this.messages.set([]);
+      this.previousMessageCount = 0;
+    }
     if (mode === 'channel') {
       const channel = this.selectedChannel();
-
       if (channel) {
         this.loadMessages('channel', channel.id);
       }
     }
     if (mode === 'self') {
       const user = this.selectedUser();
-
       if (user) {
         this.loadMessages('self', user.id);
       }
     }
     if (mode === 'dm') {
       const user = this.selectedUser();
-
       if (user) {
         this.openDM(user.id);
       }

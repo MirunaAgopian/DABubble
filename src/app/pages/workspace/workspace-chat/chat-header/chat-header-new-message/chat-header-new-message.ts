@@ -1,4 +1,4 @@
-import { Component, inject, input, output } from '@angular/core';
+import { Component, inject, output, signal, computed } from '@angular/core';
 import { ChatStateService } from '../../../../../core/services/chat-state.service';
 import { UserService } from '../../../../../core/services/user.service';
 import { ChannelService } from '../../../../../core/services/channel.service';
@@ -18,11 +18,12 @@ export class ChatHeaderNewMessage {
   channelService = inject(ChannelService);
   channels = toSignal(this.channelService.fetchChannels());
   users = toSignal(this.userService.getAllUsersRealtime());
+  searchValue = signal('');
   openOverlay = output<'new-message'>();
 
   onInput(event: Event) {
     const value = (event.target as HTMLInputElement).value;
-
+    this.searchValue.set(value);
     if (!value) {
       this.chatStateService.toggleSendTo(false);
       this.chatStateService.setMentionedEntity(null);
@@ -31,7 +32,9 @@ export class ChatHeaderNewMessage {
 
     const startsWithAt = value.startsWith('@');
     const startsWithHash = value.startsWith('#');
-    const looksLikeEmail = value.includes('@') && value.includes('.');
+    const matchesEmail = this.users()?.some((user) =>
+      user.email.toLowerCase().includes(value.toLowerCase()),
+    );
 
     if (startsWithAt) {
       this.chatStateService.toggleSendTo(true);
@@ -39,7 +42,7 @@ export class ChatHeaderNewMessage {
     } else if (startsWithHash) {
       this.chatStateService.toggleSendTo(true);
       this.chatStateService.setMentionedEntity('channel');
-    } else if (looksLikeEmail) {
+    } else if (matchesEmail) {
       this.chatStateService.toggleSendTo(true);
       this.chatStateService.setMentionedEntity('email');
     } else {
@@ -48,6 +51,11 @@ export class ChatHeaderNewMessage {
     }
   }
 
+  emailResults = computed(() => {
+    const term = this.searchValue().toLowerCase();
+    return this.users()?.filter((user) => user.email.toLowerCase().includes(term)) ?? [];
+  });
+
   deleteInput(input: HTMLInputElement) {
     input.value = '';
     this.chatStateService.toggleSendTo(false);
@@ -55,7 +63,10 @@ export class ChatHeaderNewMessage {
   }
 
   onClick(item: User | Channel) {
-    if (this.chatStateService.mentionSomeone() === 'user') {
+    if (
+      this.chatStateService.mentionSomeone() === 'user' ||
+      this.chatStateService.mentionSomeone() === 'email'
+    ) {
       this.chatStateService.openDM(item as User);
     }
 

@@ -51,9 +51,13 @@
         }
       }
 
-      <!-- @if (chatStateService.setMentionedEntity() === 'email') {
-      <button class="send-to-btn">{{ headerInput.value }}</button>
-    } -->
+      @if (chatStateService.mentionSomeone() === 'email') {
+        @for (user of emailResults(); track user.id) {
+          <button class="send-to-btn" (click)="onClick(user)">
+            {{ user.name }} - {{ user.email }}
+          </button>
+        }
+      }
     </div>
   }
 </section>
