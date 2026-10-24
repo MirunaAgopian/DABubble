@@ -51,6 +51,16 @@ export class MessageService {
     });
   }
 
+  getAllMessages(): Observable<Message[]> {
+    const messagesQuery = query(collection(db, 'messages'), orderBy('createdAt', 'desc'));
+    return new Observable((subscriber) => {
+      return onSnapshot(messagesQuery, (snapshot) => {
+        const messages = snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }) as Message);
+        subscriber.next(messages);
+      });
+    });
+  }
+
   getMessageByIdRealtime(messageId: string): Observable<Message> {
     const ref = doc(db, 'messages', messageId);
 

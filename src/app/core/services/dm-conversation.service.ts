@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { DmConversation } from '../interfaces/dm.interface';
-import { collection, getDocs, query, where, doc, setDoc } from 'firebase/firestore';
+import { collection, getDocs, query, where, doc, setDoc, getDoc } from 'firebase/firestore';
 import { db } from '../../app.config';
 
 @Injectable({
@@ -29,5 +29,13 @@ export class DmConversationService {
 
     await setDoc(ref, newConversation);
     return newConversation;
+  }
+
+  async getConversationById(conversationId: string): Promise<DmConversation | null> {
+    const snapshot = await getDoc(doc(db, 'DMConversations', conversationId));
+    if (!snapshot.exists()) {
+      return null;
+    }
+    return snapshot.data() as DmConversation;
   }
 }
