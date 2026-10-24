@@ -7,6 +7,7 @@ import {
   inject,
   input,
   computed,
+  effect,
 } from '@angular/core';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 import { UserService } from '../../../../core/services/user.service';
@@ -53,8 +54,26 @@ export class ChatInput {
     if (this.isUsedInThread()) {
       return 'Antwort hinzufügen...';
     }
-
     return this.chatStateService.placeholder();
+  });
+
+  focusChatTextareaEffect = effect(() => {
+    if (this.isUsedInThread()) return;
+    this.mode();
+    this.selectedUser();
+    this.selectedChannel();
+    queueMicrotask(() => {
+      this.textarea?.nativeElement.focus();
+    });
+  });
+
+  focusThreadTextareaEffect = effect(() => {
+    if (!this.isUsedInThread()) return;
+    const thread = this.chatStateService.selectedThreadMessage();
+    if (!thread) return;
+    queueMicrotask(() => {
+      this.textarea?.nativeElement.focus();
+    });
   });
 
   addEmoji(event: any) {

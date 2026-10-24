@@ -6,7 +6,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { UserService } from '../../../core/services/user.service';
 import { ChannelService } from '../../../core/services/channel.service';
 import { MessageService } from '../../../core/services/message.service';
-import { SearchResult } from '../../../core/interfaces/search.inerface';
+import { SearchResult } from '../../../core/interfaces/search.interface';
 import { ChatStateService } from '../../../core/services/chat-state.service';
 import { Channel } from '../../../core/interfaces/channel.interface';
 import { Message } from '../../../core/interfaces/message.interface';
