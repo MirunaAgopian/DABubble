@@ -18,7 +18,7 @@
   @include flex-column-space-btw;
   background-color: var(--color-secondary-default);
   border-radius: 30px;
-  height: 100%;
+  height: clamp(500px, 80vh, 1000px);
   padding: 20px 16px;
   min-height: 0;
 }

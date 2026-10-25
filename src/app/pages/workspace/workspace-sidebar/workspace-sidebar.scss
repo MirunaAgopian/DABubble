@@ -3,11 +3,11 @@
 .sidebar-content {
   @include flex-column-space-btw;
   justify-content: flex-start;
-  gap: 30px;
   background-color: var(--color-secondary-default);
   border-radius: 30px;
-  height: 100%;
-  padding: 20px 16px;
+  height: clamp(500px, 80vh, 1000px);
+  gap: clamp(12px, 3vh, 30px);
+  padding: clamp(8px, 2vh, 20px) 16px;
 
   &__header {
     @include flex-space-btw;
@@ -79,13 +79,13 @@ h3 {
 }
 
 .max-height-primary {
-  max-height: 150px;
-  overflow-y: scroll;
+  max-height: clamp(60px, 15vh, 150px);
+  overflow-y: auto;
 }
 
 .max-height-secondary {
-  max-height: 250px;
-  overflow-y: scroll;
+  max-height: clamp(80px, 22vh, 250px);
+  overflow-y: auto;
 }
 
 .single-channel {

@@ -4,7 +4,7 @@
   @include flex-column-space-btw;
   background-color: var(--color-secondary-default);
   border-radius: 30px;
-  height: 100%;
+  height: clamp(500px, 80vh, 1000px);
   width: 100%;
   padding: 20px 16px;
 }

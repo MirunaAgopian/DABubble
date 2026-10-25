@@ -3,7 +3,8 @@
 .workspace-header {
   @include flex-space-btw;
   gap: 16px;
-  margin-bottom: clamp(20px, 8vh, 100px);
+  margin-bottom: clamp(20px, 8vh, 10px);
+  padding-top: 20px;
 
   &__logo {
     height: 80px;
