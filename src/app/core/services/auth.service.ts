@@ -28,12 +28,17 @@ export class AuthService {
       lastActive: Date.now(),
       status: 'online',
     };
-
     await setDoc(doc(db, 'users', uid), newUser);
   }
 
   async loginUser(email: string, password: string) {
-    await signInWithEmailAndPassword(this.auth, email, password);
+    try {
+      const credential = await signInWithEmailAndPassword(this.auth, email, password);
+      return credential;
+    } catch (error) {
+      console.error('LOGIN ERROR:', error);
+      throw error;
+    }
   }
 
   async logoutUser() {

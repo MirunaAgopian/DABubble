@@ -26,6 +26,10 @@
 }
 
 // Styling of chat-messages
+.mention {
+  font-weight: var(--font-weight-bold);
+}
+
 .chat-message-external {
   display: flex;
   gap: 8px;

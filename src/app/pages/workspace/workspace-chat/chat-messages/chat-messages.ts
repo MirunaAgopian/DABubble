@@ -220,4 +220,5 @@ export class ChatMessages {
       this.openUserPforileOverlay.emit(user);
     }
   }
+
 }
