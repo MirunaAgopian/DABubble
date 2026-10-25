@@ -41,6 +41,7 @@ export class ChatMessages {
   messagesUpdated = output<void>();
   previousMessageCount = 0;
   readonly MAX_REACTIONS_DESKTOP = 5;
+  openUserPforileOverlay = output<User>();
 
   ngOnInit() {
     this.loadUsers();
@@ -211,5 +212,12 @@ export class ChatMessages {
       };
       this.cdr.detectChanges();
     });
+  }
+
+  openUserProfile(senderId: string) {
+    const user = this.getUserById(senderId);
+    if (user) {
+      this.openUserPforileOverlay.emit(user);
+    }
   }
 }

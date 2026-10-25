@@ -63,7 +63,7 @@
           <div class="message-content-own">
             <div class="user-timestamp">
               <p class="txt-small faded">{{ message.createdAt | date: 'HH:mm' }}</p>
-              <button class="txt-bold txt-small">{{ getUserById(message.senderId)?.name }}</button>
+              <button class="txt-bold txt-small" (click)="openUserProfile(message.senderId)">{{ getUserById(message.senderId)?.name }}</button>
             </div>
             @if (editingMessageId === message.id) {
               <div class="editing-container">
@@ -330,7 +330,7 @@
           <img class="avatar-img" [src]="getUserById(message.senderId)?.avatarUrl" />
           <div class="message-content-external">
             <div class="user-timestamp">
-              <button class="txt-bold txt-small">{{ getUserById(message.senderId)?.name }}</button>
+              <button class="txt-bold txt-small" (click)="openUserProfile(message.senderId)">{{ getUserById(message.senderId)?.name }}</button>
               <p class="txt-small faded">{{ message.createdAt | date: 'HH:mm' }}</p>
             </div>
             <p class="message-buble-external">

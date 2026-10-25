@@ -47,7 +47,7 @@
             <div class="message-content-own">
               <div class="user-timestamp">
                 <p class="txt-small faded">{{ selectedMessage()?.createdAt | date: 'HH:mm' }}</p>
-                <button class="txt-bold txt-small">
+                <button class="txt-bold txt-small" (click)="openUserProfile(selectedMessage()!.senderId)">
                   {{ getUserById(selectedMessage()!.senderId)?.name }}
                 </button>
               </div>
@@ -222,7 +222,7 @@
             <img class="avatar-img" [src]="getUserById(selectedMessage()!.senderId)?.avatarUrl" />
             <div class="message-content-external">
               <div class="user-timestamp">
-                <button class="txt-bold txt-small">
+                <button class="txt-bold txt-small" (click)="openUserProfile(selectedMessage()!.senderId)">
                   {{ getUserById(selectedMessage()!.senderId)?.name }}
                 </button>
                 <p class="txt-small faded">{{ selectedMessage()?.createdAt | date: 'HH:mm' }}</p>
@@ -360,7 +360,7 @@
             <div class="message-content-own">
               <div class="user-timestamp">
                 <p class="txt-small faded">{{ thread.createdAt | date: 'HH:mm' }}</p>
-                <button class="txt-bold txt-small">{{ thread.userName }}</button>
+                <button class="txt-bold txt-small" (click)="openUserProfile(thread.userId)">{{ thread.userName }}</button>
               </div>
               <!-- Edit mode -->
               @if (editingMessageId === thread.id) {
@@ -529,7 +529,7 @@
             <img class="avatar-img" [src]="thread.userAvatar" />
             <div class="message-content-external">
               <div class="user-timestamp">
-                <button class="txt-bold txt-small">{{ thread.userName }}</button>
+                <button class="txt-bold txt-small" (click)="openUserProfile(thread.userId)">{{ thread.userName }}</button>
                 <p class="txt-small faded">{{ thread.createdAt | date: 'HH:mm' }}</p>
               </div>
               <p class="message-buble-external">{{ thread.text }}</p>

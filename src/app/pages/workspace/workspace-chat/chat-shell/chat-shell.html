@@ -2,10 +2,10 @@
   <!-- HEADER -->
   @if (chatState.mode() === 'dm') {
     <section class="chat-shell__header">
-    <ng-container>
-      <app-chat-header-dm (openOverlay)="onOpenOverlayUser($event)"></app-chat-header-dm>
-    </ng-container>
-  </section>
+      <ng-container>
+        <app-chat-header-dm (openOverlay)="onOpenOverlayUser($event)"></app-chat-header-dm>
+      </ng-container>
+    </section>
   }
 
   @if (chatState.mode() === 'channel') {
@@ -19,17 +19,20 @@
     </section>
   }
 
-  @if(chatState.mode() === 'new') {
+  @if (chatState.mode() === 'new') {
     <section class="chat-shell__header">
-    <ng-container>
-      <app-chat-header-new-message></app-chat-header-new-message>
-    </ng-container>
-  </section>
+      <ng-container>
+        <app-chat-header-new-message></app-chat-header-new-message>
+      </ng-container>
+    </section>
   }
-  
+
   <!-- SHARED MESSAGES -->
-  <section  #chatMessagesContainer class="chat-shell__messages">
-    <app-chat-messages (messagesUpdated)="scrollToBottom()"></app-chat-messages>
+  <section #chatMessagesContainer class="chat-shell__messages">
+    <app-chat-messages
+      (messagesUpdated)="scrollToBottom()"
+      (openUserPforileOverlay)="onOpenOverlayUser($event)"
+    ></app-chat-messages>
   </section>
 
   <!-- SHARED INPUT -->

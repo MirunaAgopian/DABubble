@@ -116,18 +116,14 @@ export class WorkspaceMain {
 
   async onUpdateName(newName: string) {
     const user = this.currentUser();
-
     if (!user) return;
-
     await this.userService.updateUserName(user.id, {
       name: newName,
     });
-
     this.currentUser.set({
       ...user,
       name: newName,
     });
-
     this.closeOverlay();
   }
 

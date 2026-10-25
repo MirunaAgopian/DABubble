@@ -48,6 +48,7 @@ export class WorkspaceThread {
   openedEmojiPickerMessageId: string | null = null;
   previousThreadCount = 0;
   MAX_REACTIONS_DESKTOP = 3;
+  openUserPforileOverlay = output<User>();
 
   ngOnInit() {
     this.loadUsers();
@@ -110,10 +111,9 @@ export class WorkspaceThread {
     return this.getUserById(reaction.userIds[0])?.name ?? '';
   }
 
-   getVisibleReactions(reactions: Reaction[] = []) {
+  getVisibleReactions(reactions: Reaction[] = []) {
     return reactions.slice(0, this.MAX_REACTIONS_DESKTOP);
   }
-
 
   onCloseClick() {
     this.closeThread.emit();
@@ -206,6 +206,13 @@ export class WorkspaceThread {
       await this.messageService.removeThreadReaction(thread.id, emoji, currentUser.id);
     } else {
       await this.messageService.addThreadReaction(thread.id, emoji, currentUser.id);
+    }
+  }
+
+  openUserProfile(senderId: string) {
+    const user = this.getUserById(senderId);
+    if (user) {
+      this.openUserPforileOverlay.emit(user);
     }
   }
 }

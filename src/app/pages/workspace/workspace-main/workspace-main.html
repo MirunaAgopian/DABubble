@@ -41,7 +41,10 @@
         (openOverlayView)="openOverlay($event)"
         (openChannelDetails)="openChannelDetails($event)"
       ></app-chat-shell>
-      <app-workspace-thread (closeThread)="toggleThread()"></app-workspace-thread>
+      <app-workspace-thread
+        (closeThread)="toggleThread()"
+        (openUserPforileOverlay)="openUserProfile($event)"
+      ></app-workspace-thread>
     </section>
   </main>
   <!-- WORKSPACE OVERLAY -->
