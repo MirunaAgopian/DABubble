@@ -192,6 +192,7 @@
 .reactions {
   @include flex-space-btw;
   gap: 8px;
+  flex-wrap: wrap;
 }
 
 .added-reaction {
@@ -200,6 +201,16 @@
   height: 26px;
   width: 40px;
   position: relative;
+}
+
+.more-reactions {
+  border: 1px solid var(--color-border-light);
+  border-radius: 15px;
+  height: 26px;
+  width: 40px;
+  @include flex-space-btw;
+  justify-content: center;
+  font-weight: var(--font-weight-bold);
 }
 
 .added-reaction svg {
@@ -253,7 +264,6 @@
   overflow-y: scroll;
   overflow-x: hidden;
   z-index: 9999;
-
 }
 
 .emoji-picker-container-thread-messages .emoji-mart {
@@ -292,7 +302,7 @@
   padding: 8px;
   color: white;
   @include flex-column-space-btw;
- border-radius: 20px 20px 20px 0;
+  border-radius: 20px 20px 20px 0;
   position: absolute;
   top: -90px;
   left: 20px;
@@ -301,7 +311,7 @@
   transition: opacity 150ms ease-in-out;
 }
 
-.reaction-tooltip-tertiary{
+.reaction-tooltip-tertiary {
   background-color: var(--color-primary-default);
   height: 100px;
   width: 110px;
@@ -338,7 +348,6 @@
   opacity: 1;
 }
 
-
 .editing-container textarea {
   width: 250px;
   border: 1px solid var(--color-primary-default);
@@ -347,7 +356,7 @@
 }
 
 .editing-container .action-btns-container {
-   @include flex-space-btw;
+  @include flex-space-btw;
 }
 
 .action-btns {

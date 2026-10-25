@@ -99,7 +99,7 @@
               <!-- ADDED REACTIONS -->
               @if (message.reactions?.length) {
                 <div class="reactions">
-                  @for (reaction of message.reactions ?? []; track reaction.emoji) {
+                  @for (reaction of getVisibleReactions(message.reactions); track reaction.emoji) {
                     <button
                       class="added-reaction"
                       (click)="toggleReaction(message, reaction.emoji)"
@@ -114,6 +114,12 @@
                         <span>hat reagiert</span>
                       </div>
                     </button>
+                  }
+
+                  @if (message.reactions!.length > MAX_REACTIONS_DESKTOP) {
+                    <span class="more-reactions">
+                      +{{ message.reactions!.length - MAX_REACTIONS_DESKTOP }}
+                    </span>
                   }
 
                   <button
@@ -347,7 +353,7 @@
               <!-- ADDED REACTIONS -->
               @if (message.reactions?.length) {
                 <div class="reactions">
-                  @for (reaction of message.reactions ?? []; track reaction.emoji) {
+                  @for (reaction of getVisibleReactions(message.reactions); track reaction.emoji) {
                     <button
                       class="added-reaction"
                       (click)="toggleReaction(message, reaction.emoji)"
@@ -362,6 +368,12 @@
                         <span>hat reagiert</span>
                       </div>
                     </button>
+                  }
+
+                  @if (message.reactions!.length > MAX_REACTIONS_DESKTOP) {
+                    <span class="more-reactions">
+                      +{{ message.reactions!.length - MAX_REACTIONS_DESKTOP }}
+                    </span>
                   }
 
                   <button

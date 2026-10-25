@@ -47,6 +47,7 @@ export class WorkspaceThread {
   messagesContainer!: ElementRef<HTMLDivElement>;
   openedEmojiPickerMessageId: string | null = null;
   previousThreadCount = 0;
+  MAX_REACTIONS_DESKTOP = 3;
 
   ngOnInit() {
     this.loadUsers();
@@ -108,6 +109,11 @@ export class WorkspaceThread {
   getFirstReactionUserName(reaction: Reaction): string {
     return this.getUserById(reaction.userIds[0])?.name ?? '';
   }
+
+   getVisibleReactions(reactions: Reaction[] = []) {
+    return reactions.slice(0, this.MAX_REACTIONS_DESKTOP);
+  }
+
 
   onCloseClick() {
     this.closeThread.emit();

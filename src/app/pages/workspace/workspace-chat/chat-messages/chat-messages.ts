@@ -40,6 +40,7 @@ export class ChatMessages {
   threadStats: Record<string, { replyCount: number; lastReplyTimestamp: number | null }> = {};
   messagesUpdated = output<void>();
   previousMessageCount = 0;
+  readonly MAX_REACTIONS_DESKTOP = 5;
 
   ngOnInit() {
     this.loadUsers();
@@ -169,6 +170,10 @@ export class ChatMessages {
 
   getAdditionalReactionCount(reaction: Reaction): number {
     return Math.max(reaction.userIds.length - 1, 0);
+  }
+
+  getVisibleReactions(reactions: Reaction[] = []) {
+    return reactions.slice(0, this.MAX_REACTIONS_DESKTOP);
   }
 
   openEditingMode(message: Message) {

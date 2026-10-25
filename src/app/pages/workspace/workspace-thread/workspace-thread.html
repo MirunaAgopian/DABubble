@@ -82,7 +82,10 @@
               <div class="answers-reactions-container">
                 @if (selectedMessage()?.reactions?.length) {
                   <div class="reactions">
-                    @for (reaction of selectedMessage()?.reactions ?? []; track reaction.emoji) {
+                    @for (
+                      reaction of getVisibleReactions(selectedMessage()?.reactions);
+                      track reaction.emoji
+                    ) {
                       <button
                         class="added-reaction"
                         (click)="toggleSelectedMessageReaction(reaction.emoji)"
@@ -101,6 +104,12 @@
                           <span class="txt-small">hat reagiert</span>
                         </div>
                       </button>
+                    }
+
+                    @if ((selectedMessage()?.reactions?.length ?? 0) > MAX_REACTIONS_DESKTOP) {
+                      <span class="more-reactions">
+                        +{{ (selectedMessage()?.reactions?.length ?? 0) - MAX_REACTIONS_DESKTOP }}
+                      </span>
                     }
                     <button
                       class="reaction-btn-open-emoji-picker"
@@ -223,7 +232,10 @@
               <div class="answers-reactions-container">
                 @if (selectedMessage()?.reactions?.length) {
                   <div class="reactions">
-                    @for (reaction of selectedMessage()?.reactions ?? []; track reaction.emoji) {
+                    @for (
+                      reaction of getVisibleReactions(selectedMessage()?.reactions);
+                      track reaction.emoji
+                    ) {
                       <button
                         class="added-reaction"
                         (click)="toggleSelectedMessageReaction(reaction.emoji)"
@@ -242,6 +254,12 @@
                           <span class="txt-small">hat reagiert</span>
                         </div>
                       </button>
+                    }
+
+                    @if ((selectedMessage()?.reactions?.length ?? 0) > MAX_REACTIONS_DESKTOP) {
+                      <span class="more-reactions">
+                        +{{ (selectedMessage()?.reactions?.length ?? 0) - MAX_REACTIONS_DESKTOP }}
+                      </span>
                     }
                     <button
                       class="reaction-btn-open-emoji-picker"
@@ -372,7 +390,7 @@
               <div class="answers-reactions-container">
                 @if (thread.reactions?.length) {
                   <div class="reactions">
-                    @for (reaction of thread.reactions; track reaction.emoji) {
+                    @for (reaction of getVisibleReactions(thread.reactions); track reaction.emoji) {
                       <button
                         class="added-reaction"
                         (click)="toggleThreadReaction(thread, reaction.emoji)"
@@ -395,6 +413,12 @@
                           <span class="txt-small">hat reagiert</span>
                         </div>
                       </button>
+                    }
+
+                    @if (thread.reactions!.length > MAX_REACTIONS_DESKTOP) {
+                      <span class="more-reactions">
+                        +{{ thread.reactions!.length - MAX_REACTIONS_DESKTOP }}
+                      </span>
                     }
                     <button
                       class="reaction-btn-open-emoji-picker"
@@ -514,7 +538,10 @@
                 <div class="answers-reactions-container">
                   @if (thread.reactions?.length) {
                     <div class="reactions">
-                      @for (reaction of thread.reactions; track reaction.emoji) {
+                      @for (
+                        reaction of getVisibleReactions(thread.reactions);
+                        track reaction.emoji
+                      ) {
                         <button
                           class="added-reaction"
                           (click)="toggleThreadReaction(thread, reaction.emoji)"
@@ -537,6 +564,12 @@
                             <span class="txt-small">hat reagiert</span>
                           </div>
                         </button>
+                      }
+
+                      @if (thread.reactions!.length > MAX_REACTIONS_DESKTOP) {
+                        <span class="more-reactions">
+                          +{{ thread.reactions!.length - MAX_REACTIONS_DESKTOP }}
+                        </span>
                       }
                       <button
                         class="reaction-btn-open-emoji-picker"
