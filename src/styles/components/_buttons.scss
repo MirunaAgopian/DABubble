@@ -71,6 +71,10 @@
   &:disabled {
     background-color: var(--color-primary-disabled);
   }
+
+  @media (max-width: 400px) {
+    width: 120px;
+  }
 }
 
 .btn-secondary-blue {
@@ -85,6 +89,10 @@
     background-color: var(--color-primary-default);
     color: var(--color-bg-default);
     transform: translateX(2px);
+  }
+
+  @media (max-width: 400px) {
+    width: 120px;
   }
 }
 

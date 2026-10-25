@@ -38,6 +38,10 @@ export class SignIn {
     this.router.navigate(['workspace']);
   }
 
+  redirectRegister() {
+    this.router.navigate(['/register']);
+  }
+
   async onSubmit() {
     const { email, password } = this.form.value;
 

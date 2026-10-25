@@ -2,11 +2,15 @@
 
 .sign-in-page {
   background-color: var(--color-bg-default);
-  height: 100vh;
+  min-height: 100vh;
 
   &__main-section {
-    @include flex-center;
+    @include flex-column-space-btw;
   }
+}
+
+.accent {
+  color: var(--color-primary-default)
 }
 
 .separator {
@@ -43,9 +47,26 @@
 
 .card-footer {
   @include flex-center;
-  gap: 24px
+  gap: 24px;
 }
 
+.create-account {
+  @include flex-column-space-btw;
+  padding: 8px 0;
+  gap: 8px;
+  display: none;
+}
+
+
+@media(max-width: 450px){
+  .create-account {
+    display: flex;
+  }
+
+  .card-footer {
+    gap: 18px;
+  }
+}
 
 @media(max-height: 650px){
   .content-wrapper {

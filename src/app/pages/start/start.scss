@@ -10,7 +10,7 @@
 
   h1 {
     color: var(--color-secondary-default);
-    font-size: 64px;
+    font-size: clamp(2rem, 5vw, 4rem);
     opacity: 0;
     animation: start-title-reveal 0.5s ease-out 2s forwards;
   }
@@ -22,11 +22,13 @@
 
   &__logo {
     opacity: 0;
+    width: clamp(60px, 12vw, 120px);
     animation:
       start-logo-fade-in 0.6s ease-out forwards,
       start-logo-slide-left 0.4s ease-in-out 0.8s forwards;
   }
 }
+
 
 @keyframes start-logo-fade-in {
   from {
@@ -66,6 +68,41 @@
   to {
     opacity: 0;
     visibility: hidden;
+  }
+}
+
+// MOBILE key-frames
+
+@keyframes start-logo-slide-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50px);
+  }
+}
+
+@keyframes start-logo-slide-left-mobile {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-20px);
+  }
+}
+
+.start-page__logo {
+  opacity: 0;
+  animation:
+    start-logo-fade-in 0.6s ease-out forwards,
+    start-logo-slide-left 0.4s ease-in-out 0.8s forwards;
+}
+
+@media (max-width: 400px) {
+  .start-page__logo {
+    animation:
+      start-logo-fade-in 0.6s ease-out forwards,
+      start-logo-slide-left-mobile 0.4s ease-in-out 0.8s forwards;
   }
 }
 

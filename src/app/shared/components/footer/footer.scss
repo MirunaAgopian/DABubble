@@ -5,16 +5,13 @@
 }
 
 .footer {
-  @include flex-center;
-  position: fixed;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  gap: 4px;
-  padding: 20px 0;
+  @include flex-space-btw;
+  gap: 18px;
+  margin: 16px 0;
+}
 
-  @media (max-height: 800px) {
-    padding: 0;
+@media (max-height: 800px) {
+  .footer {
+    margin: 0;
   }
-
 }

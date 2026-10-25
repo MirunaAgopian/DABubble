@@ -2,22 +2,27 @@
 
 .avatar-page {
   background-color: var(--color-bg-default);
-  height: 100vh;
+  min-height: 100vh;
 
   &__main-section {
-    @include flex-center;
+    @include flex-column-space-btw;
   }
 }
 
 .title-container {
+  display: grid;
+  grid-template-columns: 40px 1fr 40px;
+  align-items: center;
   width: 100%;
-  position: relative;
+}
 
-  .abs-pos {
-    position: absolute;
-    left: 0;
-    top: 4px;
-  }
+.go-back-btn {
+  justify-self: start;
+}
+
+h1 {
+  justify-self: center;
+  margin: 0;
 }
 
 .choose-avatar {

@@ -3,6 +3,7 @@
 .header {
   @include flex-space-btw;
   margin-bottom: clamp(20px, 8vh, 100px);
+  padding-top: 20px;
 
   &__logo {
     height: 80px;
@@ -19,4 +20,14 @@
     @media(max-height: 850px){
         margin-bottom: 16px;
     }
+}
+
+@media(max-width: 450px){
+  .header__register-user {
+    display: none;
+  }
+
+  .header {
+    justify-content: center;
+  }
 }

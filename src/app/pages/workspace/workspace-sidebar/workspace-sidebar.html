@@ -334,7 +334,7 @@
       @for (user of sortedUsers(); track user.id) {
         <button
           class="app-user"
-          (click)="user.id === currentUser()!.id ? openSelf(user) : openDM(user)"
+          (click)="user.id === currentUser()?.id ? openSelf(user) : openDM(user)"
         >
           <div class="workspace-sidebar__avatar-status">
             <img class="user-avatar" [src]="user.avatarUrl" alt="user-avatar" />
@@ -349,7 +349,7 @@
           </div>
           <span>
             {{ user.name }}
-            @if (user.id === currentUser()!.id) {
+            @if (user.id === currentUser()?.id) {
               <span>(Du)</span>
             }
           </span>
