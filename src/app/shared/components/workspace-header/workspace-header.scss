@@ -77,6 +77,10 @@
   font-weight: var(--font-weight-bold);
   font-size: var(--font-size-text-large);
   color: var(--color-text-default);
+
+  @media (max-width: 1100px) {
+    display: none;
+  }
 }
 
 .workspace-header {
@@ -144,5 +148,31 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     text-align: justify;
+  }
+}
+
+.workspace-header__mobile {
+  @include flex-space-btw;
+  padding-bottom: 8px;
+
+  h3 {
+    color: black;
+  }
+}
+
+.workspace-header__mobile--go-back {
+  @include flex-space-btw;
+  gap: 8px;
+  margin-bottom: clamp(20px, 8vh, 10px);
+  padding-top: 20px;
+}
+
+@media (max-width: 1100px) {
+  .workspace-header__search {
+    display: none;
+  }
+
+  .workspace-header svg {
+    display: none;
   }
 }

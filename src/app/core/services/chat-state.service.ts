@@ -10,6 +10,7 @@ import { Message } from '../interfaces/message.interface';
 })
 export class ChatStateService {
   mode = signal<'new' | 'dm' | 'self' | 'channel'>('new');
+  mobileView = signal<'sidebar' | 'chat' | 'thread'>('sidebar');
   selectedUser = signal<User | null>(null);
   selectedChannel = signal<Channel | null>(null);
   currentUser = signal<User | null>(null);
@@ -24,6 +25,7 @@ export class ChatStateService {
     this.selectedUser.set(user);
     this.selectedChannel.set(null);
     this.selectedThreadMessage.set(null);
+    this.mobileView.set('chat');
   }
 
   openSelf(user: User) {
@@ -31,6 +33,7 @@ export class ChatStateService {
     this.selectedUser.set(user);
     this.selectedChannel.set(null);
     this.selectedThreadMessage.set(null);
+    this.mobileView.set('chat');
   }
 
   openChannel(channel: Channel) {
@@ -43,6 +46,7 @@ export class ChatStateService {
         this.selectedChannel.set(updatedChannel);
       });
       this.selectedThreadMessage.set(null);
+      this.mobileView.set('chat');
   }
 
   startNewMessage() {
@@ -50,6 +54,7 @@ export class ChatStateService {
     this.selectedUser.set(null);
     this.selectedChannel.set(null);
     this.selectedThreadMessage.set(null);
+     this.mobileView.set('chat');
   }
 
   placeholder = computed(() => {
@@ -83,5 +88,6 @@ export class ChatStateService {
   this.showSendTo.set(false);
   this.mentionSomeone.set(null);
   this.channelSubscription?.unsubscribe();
+  this.mobileView.set('sidebar');
 }
 }

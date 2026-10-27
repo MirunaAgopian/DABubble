@@ -202,6 +202,7 @@ export class ChatMessages {
 
   openThread(message: Message) {
     this.chatStateService.selectedThreadMessage.set(message);
+    this.chatStateService.mobileView.set('thread');
   }
 
   loadThreadStats(messageId: string) {

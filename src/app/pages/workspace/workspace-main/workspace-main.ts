@@ -1,4 +1,4 @@
-import { Component, inject, ChangeDetectorRef, signal } from '@angular/core';
+import { Component, inject, ChangeDetectorRef, signal, HostListener } from '@angular/core';
 import { WorkspaceHeader } from '../../../shared/components/workspace-header/workspace-header';
 import { WorkspaceSidebar } from '../workspace-sidebar/workspace-sidebar';
 import { ChatShell } from '../workspace-chat/chat-shell/chat-shell';
@@ -50,8 +50,10 @@ export class WorkspaceMain {
   taggedUsers: User[] = [];
   pendingChannelData = signal<{ name: string; description: string } | null>(null);
   overlayChannel = this.chatState.selectedChannel;
+  isMobile = signal(false);
 
   ngOnInit() {
+    this.checkViewport();
     this.inAppPresenceService.startInactivityTimer();
     onAuthStateChanged(this.authService.auth, async (user) => {
       if (user) {
@@ -63,6 +65,15 @@ export class WorkspaceMain {
       }
       this.cdr.detectChanges();
     });
+  }
+
+  @HostListener('window:resize')
+  onResize() {
+    this.checkViewport();
+  }
+
+  checkViewport() {
+    this.isMobile.set(window.innerWidth <= 1100);
   }
 
   handleLogout() {

@@ -20,6 +20,7 @@ import { DmConversationService } from '../../../core/services/dm-conversation.se
 })
 export class WorkspaceHeader {
   user = input<User | null>();
+  isMobile = input<boolean>(false);
   userService = inject(UserService);
   channelService = inject(ChannelService);
   messageSevice = inject(MessageService);
@@ -152,5 +153,9 @@ export class WorkspaceHeader {
     if (otherUser) {
       this.chatStateService.openDM(otherUser);
     }
+  }
+
+  showSidebar(){
+    this.chatStateService.mobileView.set('sidebar');
   }
 }
