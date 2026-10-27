@@ -2,7 +2,9 @@
   <header class="workspace-header">
     <img class="workspace-header__logo" src="/assets/img/icons/logo_header.svg" alt="app logo" />
 
-    <app-workspace-search [user]="user()"></app-workspace-search>
+    @if (!isMobile()) {
+      <app-workspace-search [user]="user()"></app-workspace-search>
+    }
 
     <button class="workspace-header__user" (click)="openOverlay.emit('logout')">
       <span class="workspace-header__user-name">{{ user()?.name }}</span>

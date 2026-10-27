@@ -21,15 +21,6 @@
     flex: 0 0 auto;
   }
 
-  &__search {
-    flex: 1;
-    max-width: 800px;
-  }
-
-  &__search-input {
-    width: 100%;
-  }
-
   &__user {
     flex: 0 0 auto;
   }
@@ -39,6 +30,10 @@
   }
 }
 
+app-workspace-search {
+  flex: 1;
+  min-width: 0;
+}
 
 // USER container
 .workspace-header__user {
@@ -86,3 +81,28 @@
   }
 }
 
+.workspace-header__mobile {
+  @include flex-space-btw;
+  margin-bottom: clamp(20px, 8vh, 10px);
+  padding-top: 20px;
+}
+
+.workspace-header__mobile--go-back {
+  @include flex-space-btw;
+  gap: 8px;
+
+  h3 {
+    color: black;
+  }
+}
+
+@media (max-width: 450px) {
+  .workspace-header__logo {
+    width: 140px;
+  }
+
+  .workspace-header__avatar {
+    height: 50px;
+    width: 50px;
+  }
+}

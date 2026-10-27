@@ -119,7 +119,10 @@
     </button>
   </section>
 
-  <app-workspace-search [user]="user()"></app-workspace-search>
+  @if (isMobile()) {
+    <app-workspace-search [user]="user()" />
+  }
+
   <section #cannelsCollapsible class="sidebar-content__channels collapsible expanded">
     <div class="action-btns">
       <button class="channels-btn" (click)="toggleCollapsible(cannelsCollapsible)">

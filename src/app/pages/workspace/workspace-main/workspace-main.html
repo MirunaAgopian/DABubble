@@ -48,6 +48,7 @@
         <app-workspace-sidebar
           (openOverlay)="openOverlay($event)"
           [user]="currentUser()"
+          [isMobile]="isMobile()"
         ></app-workspace-sidebar>
         <app-chat-shell
           (openOverlayUser)="openUserProfile($event)"
@@ -64,7 +65,11 @@
     @if (isMobile()) {
       <section class="workspace-chat-area-mobile">
         @if (chatState.mobileView() === 'sidebar') {
-          <app-workspace-sidebar (openOverlay)="openOverlay($event)" [user]="currentUser()" />
+          <app-workspace-sidebar
+            (openOverlay)="openOverlay($event)"
+            [user]="currentUser()"
+            [isMobile]="isMobile()"
+          />
         }
 
         @if (chatState.mobileView() === 'chat') {

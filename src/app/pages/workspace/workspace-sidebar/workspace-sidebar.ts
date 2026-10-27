@@ -26,6 +26,7 @@ export class WorkspaceSidebar {
   channels = toSignal(this.channelService.fetchChannels());
   chatState = inject(ChatStateService);
   currentUser = this.chatState.currentUser;
+  isMobile = input();
 
   sortedUsers = computed(() => {
     const users = this.users() ?? [];
