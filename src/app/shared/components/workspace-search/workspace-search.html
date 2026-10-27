@@ -1,0 +1,34 @@
+<div class="workspace-header__search">
+  <div class="workspace-header__input-container">
+    <app-input-icon type="search"></app-input-icon>
+    <input
+      type="text"
+      class="workspace-header__search-input"
+      placeholder="Devspace durchsuchen"
+      [value]="searchValue()"
+      (input)="onInput($event)"
+    />
+
+    @if (searchResults().length > 0) {
+      <div class="workspace-header__search-results">
+        @for (result of searchResults(); track result.id) {
+          <button class="workspace-header__search-result" (click)="onSearchResultClick(result)">
+            <span>
+              @if (result.type === 'user') {
+                👤
+              }
+              @if (result.type === 'channel') {
+                👥
+              }
+              @if (result.type === 'message') {
+                💬
+              }
+              {{ result.title }}</span
+            >
+            <small>{{ result.subtitle }}</small>
+          </button>
+        }
+      </div>
+    }
+  </div>
+</div>

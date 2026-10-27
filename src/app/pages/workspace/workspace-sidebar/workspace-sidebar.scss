@@ -172,3 +172,8 @@ h3 {
 }
 
 
+@media (max-width: 1100px) {
+  .sidebar-content__header {
+    display: none;
+  }
+}
