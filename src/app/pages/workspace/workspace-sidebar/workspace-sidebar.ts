@@ -1,4 +1,4 @@
-import { Component, inject, output, computed } from '@angular/core';
+import { Component, inject, output, computed, input } from '@angular/core';
 import { UserService } from '../../../core/services/user.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { NgClass } from '@angular/common';
@@ -17,6 +17,7 @@ import { WorkspaceSearch } from '../../../shared/components/workspace-search/wor
   styleUrl: './workspace-sidebar.scss',
 })
 export class WorkspaceSidebar {
+  user = input<User | null>();
   userService = inject(UserService);
   users = toSignal(this.userService.getAllUsersRealtime());
   authService = inject(AuthService);

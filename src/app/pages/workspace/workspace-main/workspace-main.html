@@ -45,7 +45,10 @@
           </svg>
         </button>
         <!-- MAIN CHAT COMPONENTS -->
-        <app-workspace-sidebar (openOverlay)="openOverlay($event)"></app-workspace-sidebar>
+        <app-workspace-sidebar
+          (openOverlay)="openOverlay($event)"
+          [user]="currentUser()"
+        ></app-workspace-sidebar>
         <app-chat-shell
           (openOverlayUser)="openUserProfile($event)"
           (openOverlayView)="openOverlay($event)"
@@ -61,7 +64,7 @@
     @if (isMobile()) {
       <section class="workspace-chat-area-mobile">
         @if (chatState.mobileView() === 'sidebar') {
-          <app-workspace-sidebar (openOverlay)="openOverlay($event)" />
+          <app-workspace-sidebar (openOverlay)="openOverlay($event)" [user]="currentUser()" />
         }
 
         @if (chatState.mobileView() === 'chat') {
