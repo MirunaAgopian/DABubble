@@ -1,59 +1,170 @@
-# DaBubble
+## DABubble
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.7.
+DABubble is a realtime communication platform inspired by modern workplace messaging tools such as Slack and Discord.
 
-## Development server
+<div align="center">
+  <img src="public/dabubble_project_img.png" width="400" />
+</div>
 
-To start a local development server, run:
+## 1. Project Overview
+Users can communicate through channels, direct messages, and threads while receiving realtime updates powered by Firebase Firestore.
+Built with Angular 21, Signals, Firebase Authentication and Firestore.
 
-```bash
-ng serve
-```
+# 2. Key Features
+- Authentication and guest access
+- Public channels
+- Direct messages
+- Threaded conversations
+- Realtime Firestore updates
+- User profiles
+- Member management
+- Full responsive desktop and mobile experience
+- Reusable overlay system
+- Global search across users, channels and messages
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## 3. Tech Stack
 
-## Code scaffolding
+- Angular
+- TypeScript
+- SCSS
+- Angular Signals
+- Firebase Authentication
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## 4. Architecture
+DaBubble follows a service-driven architecture.
+Components remain focused on presentation and interaction while application state is centralized inside dedicated Angular services using Signals.
 
-```bash
-ng generate component component-name
-```
+Firestore
+    ↓
+Services
+    ↓
+Signals
+    ↓
+Components
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## 5. State Management
 
-```bash
-ng generate --help
-```
+The application uses Angular Signals as the primary state management mechanism.
+Instead of passing state only through the component tree, shared state is managed by services such as:
 
-## Building
+- ChatStateService
+- UserService
+- ChannelService
+- ThreadService
+- DmConversationService
 
-To build the project run:
+ChatStateService acts as the single source of truth for the active workspace view, selected channel, selected direct message and active thread.
 
-```bash
-ng build
-```
+## 6. Responsive Navigation
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Desktop and mobile layouts are handled differently.
 
-## Running unit tests
+Desktop:
+Sidebar | Chat | Thread
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+Mobile:
+Sidebar → Chat → Thread
 
-```bash
-ng test
-```
+The mobile experience is controlled through a centralized navigation state stored inside ChatStateService.
+This allows components to react consistently to navigation events while avoiding duplicated viewport logic.
 
-## Running end-to-end tests
 
-For end-to-end (e2e) testing, run:
+## 7. Search System
 
-```bash
-ng e2e
-```
+The search feature aggregates results from three independent data sources:
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+- Users
+- Channels
+- Messages
 
-## Additional Resources
+Results are normalized into a shared SearchResult interface and processed through computed Angular Signals.
+This keeps the UI independent from the underlying entity type while allowing a single search experience.
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+## 8. Firebase Integration
+
+Firebase Authentication is used for user authentication.
+
+Users can authenticate through:
+
+- Google Authentication
+- Email and password authentication
+- Guest access
+
+Firestore powers realtime synchronization of:
+- Channels
+- Messages
+- Direct messages
+- Threads
+- User profiles
+
+## 9. Overlay Architecture
+
+A reusable overlay component powers all modal interactions.
+
+Different views are loaded dynamically through a shared overlay state:
+
+- User profile
+- Edit profile
+- Create channel
+- Channel details
+- Add members
+- Logout
+
+## 10. Technical challenges
+
+### 10.1 Responsive Workspace Architecture
+
+One of the main challenges was designing a responsive workspace capable of supporting both desktop and mobile navigation patterns.
+Desktop users interact with three simultaneous panels: Sidebar | Chat | Thread
+while mobile users navigate through a state-driven flow: Sidebar → Chat → Thread
+To solve this, application navigation was centralized inside a dedicated ChatStateService using Angular Signals as the single source of truth.
+---
+
+### 10.2 Realtime UI Synchronization
+
+A recurring challenge throughout the project involved keeping the user interface synchronized with asynchronous Firestore updates. One example was the message editing workflow.
+Firestore updates were successfully persisted after the first save action, but the editing state remained visible until a second user interaction triggered Angular's change detection cycle.
+To ensure immediate visual feedback, ChangeDetectorRef was introduced to synchronize local UI state changes with asynchronous database updates, allowing the editing mode to close immediately after a successful update.
+
+---
+
+### 10.3 Overlay and Interaction Complexity
+
+A significant portion of the project complexity came from designing and coordinating numerous user interactions rather than implementing the underlying CRUD operations.
+The application contains more than ten dialog and overlay views, including:
+- User profiles
+- Profile editing
+- Channel creation
+- Channel management
+- Member invitations
+- Member selection
+- Direct message creation
+- Message editing
+- Logout confirmation
+- Thread interactions
+
+Managing transitions, overlay states, focus handling, and interaction consistency across desktop and mobile devices became one of the most challenging aspects of the project.
+
+---
+
+### 10.4 Message Reactions and Micro-Interactions
+
+Beyond core messaging functionality, considerable effort was invested in creating responsive micro-interactions that make the application feel natural and intuitive.
+
+Examples include:
+- Message hover actions
+- Emoji reaction menus
+- Thread previews
+- Interactive feedback states
+
+Many of these interactions required careful coordination between Angular Signals, component state, Firestore updates, and Angular's change detection system to ensure immediate visual feedback.
+
+## Project Reflection
+
+DaBubble was initially intended to be developed as part of a team project. The final application, however, was completed independently.
+Working as the sole developer meant taking responsibility for every aspect of the project lifecycle, from architecture and database design to responsive layouts, realtime synchronization, debugging, and documentation.
+
+One of the most valuable lessons learned throughout the development process was that the greatest challenges were not the individual features themselves, but the interactions between them. Coordinating overlays, dialogs, message reactions, responsive navigation states, and realtime Firestore updates required careful architectural planning.
+
+Completing the project independently provided practical experience in designing and maintaining a medium-sized Angular application from concept to deployment.
