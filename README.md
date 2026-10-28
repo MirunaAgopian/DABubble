@@ -3,7 +3,7 @@
 DABubble is a realtime communication platform inspired by modern workplace messaging tools such as Slack and Discord.
 
 <div align="center">
-  <img src="public/dabubble_project_img.png" width="400" />
+  <img src="public/dabubble_project_img.png" width="600" />
 </div>
 
 ## 1. Project Overview
@@ -119,6 +119,7 @@ One of the main challenges was designing a responsive workspace capable of suppo
 Desktop users interact with three simultaneous panels: Sidebar | Chat | Thread
 while mobile users navigate through a state-driven flow: Sidebar → Chat → Thread
 To solve this, application navigation was centralized inside a dedicated ChatStateService using Angular Signals as the single source of truth.
+
 ---
 
 ### 10.2 Realtime UI Synchronization
