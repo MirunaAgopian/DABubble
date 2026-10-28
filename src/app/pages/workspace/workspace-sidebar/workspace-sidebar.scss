@@ -8,6 +8,7 @@
   height: clamp(500px, 80vh, 1000px);
   gap: clamp(12px, 3vh, 30px);
   padding: clamp(8px, 2vh, 20px) 16px;
+  position: relative;
 
   &__header {
     @include flex-space-btw;
@@ -175,9 +176,25 @@ h3 {
   }
 }
 
+.create-new-message-mobile {
+  height: 60px;
+  width: 60px;
+  background-color: var(--color-primary-default);
+  border-radius: 50%;
+  color: white;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: none;
+}
+
 
 @media (max-width: 1100px) {
   .sidebar-content__header {
     display: none;
+  }
+
+  .create-new-message-mobile {
+    display: block;
   }
 }

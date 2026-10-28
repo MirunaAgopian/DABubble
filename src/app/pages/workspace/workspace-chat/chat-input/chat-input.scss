@@ -62,6 +62,12 @@ textarea {
   max-height: 350px;
   overflow-y: auto;
   overflow-x: hidden;
+
+  width: clamp(220px, 80vw, 350px);
+}
+
+.emoji-mart-category {
+    width: clamp(220px, 75vw, 350px);
 }
 
 emoji-mart-anchors {
@@ -85,7 +91,7 @@ ngx-emoji {
   @include flex-column-space-btw;
   gap: 8px;
   max-height: 350px;
-  width: 300px;
+  width: clamp(220px, 80vw, 300px);
   height: 300px;
   position: absolute;
   bottom: 30%;
@@ -142,4 +148,17 @@ ngx-emoji {
 
 .status-bullet--away {
   background-color: #ff9800;
+}
+
+// @media(max-width:420px){ 
+//   .emoji-picker-container {
+//     width: 300px;
+//   }
+// }
+
+
+@media(max-width:400px){
+  .users-container {
+    left:0
+  }
 }

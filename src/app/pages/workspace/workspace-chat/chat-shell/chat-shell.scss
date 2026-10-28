@@ -12,7 +12,7 @@
 .chat-shell__messages {
   flex: 1;          
   overflow-y: auto;
-  width: 100%;
+  overflow-x: hidden;
 }
 
 .chat-shell__composer {

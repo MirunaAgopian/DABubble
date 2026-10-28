@@ -22,7 +22,6 @@
   padding: 4px 8px;
   border-radius: 30px;
 
-
   &:hover {
     background-color: var(--color-bg-default);
   }
@@ -38,7 +37,6 @@
   gap: 4px;
   padding: 4px 16px;
   border-radius: 30px;
- 
 
   &:hover {
     background-color: var(--color-bg-default);
@@ -73,6 +71,24 @@
   }
 }
 
+.add-user-btn__mobile {
+  padding: 4px 8px;
+  border-radius: 30px;
+  display: none;
+
+  svg {
+    color: var(--color-text-default);
+  }
+
+  &:hover {
+    background-color: var(--color-bg-default);
+
+    svg {
+      color: var(--color-secondary-active);
+    }
+  }
+}
+
 .extra-count {
   @include flex-center;
   height: 24px;
@@ -84,4 +100,25 @@
   color: var(--color-secondary-default);
   border: 2px solid var(--color-secondary-default);
   margin-left: -10px;
+}
+
+.channel-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+@media (max-width: 500px) {
+  .all-users-btn {
+    display: none;
+  }
+
+  .add-user-btn {
+    display: none;
+  }
+
+  .add-user-btn__mobile {
+    display: block;
+  }
 }

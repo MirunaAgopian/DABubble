@@ -45,8 +45,8 @@ export class ChatStateService {
       .subscribe((updatedChannel) => {
         this.selectedChannel.set(updatedChannel);
       });
-      this.selectedThreadMessage.set(null);
-      this.mobileView.set('chat');
+    this.selectedThreadMessage.set(null);
+    this.mobileView.set('chat');
   }
 
   startNewMessage() {
@@ -54,7 +54,7 @@ export class ChatStateService {
     this.selectedUser.set(null);
     this.selectedChannel.set(null);
     this.selectedThreadMessage.set(null);
-     this.mobileView.set('chat');
+    this.mobileView.set('chat');
   }
 
   placeholder = computed(() => {
@@ -81,13 +81,13 @@ export class ChatStateService {
   }
 
   resetChatState() {
-  this.mode.set('new');
-  this.selectedUser.set(null);
-  this.selectedChannel.set(null);
-  this.selectedThreadMessage.set(null);
-  this.showSendTo.set(false);
-  this.mentionSomeone.set(null);
-  this.channelSubscription?.unsubscribe();
-  this.mobileView.set('sidebar');
-}
+    this.mode.set('new');
+    this.selectedUser.set(null);
+    this.selectedChannel.set(null);
+    this.selectedThreadMessage.set(null);
+    this.showSendTo.set(false);
+    this.mentionSomeone.set(null);
+    this.channelSubscription?.unsubscribe();
+    this.mobileView.set('sidebar');
+  }
 }
