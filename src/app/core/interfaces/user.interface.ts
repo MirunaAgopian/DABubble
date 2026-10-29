@@ -1,3 +1,7 @@
+/**
+ * Represents a registered user and
+ * their profile information.
+ */
 export interface User {
   id: string;
   name: string;

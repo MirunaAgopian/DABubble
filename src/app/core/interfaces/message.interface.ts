@@ -1,3 +1,8 @@
+/**
+ * Represents a single message sent
+ * in a channel, direct message, or self chat.
+ */
+
 import { Reaction } from './reaction.interface';
 
 export interface Message {
@@ -10,5 +15,3 @@ export interface Message {
   reactions?: Reaction[];
   mentionUserIds?: string[];
 }
-
-
