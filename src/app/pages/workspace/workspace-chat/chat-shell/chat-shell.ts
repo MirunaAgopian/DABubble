@@ -7,6 +7,7 @@ import { ChatInput } from '../chat-input/chat-input';
 import { User } from '../../../../core/interfaces/user.interface';
 import { Channel } from '../../../../core/interfaces/channel.interface';
 import { ChatStateService } from '../../../../core/services/chat-state.service';
+import { OverlayTrigger } from '../../../../core/interfaces/overlay-trigger.interface';
 
 @Component({
   selector: 'app-chat-shell',
@@ -16,7 +17,7 @@ import { ChatStateService } from '../../../../core/services/chat-state.service';
 })
 export class ChatShell {
   openOverlayUser = output<User>();
-  openOverlayView = output<string>();
+  openOverlayView = output<OverlayTrigger>();
   openChannelDetails = output<Channel | null>();
   chatState = inject(ChatStateService);
   @ViewChild('chatMessagesContainer')
@@ -26,8 +27,8 @@ export class ChatShell {
     this.openOverlayUser.emit(user);
   }
 
-  onOpenOverlayView(view: string) {
-    this.openOverlayView.emit(view);
+  onOpenOverlayView(trigger: OverlayTrigger) {
+    this.openOverlayView.emit(trigger);
   }
 
   onOpenChannelDetails(channel: Channel | null) {

@@ -56,7 +56,9 @@
   <!-- Channel details -->
 
   @if (view() === 'channel-details') {
-    <div class="workspace-overlay__modals--center-left tooltip-channel-details">
+    <div class="tooltip-channel-details workspace-overlay__popover"
+      [style.left.px]="anchor()!.right - 200"
+      [style.top.px]="anchor()!.bottom + 8">
       <app-channel-details
         (close)="onBackgroundClick()"
         [channel]="overlayChannel()"
@@ -66,7 +68,11 @@
 
   <!-- CENTERED-RIGHT DIALOGS -->
   @if (view() === 'header-add-members-primary') {
-    <div class="workspace-overlay__modals--center-right">
+    <div
+      class="workspace-overlay__popover"
+      [style.left.px]="anchor()!.right - 300"
+      [style.top.px]="anchor()!.bottom + 300"
+    >
       <app-header-add-members-primary
         (close)="onBackgroundClick()"
         (openUserProfile)="onOpenUserProfile($event)"
@@ -74,10 +80,15 @@
       ></app-header-add-members-primary>
     </div>
   }
-  <!-- also create the add membes secondary dialog! -->
-   @if(view() === 'header-add-members-secondary') {
-    <div class="workspace-overlay__modals--center-right">
-      <app-header-add-members-secondary (close)="onBackgroundClick()"></app-header-add-members-secondary>
+  @if (view() === 'header-add-members-secondary') {
+    <div class="workspace-overlay__popover"
+      [style.left.px]="anchor()!.right - 280"
+      [style.top.px]="anchor()!.bottom + 250">
+      <app-header-add-members-secondary
+        (close)="onBackgroundClick()"
+      ></app-header-add-members-secondary>
     </div>
-   }
+  }
 </section>
+
+

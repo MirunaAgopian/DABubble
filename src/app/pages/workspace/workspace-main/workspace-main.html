@@ -52,7 +52,7 @@
         ></app-workspace-sidebar>
         <app-chat-shell
           (openOverlayUser)="openUserProfile($event)"
-          (openOverlayView)="openOverlay($event)"
+          (openOverlayView)="openAnchoredOverlay($event)"
           (openChannelDetails)="openChannelDetails($event)"
         ></app-chat-shell>
         <app-workspace-thread
@@ -75,7 +75,7 @@
         @if (chatState.mobileView() === 'chat') {
           <app-chat-shell
             (openOverlayUser)="openUserProfile($event)"
-            (openOverlayView)="openOverlay($event)"
+            (openOverlayView)="openAnchoredOverlay($event)"
             (openChannelDetails)="openChannelDetails($event)"
           />
         }
@@ -100,6 +100,7 @@
       [user]="currentUser()"
       [overlayUser]="overlayUser()"
       [overlayChannel]="overlayChannel()"
+      [anchor] = "overlayAnchor()"
       (logout)="handleLogout()"
       (close)="closeOverlay()"
       (switchView)="onSwitchView($event)"

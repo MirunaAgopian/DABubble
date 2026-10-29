@@ -15,19 +15,7 @@
   transform: translate(-50%, -50%);
 }
 
-.workspace-overlay__modals--center-left {
+.workspace-overlay__popover {
   position: fixed;
-  top: 54%;
-  left: 30%;
-  transform: translateY(-50%);
-  //to be adapted for responsiveness for device heights and widths!
-}
-
-.workspace-overlay__modals--center-right {
-  position: fixed;
-  top: 60%;
-  left: 50%;
-  transform: translateY(-50%);
-  //to be adapted for responsiveness for device heights and widths!
 }
 

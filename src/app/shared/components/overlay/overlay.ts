@@ -1,4 +1,4 @@
-import { Component, output, input, signal } from '@angular/core';
+import { Component, output, input, } from '@angular/core';
 import { Logout } from './logout/logout';
 import { Profile } from './profile/profile';
 import { EditProfile } from './edit-profile/edit-profile';
@@ -11,6 +11,7 @@ import { Channel } from '../../../core/interfaces/channel.interface';
 import { HeaderAddMembersPrimary } from './header-add-members-primary/header-add-members-primary';
 import { HeaderAddMembersSecondary } from './header-add-members-secondary/header-add-members-secondary';
 import { log } from 'firebase/firestore/pipelines';
+import { OverlayView } from '../../../core/interfaces/overlay-trigger.interface';
 
 @Component({
   selector: 'app-overlay',
@@ -39,25 +40,15 @@ export class Overlay {
   user = input<User | null>();
   overlayUser = input<User | null>();
   overlayChannel = input<Channel | null>();
+  selectedUser = output<User>();
   confirmAddMembers = output<User[]>();
   updateUserName = output<string>();
   addMembers = output<{ name: string; description: string }>();
-  view = input<
-    | 'profile'
-    | 'edit-profile'
-    | 'logout'
-    | 'create-channel'
-    | 'user-profile'
-    | 'add-members'
-    | 'channel-details'
-    | 'header-add-members-primary'
-    | 'header-add-members-secondary'
-    | null
-  >();
+  view = input<OverlayView | null>(null);
+  anchor = input<DOMRect | null>(null);
   changeView = output<
     'header-add-members-primary' | 'header-add-members-secondary' | 'user-profile'
   >();
-  selectedUser = output<User>();
 
   onLogout() {
     this.logout.emit();

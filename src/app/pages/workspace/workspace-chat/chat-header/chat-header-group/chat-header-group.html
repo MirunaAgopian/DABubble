@@ -1,5 +1,5 @@
 <section class="header-container">
-  <button class="header-btn-group" (click)="onOpenOverlay()">
+  <button class="header-btn-group" (click)="onOpenOverlay($event)">
     <span class="channel-name"># {{ selectedChannel()?.name }}</span>
     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
       <mask
@@ -22,7 +22,7 @@
     </svg>
   </button>
   <div class="right-btns-container">
-    <button class="all-users-btn" (click)="onOpenHeaderAddMembersPrimary()">
+    <button class="all-users-btn" (click)="onOpenHeaderAddMembersPrimary($event)">
       @for (user of visibleUsers(); track user.id) {
         <img class="avatar-img-small" [src]="user.avatarUrl" alt="avatar" />
       }
@@ -34,7 +34,7 @@
         {{ channelUsers().length }}
       </span>
     </button>
-    <button class="add-user-btn" (click)="onOpenHeaderAddMembersSecondary()">
+    <button class="add-user-btn" (click)="onOpenHeaderAddMembersSecondary($event)">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -62,7 +62,7 @@
       </svg>
     </button>
 
-     <button class="add-user-btn__mobile" (click)="onOpenHeaderAddMembersPrimary()">
+     <button class="add-user-btn__mobile" (click)="onOpenHeaderAddMembersPrimary($event)">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"

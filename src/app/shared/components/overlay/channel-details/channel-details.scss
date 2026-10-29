@@ -3,7 +3,7 @@
 .channel-details {
   @include flex-column-space-btw;
   align-items: flex-start;
-  gap: 16px;
+  gap: clamp(8px, 1.5vw, 8px);
 
   &__header {
     @include flex-space-btw;

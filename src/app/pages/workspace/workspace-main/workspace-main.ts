@@ -13,6 +13,7 @@ import { User } from '../../../core/interfaces/user.interface';
 import { ChannelService } from '../../../core/services/channel.service';
 import { Channel } from '../../../core/interfaces/channel.interface';
 import { ChatStateService } from '../../../core/services/chat-state.service';
+import { OverlayTrigger, OverlayView } from '../../../core/interfaces/overlay-trigger.interface';
 
 @Component({
   selector: 'app-workspace-main',
@@ -32,20 +33,9 @@ export class WorkspaceMain {
   isOverlayOpen = false;
   sidebarCollapsed = signal(false);
   threadCollapsed = signal(false);
-
-  overlayView:
-    | 'profile'
-    | 'edit-profile'
-    | 'logout'
-    | 'create-channel'
-    | 'user-profile'
-    | 'add-members'
-    | 'channel-details'
-    | 'header-add-members-primary'
-    | 'header-add-members-secondary'
-    | null = null;
-
+  overlayView: OverlayView | null = null;
   overlayUser = signal<User | null>(null);
+  overlayAnchor = signal<DOMRect | null>(null);
   currentUser = this.chatStateService.currentUser;
   taggedUsers: User[] = [];
   pendingChannelData = signal<{ name: string; description: string } | null>(null);
@@ -82,7 +72,7 @@ export class WorkspaceMain {
     this.router.navigate(['sign-in']);
   }
 
-  openOverlay(view: string) {
+  openOverlay(view: OverlayView) {
     if (
       view === 'profile' ||
       view === 'edit-profile' ||
@@ -95,6 +85,12 @@ export class WorkspaceMain {
       this.overlayView = view;
       this.isOverlayOpen = true;
     }
+  }
+
+  openAnchoredOverlay(trigger: OverlayTrigger) {
+    this.overlayView = trigger.view;
+    this.overlayAnchor.set(trigger.anchor);
+    this.isOverlayOpen = true;
   }
 
   openUserProfile(user: User) {
@@ -146,11 +142,8 @@ export class WorkspaceMain {
   onConfirmAddMembers(selectedUsers: User[]) {
     const channelData = this.pendingChannelData();
     const user = this.currentUser();
-
     if (!channelData || !user) return;
-
     const memberIds = selectedUsers.map((u) => u.id);
-
     this.channelService.createChannel(
       channelData.name,
       user.id,
@@ -158,7 +151,6 @@ export class WorkspaceMain {
       memberIds,
       channelData.description,
     );
-
     this.pendingChannelData.set(null);
     this.closeOverlay();
   }
