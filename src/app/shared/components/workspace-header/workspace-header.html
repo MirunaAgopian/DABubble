@@ -175,6 +175,8 @@
       </svg>
       <h3>Devspace</h3>
     </button>
-    <img class="workspace-header__avatar" [src]="user()?.avatarUrl" alt="the avatar image" />
+    <button (click)="openOverlay.emit('logout')">
+      <img class="workspace-header__avatar" [src]="user()?.avatarUrl" alt="the avatar image" />
+    </button>
   </header>
 }
