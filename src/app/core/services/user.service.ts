@@ -4,24 +4,32 @@ import { db } from '../../app.config';
 import { User } from '../interfaces/user.interface';
 import { AuthService } from './auth.service';
 import { Observable } from 'rxjs';
-import { ChatStateService } from './chat-state.service';
 
+/**
+ * Handles user retrieval, profile updates
+ * and user presence information.
+ */
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
   authService = inject(AuthService);
+
+  /**
+   * Retrieves a user by id.
+   */
   async getUser(uid: string) {
     const ref = doc(db, 'users', uid);
     const snapshot = await getDoc(ref);
     return snapshot.exists() ? snapshot.data() : null;
   }
 
-  //this function is an observale and automatically subscribes to changes-not an async promise
-
+  /**
+   * Returns all users as a
+   * realtime data stream.
+   */
   getAllUsersRealtime(): Observable<User[]> {
     const ref = collection(db, 'users');
-
     return new Observable((subscriber) => {
       return onSnapshot(ref, (snapshot) => {
         const users = snapshot.docs.map((doc) => ({
@@ -34,9 +42,12 @@ export class UserService {
     });
   }
 
+  /**
+   * Returns all users belonging to the "Entwicklerteam" channel.
+   * Used to build the default workspace team when creating a channel.
+   */
   getEntwicklerteamUsersRealtime() {
     const q = query(collection(db, 'channels'), where('name', '==', 'Entwicklerteam'));
-
     return new Observable<User[]>((subscriber) => {
       onSnapshot(q, async (snap) => {
         const members = snap.empty ? [] : ((snap.docs[0].data()['members'] as string[]) ?? []);
@@ -48,16 +59,25 @@ export class UserService {
     });
   }
 
+  /**
+   * Updates a user's current presence status.
+   */
   async updateStatus(uid: string, status: 'online' | 'offline' | 'away') {
     const ref = doc(db, 'users', uid);
     await updateDoc(ref, { status });
   }
 
+  /**
+   * Updates user profile information.
+   */
   async updateLastActive(uid: string) {
     const ref = doc(db, 'users', uid);
     await updateDoc(ref, { lastActive: Date.now() });
   }
 
+  /**
+   * Updates user profile information.
+   */
   async updateUserName(uid: string, data: Partial<User>) {
     const ref = doc(db, 'users', uid);
     await updateDoc(ref, data);

@@ -9,12 +9,22 @@ import { doc, setDoc } from 'firebase/firestore';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { db, auth } from '../../app.config';
 
+/**
+ * Handles user authentication and account access.
+ *
+ * Provides registration, login, logout, Google sign-in,
+ * and password reset functionality.
+ */
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   auth = auth;
 
+  /**
+   * Creates a new user account and stores
+   * the user profile in Firestore.
+   */
   async registerUser(name: string, email: string, password: string, avatarUrl: string) {
     const userCredentials = await createUserWithEmailAndPassword(this.auth, email, password);
     const uid = userCredentials.user.uid;
@@ -31,6 +41,10 @@ export class AuthService {
     await setDoc(doc(db, 'users', uid), newUser);
   }
 
+  /**
+   * Signs in an existing user using
+   * email and password credentials.
+   */
   async loginUser(email: string, password: string) {
     try {
       const credential = await signInWithEmailAndPassword(this.auth, email, password);
@@ -41,10 +55,11 @@ export class AuthService {
     }
   }
 
-  async logoutUser() {
-    await this.auth.signOut();
-  }
-
+  /**
+   * Authenticates a user through
+   * Google Sign-In and creates or updates
+   * the user profile.
+   */
   async loginWithGoogle() {
     const provider = new GoogleAuthProvider();
     const result = await signInWithPopup(this.auth, provider);
@@ -64,10 +79,25 @@ export class AuthService {
     await setDoc(doc(db, 'users', uid), newUser, { merge: true });
   }
 
+  /**
+   * Signs out the currently authenticated user.
+   */
+  async logoutUser() {
+    await this.auth.signOut();
+  }
+
+  /**
+   * Sends a password reset link
+   * to the specified email address.
+   */
   sendResetPasswordLink(email: string) {
     return sendPasswordResetEmail(this.auth, email);
   }
 
+  /**
+   * Returns the id of the currently
+   * authenticated user.
+   */
   getCurrentUserId(): string | null {
     return this.auth.currentUser ? this.auth.currentUser.uid : null;
   }

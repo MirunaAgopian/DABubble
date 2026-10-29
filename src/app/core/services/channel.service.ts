@@ -17,10 +17,18 @@ import { db } from '../../app.config';
 import { Observable } from 'rxjs';
 import { User } from '../interfaces/user.interface';
 
+/**
+ * Handles channel creation, updates, and member management.
+ * Keeps channel data synchronized with Firestore in realtime.
+ */
 @Injectable({
   providedIn: 'root',
 })
 export class ChannelService {
+  /**
+   * Checks whether a channel name
+   * is already being used.
+   */
   async isChannelNameTaken(name: string, excludeId?: string): Promise<boolean> {
     const q = query(collection(db, 'channels'), where('name', '==', name));
     const snapshot = await getDocs(q);
@@ -31,6 +39,10 @@ export class ChannelService {
     return true;
   }
 
+  /**
+   * Creates a new channel and stores
+   * it in Firestore.
+   */
   async createChannel(
     name: string,
     currentUserId: string,
@@ -51,6 +63,9 @@ export class ChannelService {
     await setDoc(channelRef, newChannel);
   }
 
+  /**
+   * Returns all channels as a realtime stream.
+   */
   fetchChannels(): Observable<Channel[]> {
     const ref = collection(db, 'channels');
     const q = query(ref, orderBy('name', 'asc'));
@@ -64,7 +79,11 @@ export class ChannelService {
       });
     });
   }
-  
+
+  /**
+   * Returns a single channel as a
+   * realtime stream.
+   */
   fetchChannelById(channelId: string): Observable<Channel> {
     const ref = doc(db, 'channels', channelId);
     return new Observable((subscriber) => {
@@ -78,16 +97,27 @@ export class ChannelService {
     });
   }
 
+  /**
+   * Adds a user to a channel.
+   */
   async addMember(channelId: string, user: User) {
     const ref = doc(db, 'channels', channelId);
     await updateDoc(ref, { members: arrayUnion(user.id) });
   }
 
+  /**
+   * Removes a user from a channel.
+   */
   async removeMember(channelId: string, user: User) {
     const ref = doc(db, 'channels', channelId);
     await updateDoc(ref, { members: arrayRemove(user.id) });
   }
 
+  /**
+   * Updates channel information after
+   * validating that the channel name
+   * is still unique.
+   */
   async updateChannelData(channelId: string, newName: string, newDescription: string) {
     const taken = await this.isChannelNameTaken(newName, channelId);
     if (taken) {
