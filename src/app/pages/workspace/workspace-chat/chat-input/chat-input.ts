@@ -19,6 +19,17 @@ import { ChatStateService } from '../../../../core/services/chat-state.service';
 import { MessageService } from '../../../../core/services/message.service';
 import { DmConversationService } from '../../../../core/services/dm-conversation.service';
 
+/**
+ * Message composition component used for both the main chat
+ * area and thread conversations.
+ *
+ * Responsible for:
+ * - Composing and sending messages
+ * - Creating thread replies
+ * - Managing user mentions
+ * - Handling emoji selection
+ * - Maintaining input focus based on chat state
+ */
 @Component({
   selector: 'app-chat-input',
   imports: [PickerComponent, NgClass],
@@ -36,13 +47,11 @@ export class ChatInput {
   emojiPickerOpen = false;
   userPickerOpen = false;
   isUsedInThread = input(false);
-
   userService = inject(UserService);
   authService = inject(AuthService);
   chatStateService = inject(ChatStateService);
   messageService = inject(MessageService);
   dmConversationService = inject(DmConversationService);
-
   users = toSignal(this.userService.getAllUsersRealtime());
   mentionedUsers: User[] = [];
   selectedUser = this.chatStateService.selectedUser;
@@ -57,6 +66,10 @@ export class ChatInput {
     return this.chatStateService.placeholder();
   });
 
+  /**
+   * Automatically focuses the main chat input whenever
+   * the active conversation changes.
+   */
   focusChatTextareaEffect = effect(() => {
     if (this.isUsedInThread()) return;
     this.mode();
@@ -67,6 +80,10 @@ export class ChatInput {
     });
   });
 
+  /**
+   * Automatically focuses the thread input when
+   * a thread conversation becomes active.
+   */
   focusThreadTextareaEffect = effect(() => {
     if (!this.isUsedInThread()) return;
     const thread = this.chatStateService.selectedThreadMessage();
@@ -76,11 +93,20 @@ export class ChatInput {
     });
   });
 
+  /**
+   * Inserts an emoji into the current message
+   * and closes the emoji picker.
+   * @param event Selected emoji event.
+   */
   addEmoji(event: any) {
     this.textarea.nativeElement.value += event.emoji.native;
     this.emojiPickerOpen = false;
   }
 
+  /**
+   * Adds a user mention to the message and stores the mentioned user for notification purposes.
+   * @param user Mentioned user.
+   */
   addUser(user: User) {
     const textarea = this.textarea.nativeElement;
     textarea.value += `@${user.name}`;
@@ -90,14 +116,26 @@ export class ChatInput {
     }
   }
 
+  /**
+   * Toggles the emoji picker visibility.
+   */
   toggleEmojiPicker() {
     this.emojiPickerOpen = !this.emojiPickerOpen;
   }
 
+  /**
+   * Toggles the user mention picker visibility.
+   */
   toggleUserPicker() {
     this.userPickerOpen = !this.userPickerOpen;
   }
 
+  /**
+   * Closes open pickers when the user clicks
+   * outside their boundaries.
+   *
+   * @param event Click or touch event.
+   */
   @HostListener('document:click', ['$event'])
   @HostListener('document:touchstart', ['$event'])
   handleClickOutside(event: Event) {
@@ -105,7 +143,6 @@ export class ChatInput {
     if (this.emojiPickerOpen) {
       const insideEmojiPicker = this.pickerContainer?.nativeElement.contains(target);
       const clickedEmojiButton = this.emojiButton?.nativeElement.contains(target);
-
       if (!insideEmojiPicker && !clickedEmojiButton) {
         this.emojiPickerOpen = false;
       }
@@ -120,6 +157,14 @@ export class ChatInput {
     }
   }
 
+  /**
+   * Determines where a new message should be sent.
+   *
+   * Depending on the active chat mode, the method
+   * resolves the target channel, direct-message
+   * conversation or self-chat and returns the
+   * corresponding target metadata.
+   */
   async getTarget() {
     const mode = this.mode();
     if (mode === 'channel') {
@@ -155,6 +200,10 @@ export class ChatInput {
     return null;
   }
 
+  /**
+   * Delegates message creation to either the
+   * chat or thread message workflow.
+   */
   async sendMessage() {
     if (this.isUsedInThread()) {
       return this.sendThreadMessage();
@@ -162,6 +211,13 @@ export class ChatInput {
     return this.sendChatMessage();
   }
 
+  /**
+   * Creates a new message in the currently
+   * active conversation and handles user mentions.
+   *
+   * After successful creation, the input state
+   * and tracked mentions are reset.
+   */
   async sendChatMessage() {
     const text = this.textarea.nativeElement.value.trim();
     if (!text) return;
@@ -180,6 +236,13 @@ export class ChatInput {
     this.mentionedUsers = [];
   }
 
+  /**
+   * Creates a reply within the currently
+   * selected message thread.
+   *
+   * After successful creation, the input state
+   * and tracked mentions are reset.
+   */
   async sendThreadMessage() {
     const text = this.textarea.nativeElement.value.trim();
     if (!text) return;
@@ -199,6 +262,12 @@ export class ChatInput {
     this.mentionedUsers = [];
   }
 
+  /**
+   * Sends the current message when Enter is pressed.
+   * Shift + Enter inserts a new line instead.
+   *
+   * @param event Keyboard event.
+   */
   onEnter(event: Event) {
     if (!(event as KeyboardEvent).shiftKey) {
       event.preventDefault();

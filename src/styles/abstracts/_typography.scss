@@ -43,7 +43,7 @@ $font-sizes: (
   font-family: 'Nunito';
   font-style: normal;
   font-weight: 400;
-  src: url('../../../public/assets/fonts/nunito-v32-latin-regular.woff2') format('woff2');
+  src: url('/assets/fonts/nunito-v32-latin-regular.woff2') format('woff2');
 }
 /* nunito-700 - latin */
 @font-face {
@@ -51,5 +51,5 @@ $font-sizes: (
   font-family: 'Nunito';
   font-style: normal;
   font-weight: 700;
-  src: url('../../../public/assets/fonts/nunito-v32-latin-700.woff2') format('woff2');
+  src: url('/assets/fonts/nunito-v32-latin-700.woff2') format('woff2');
 }

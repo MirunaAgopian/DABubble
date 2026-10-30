@@ -9,6 +9,11 @@ import { Channel } from '../../../../core/interfaces/channel.interface';
 import { ChatStateService } from '../../../../core/services/chat-state.service';
 import { OverlayTrigger } from '../../../../core/interfaces/overlay-trigger.interface';
 
+/**
+ * Main chat container that coordinates chat headers,
+ * messages and input areas while forwarding events
+ * to the workspace component.
+ */
 @Component({
   selector: 'app-chat-shell',
   imports: [ChatHeaderDm, ChatHeaderGroup, ChatHeaderNewMessage, ChatMessages, ChatInput],
@@ -23,18 +28,33 @@ export class ChatShell {
   @ViewChild('chatMessagesContainer')
   chatMessagesContainer!: ElementRef<HTMLDivElement>;
 
+  /**
+   * Emits a selected user event to open the corresponding user-profile overlay.
+   * @param user Selected user.
+   */
   onOpenOverlayUser(user: User) {
     this.openOverlayUser.emit(user);
   }
 
+  /**
+   * Emits a request to open an anchored overlay.
+   * @param trigger Overlay configuration and anchor data.
+   */
   onOpenOverlayView(trigger: OverlayTrigger) {
     this.openOverlayView.emit(trigger);
   }
 
+  /**
+   * Emits a request to display channel details.
+   * @param channel Selected channel.
+   */
   onOpenChannelDetails(channel: Channel | null) {
     this.openChannelDetails.emit(channel);
   }
 
+  /**
+   * Scrolls the message container to the latest message.
+   */
   scrollToBottom() {
     setTimeout(() => {
       this.chatMessagesContainer.nativeElement.scrollTop =
