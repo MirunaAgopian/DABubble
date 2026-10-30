@@ -1,6 +1,9 @@
-import { Component, input} from '@angular/core';
+import { Component, input } from '@angular/core';
 import { User } from '../../../../core/interfaces/user.interface';
 
+/**
+ * Displays the current user's profile information.
+ */
 @Component({
   selector: 'app-profile',
   imports: [],
@@ -8,5 +11,5 @@ import { User } from '../../../../core/interfaces/user.interface';
   styleUrl: './profile.scss',
 })
 export class Profile {
-  user = input<User| null>();
+  user = input<User | null>();
 }

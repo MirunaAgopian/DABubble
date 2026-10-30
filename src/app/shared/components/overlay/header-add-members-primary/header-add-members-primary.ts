@@ -5,6 +5,14 @@ import { ChatStateService } from '../../../../core/services/chat-state.service';
 import { CommonModule } from '@angular/common';
 import { User } from '../../../../core/interfaces/user.interface';
 
+/**
+ * Displays the members of the currently selected channel.
+ *
+ * Allows users to:
+ * - View channel members
+ * - Open member profiles
+ * - Start the add-member workflow
+ */
 @Component({
   selector: 'app-header-add-members-primary',
   imports: [CommonModule],
@@ -20,10 +28,13 @@ export class HeaderAddMembersPrimary {
   openAddMembersSecondary = output<void>();
   openUserProfile = output<User>();
 
+  /**
+   * Returns all users that belong to the
+   * currently selected channel.
+   */
   channelUsers = computed(() => {
     const channel = this.selectedChannel();
     const users = this.allUsers();
-
     if (!channel) return;
     return users?.filter((u) => channel.members.includes(u.id));
   });
@@ -32,10 +43,17 @@ export class HeaderAddMembersPrimary {
     this.close.emit();
   }
 
+  /**
+   * Opens the channel member management workflow.
+   */
   onAddMembers() {
     this.openAddMembersSecondary.emit();
   }
 
+  /**
+   * Opens the profile view for a channel member.
+   * @param user Selected channel member.
+   */
   openUserProfileOverlay(user: User) {
     this.openUserProfile.emit(user);
   }

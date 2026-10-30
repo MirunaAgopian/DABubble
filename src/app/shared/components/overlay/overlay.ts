@@ -1,4 +1,4 @@
-import { Component, output, input, } from '@angular/core';
+import { Component, output, input } from '@angular/core';
 import { Logout } from './logout/logout';
 import { Profile } from './profile/profile';
 import { EditProfile } from './edit-profile/edit-profile';
@@ -13,6 +13,22 @@ import { HeaderAddMembersSecondary } from './header-add-members-secondary/header
 import { log } from 'firebase/firestore/pipelines';
 import { OverlayView } from '../../../core/interfaces/overlay-trigger.interface';
 
+/**
+ * Centralized overlay manager responsible for rendering
+ * modal and popover-based workflows throughout the application.
+ *
+ * Dynamically switches between multiple overlay views such as:
+ * - User profiles
+ * - Profile editing
+ * - Channel creation
+ * - Member management
+ * - Channel details
+ * - Logout confirmation
+ *
+ * Acts as the single entry point for all overlay interactions
+ * and coordinates communication between overlay views and the
+ * workspace state.
+ */
 @Component({
   selector: 'app-overlay',
   imports: [
@@ -50,34 +66,69 @@ export class Overlay {
     'header-add-members-primary' | 'header-add-members-secondary' | 'user-profile'
   >();
 
+  /**
+   * Emits a logout request.
+   */
   onLogout() {
     this.logout.emit();
   }
 
+  /**
+   * Closes the overlay when the background
+   * area is clicked.
+   */
   onBackgroundClick() {
     this.close.emit();
   }
 
+  /**
+   * Switches to the profile view.
+   * Controls the overlay related to the workspace-header
+   */
   onProfile() {
     this.switchView.emit('profile');
   }
 
+  /**
+   * Switches to the profile editing view.
+   * Controls the overlay related to the workspace-header
+   */
   onEdit() {
     this.switchView.emit('edit-profile');
   }
 
+  /**
+   * Emits an updated username.
+   * Controls the overlay related to the workspace-header
+   * @param event Updated username.
+   */
   onSaveUserName(event: string) {
     this.updateUserName.emit(event);
   }
 
+  /**
+   * Emits the selected users from the member selection workflow.
+   * Controls the overlay retaled to creating a new channel
+   * @param selectedUsers Selected members for a channel.
+   */
   onConfirmAddMembers(selectedUsers: User[]) {
     this.confirmAddMembers.emit(selectedUsers);
   }
 
+  /**
+   * Emits channel information collected during the channel creation workflow.
+   * @param data Channel configuration.
+   */
   onAddMembers(data: { name: string; description: string }) {
     this.addMembers.emit(data);
   }
 
+  /**
+   * Opens the user profile workflow for the selected user.
+   *Controls the overlay retaled to seeing an user profile from the chat-header of a direct-message
+   *or in is triggered in a chat/thread message, bu clicking on user names
+   * @param user Selected user.
+   */
   onOpenUserProfile(user: User) {
     this.selectedUser.emit(user);
     this.changeView.emit('user-profile');

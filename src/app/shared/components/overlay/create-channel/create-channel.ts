@@ -4,6 +4,18 @@ import { ChannelService } from '../../../../core/services/channel.service';
 import { User } from '../../../../core/interfaces/user.interface';
 import { ReactiveFormsModule } from '@angular/forms';
 
+/**
+ * First step of the channel creation workflow.
+ *
+ * Collects and validates channel information before
+ * continuing to member selection.
+ *
+ * Responsible for:
+ * - Channel name validation
+ * - Channel description input
+ * - Duplicate name detection
+ * - Forwarding valid channel data to the next step
+ */
 @Component({
   selector: 'app-create-channel',
   imports: [ReactiveFormsModule],
@@ -26,14 +38,32 @@ export class CreateChannel {
   });
   addMembers = output<{ name: string; description: string }>();
 
+  /**
+   * Starts realtime validation for channel
+   * name uniqueness as the user types.
+   */
+  ngOnInit() {
+    this.form.controls.name.valueChanges.subscribe((name) => {
+      this.checkDuplicateName(name ?? '');
+    });
+  }
+
+  /**
+   * Closes the channel creation dialog.
+   */
   closeClicked() {
     this.close.emit();
   }
 
+  /**
+   * Validates the form, checks for duplicate
+   * channel names and advances the channel
+   * creation workflow when all requirements
+   * are satisfied.
+   */
   async onSubmit() {
     if (!this.prepareAndValidate()) return;
     const { name, description } = this.form.value;
-
     if (await this.checkDuplicateName(name!)) return;
     this.addMembers.emit({
       name: name!,
@@ -41,6 +71,13 @@ export class CreateChannel {
     });
   }
 
+  /**
+   * Prepares the form for submission and
+   * validates all user input.
+   *
+   * Marks all controls as touched when
+   * validation fails.
+   */
   private prepareAndValidate(): boolean {
     this.nameExists.set(false);
     if (this.form.invalid) {
@@ -51,6 +88,12 @@ export class CreateChannel {
     return true;
   }
 
+  /**
+   * Checks whether a channel name is already
+   * in use and updates the validation state.
+   *
+   * @param name Channel name to validate.
+   */
   async checkDuplicateName(name: string) {
     if (!name) {
       this.nameExists.set(false);
@@ -59,11 +102,5 @@ export class CreateChannel {
     const exists = await this.channelService.isChannelNameTaken(name);
     this.nameExists.set(exists);
     return exists;
-  }
-
-  ngOnInit() {
-    this.form.controls.name.valueChanges.subscribe((name) => {
-      this.checkDuplicateName(name ?? '');
-    });
   }
 }

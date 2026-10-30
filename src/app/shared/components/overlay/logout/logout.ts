@@ -1,5 +1,9 @@
-import { Component, EventEmitter, output } from '@angular/core';
+import { Component, output } from '@angular/core';
 
+/**
+ * Profile action menu that provides navigation
+ * to profile settings and logout functionality.
+ */
 @Component({
   selector: 'app-logout',
   imports: [],
@@ -10,11 +14,17 @@ export class Logout {
   clicked = output<void>();
   profile = output<void>();
 
-  onClick(){
+  /**
+   * Emits a logout request.
+   */
+  onClick() {
     this.clicked.emit();
   }
 
-  onProfileClick(){
+  /**
+   * Opens the profile view.
+   */
+  onProfileClick() {
     this.profile.emit();
   }
 }

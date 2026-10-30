@@ -6,6 +6,19 @@ import { ChatStateService } from '../../../../core/services/chat-state.service';
 import { UserService } from '../../../../core/services/user.service';
 import { User } from '../../../../core/interfaces/user.interface';
 
+/**
+ * Displays and manages channel information.
+ *
+ * Allows users to:
+ * - View channel details
+ * - Edit the channel name
+ * - Edit the channel description
+ * - Leave the channel
+ *
+ * Synchronizes channel updates with the shared chat state
+ * to ensure changes are reflected immediately throughout
+ * the workspace.
+ */
 @Component({
   selector: 'app-channel-details',
   imports: [FormsModule],
@@ -23,10 +36,20 @@ export class ChannelDetails {
   isEditingDescription = false;
   editedDescription = '';
 
+  /**
+   * Closes the channel details dialog.
+   */
   onClose() {
     this.close.emit();
   }
 
+  /**
+   * Updates the channel name and syncronizes the
+   * currently selected channel in the shared chat state
+   *
+   * This ensures the updated name is reflected immediately
+   * across all components that consume the selected channel.
+   */
   async saveName() {
     this.isEditingName = false;
     if (!this.channel()) return;
@@ -42,6 +65,13 @@ export class ChannelDetails {
     });
   }
 
+  /**
+   * Updates the channel name and syncronizes the
+   * currently selected channel in the shared chat state
+   *
+   * This ensures that the updated descrition is reflected immediately
+   * throught the workspace
+   */
   async saveDescription() {
     this.isEditingDescription = false;
     if (!this.channel()) return;
@@ -57,6 +87,10 @@ export class ChannelDetails {
     });
   }
 
+  /**
+   * Removes the current user from the channel and
+   * closes the channel details dialog.
+   */
   async leaveChannel() {
     const channel = this.channel();
     const user = this.userService.authService.getCurrentUserId();

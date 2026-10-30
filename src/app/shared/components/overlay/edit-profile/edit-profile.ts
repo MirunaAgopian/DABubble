@@ -1,6 +1,12 @@
 import { Component, input, output, signal } from '@angular/core';
 import { User } from '../../../../core/interfaces/user.interface';
 
+/**
+ * Allows a user to update their profile name.
+ *
+ * Provides a simple editing workflow and emits
+ * profile update actions to the parent overlay.
+ */
 @Component({
   selector: 'app-edit-profile',
   imports: [],
@@ -13,11 +19,14 @@ export class EditProfile {
   name = signal('');
   save = output<string>();
 
-  onClick(){
+  onClick() {
     this.clicked.emit();
   }
 
-  onSave(){
+  /**
+   * Returns to the previous profile view.
+   */
+  onSave() {
     this.save.emit(this.name());
   }
 }
