@@ -1,6 +1,6 @@
 @if (!isMobile() || chatStateService.mobileView() === 'sidebar') {
   <header class="workspace-header">
-    <img class="workspace-header__logo" src="/assets/img/icons/logo_header.svg" alt="app logo" />
+    <img class="workspace-header__logo" src="assets/img/icons/logo_header.svg" alt="app logo" />
 
     @if (!isMobile()) {
       <app-workspace-search [user]="user()"></app-workspace-search>

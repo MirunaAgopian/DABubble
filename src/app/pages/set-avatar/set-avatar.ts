@@ -14,13 +14,13 @@ import { AuthService } from '../../core/services/auth.service';
 export class SetAvatar {
   router = inject(Router);
   avatars = [
-    '/assets/img/avatars/default_user.png',
-    '/assets/img/avatars/avatar_elias_neumann.png',
-    '/assets/img/avatars/avatar_elise_roth.png',
-    '/assets/img/avatars/avatar_frederick_beck.png',
-    '/assets/img/avatars/avatar_noah_braun.png',
-    '/assets/img/avatars/avatar_sofia_mueller.png',
-    '/assets/img/avatars/avatar_steffen_hoffmann.png',
+    'assets/img/avatars/default_user.png',
+    'assets/img/avatars/avatar_elias_neumann.png',
+    'assets/img/avatars/avatar_elise_roth.png',
+    'assets/img/avatars/avatar_frederick_beck.png',
+    'assets/img/avatars/avatar_noah_braun.png',
+    'assets/img/avatars/avatar_sofia_mueller.png',
+    'assets/img/avatars/avatar_steffen_hoffmann.png',
   ];
 
   chosenAvatar = this.avatars[0];
