@@ -27,6 +27,7 @@ export class ChatShell {
   chatState = inject(ChatStateService);
   @ViewChild('chatMessagesContainer')
   chatMessagesContainer!: ElementRef<HTMLDivElement>;
+  openThreadPannel = output<void>();
 
   /**
    * Emits a selected user event to open the corresponding user-profile overlay.

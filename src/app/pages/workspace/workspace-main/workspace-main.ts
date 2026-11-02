@@ -179,6 +179,13 @@ export class WorkspaceMain {
   }
 
   /**
+   * Extends the collapsed thread panel.
+   */
+  openThread() {
+    this.threadCollapsed.set(false);
+  }
+
+  /**
    * Updates the current user's display name in the workspace-header.
    * @param newName Updated username.
    */

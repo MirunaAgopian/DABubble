@@ -54,6 +54,7 @@ export class ChatMessages {
   previousMessageCount = 0;
   readonly MAX_REACTIONS_DESKTOP = 5;
   openUserPforileOverlay = output<User>();
+  openThreadPanel = output<void>();
 
   /**
    * Initializes user data required for message rendering.
@@ -304,6 +305,7 @@ export class ChatMessages {
   openThread(message: Message) {
     this.chatStateService.selectedThreadMessage.set(message);
     this.chatStateService.mobileView.set('thread');
+    this.openThreadPanel.emit();
   }
 
   /**
