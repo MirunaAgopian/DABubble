@@ -94,6 +94,19 @@ export class ChatInput {
   });
 
   /**
+   * Automatically empties the textarea if it is populated
+   * with text and the user changes the chat
+   */
+  resetInputEffect = effect(() => {
+  this.chatStateService.resetChatInput();
+  queueMicrotask(() => {
+    if (!this.textarea) return;
+    this.textarea.nativeElement.value = '';
+    this.mentionedUsers = [];
+  });
+});
+
+  /**
    * Inserts an emoji into the current message
    * and closes the emoji picker.
    * @param event Selected emoji event.

@@ -68,6 +68,11 @@ export class ChatStateService {
   private channelSubscription?: Subscription;
 
   /**
+   * Empties the textarea input on chat or channel switch.
+   */
+  resetChatInput = signal(0);
+
+  /**
    * Opens a direct message conversation
    * with the selected user.
    */
@@ -77,6 +82,7 @@ export class ChatStateService {
     this.selectedChannel.set(null);
     this.selectedThreadMessage.set(null);
     this.mobileView.set('chat');
+    this.resetChatInput.update(v => v + 1);
   }
 
   /**
@@ -88,6 +94,7 @@ export class ChatStateService {
     this.selectedChannel.set(null);
     this.selectedThreadMessage.set(null);
     this.mobileView.set('chat');
+    this.resetChatInput.update(v => v + 1);
   }
 
   /**
@@ -106,6 +113,7 @@ export class ChatStateService {
       });
     this.selectedThreadMessage.set(null);
     this.mobileView.set('chat');
+    this.resetChatInput.update(v => v + 1);
   }
 
   /**
@@ -117,6 +125,7 @@ export class ChatStateService {
     this.selectedChannel.set(null);
     this.selectedThreadMessage.set(null);
     this.mobileView.set('chat');
+    this.resetChatInput.update(v => v + 1);
   }
 
   /**
