@@ -34,6 +34,7 @@
     <input
       type="text"
       class="edit-profile-input"
+      [placeholder]="user()?.name"
       [value]="name()"
       (input)="name.set($event.target.value)"
     />

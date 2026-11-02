@@ -39,8 +39,9 @@ h1 {
   }
 }
 
+
 .checkbox {
-  background-image: url('/assets/img/icons/check_box_outline_blank.svg');
+  background-image: url('/angular-projects/da-bubble/assets/img/icons/check_box_outline_blank.svg');
   background-size: cover;
   height: 20px;
   width: 20px;
@@ -49,7 +50,7 @@ h1 {
 }
 
 .checkbox.checked {
-  background-image: url('/assets/img/icons/check_box.svg');
+  background-image: url('/angular-projects/da-bubble/assets/img/icons/check_box.svg');
   border: none;
 }
 
@@ -57,4 +58,12 @@ h1 {
   padding: 4px 8px;
 }
 
+@media (max-width: 400px) {
+  .privacy-policy {
+    gap: 8px;
+  }
 
+  .privacy-policy p {
+    max-width: 200px;
+  }
+}

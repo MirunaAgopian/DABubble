@@ -1,7 +1,7 @@
 @import '../../../../styles/abstracts/mixins';
 
 .workspace-header {
-  @include flex-space-btw;
+  @include grid-three-col;
   gap: 16px;
   margin-bottom: clamp(20px, 8vh, 10px);
   padding-top: 20px;
@@ -31,13 +31,13 @@
 }
 
 app-workspace-search {
-  flex: 1;
-  min-width: 0;
+ align-self: center;
 }
 
 // USER container
 .workspace-header__user {
   @include flex-space-btw;
+  justify-content: flex-end;
   gap: 16px;
 }
 
@@ -104,5 +104,11 @@ app-workspace-search {
   .workspace-header__avatar {
     height: 50px;
     width: 50px;
+  }
+}
+
+@media(max-width: 1100px){
+  .workspace-header {
+    @include flex-space-btw;
   }
 }

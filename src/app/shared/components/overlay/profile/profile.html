@@ -1,7 +1,10 @@
 <section class="profile-container">
   <h3>Profil</h3>
   <img class="avatar-img" [src]="user()?.avatarUrl" alt="avatar image" />
-  <button class="edit-btn">Bearbeiten</button>
+  <div class="name-edit">
+    <h3>{{user()?.name}}</h3>
+    <button class="edit-btn">Bearbeiten</button>
+  </div>
   <div class="user-status">
     <div class="status-bullet-profile"></div>
     <span class="status">Aktiv</span>

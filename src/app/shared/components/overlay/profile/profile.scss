@@ -8,16 +8,25 @@ h3 {
   @include flex-column-space-btw;
   align-items: flex-start;
   gap: 16px;
+
+  h3 {
+    color: var(--color-text-default)
+  }
+}
+
+.name-edit {
+  @include flex-space-btw;
+  width: 100%;
 }
 
 .avatar-img {
   height: 150px;
   width: 150px;
-  border-radius: 4px;
+  border-radius: 50%;
+  align-self: center;
 }
 
 .edit-btn {
-  align-self: flex-end;
   color: var(--color-text-accent);
   font-weight: var(--font-weight-bold);
   transition: transform 125ms ease-in;
