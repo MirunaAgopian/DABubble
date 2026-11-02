@@ -52,9 +52,11 @@ export class UserService {
       onSnapshot(q, async (snap) => {
         const members = snap.empty ? [] : ((snap.docs[0].data()['members'] as string[]) ?? []);
         const users = await Promise.all(
-          members.map((id) => getDoc(doc(db, 'users', id)).then((s) => s.data() as User)),
+          members.map((id) =>
+            getDoc(doc(db, 'users', id)).then((s) => (s.exists() ? (s.data() as User) : undefined)),
+          ),
         );
-        subscriber.next(users);
+        subscriber.next(users.filter((u): u is User => !!u));
       });
     });
   }
