@@ -1,4 +1,4 @@
-<section class="content-wrapper outer-container" (click)="$event.stopPropagation()">
+<section class="outer-container " (click)="$event.stopPropagation()">
   <!-- UPPER RIGHT CORNER DIALOGS -->
   @if (view() === 'logout' || view() === 'profile' || view() === 'edit-profile') {
     <div class="workspace-overlay__dialogs tooltip-secondary">
