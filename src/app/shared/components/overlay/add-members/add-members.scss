@@ -81,6 +81,9 @@
   border: 1px solid var(--color-border-light);
   border-radius: 15px;
   background-color: var(--color-bg-secondary);
+
+   overflow-x: scroll;
+  overflow-y: hidden;
 }
 
 .add-members__input-wrapper--visible {
@@ -98,12 +101,32 @@
   padding: 0;
 }
 
+.app-user-dialog {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 16px;
+  width: 100%;
+  padding: 4px 8px;
+  border-radius: 30px;
+}
+
+.app-user-dialog:hover {
+  background-color: var(--color-bg-default);
+}
+
 .chip {
-  @include flex-space-btw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   gap: 4px;
   background-color: var(--color-bg-default);
   padding: 4px 8px;
   border-radius: 15px;
+  flex-wrap: nowrap;
+  min-width: 120px;
+  width: 100%;
 }
 
 .close-btn-chip {
@@ -178,4 +201,11 @@
 
 .status-bullet-small--away {
   background-color: #ff9800;
+}
+
+@media (max-width: 420px) {
+  .selection {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
 }

@@ -105,7 +105,7 @@
     @if (dialogOpen && selectedOption === 'some') {
       <div class="users-dialog">
         @for (user of users(); track user.id) {
-          <button class="app-user rel-pos" (click)="selectUser(user)">
+          <button class="app-user-dialog rel-pos" (click)="selectUser(user)">
             <img class="small-avatar" [src]="user.avatarUrl" alt="user avatar" />
             <div
               class="status-bullet-small"
