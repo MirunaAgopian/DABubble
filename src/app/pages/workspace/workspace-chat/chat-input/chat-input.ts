@@ -18,6 +18,8 @@ import { User } from '../../../../core/interfaces/user.interface';
 import { ChatStateService } from '../../../../core/services/chat-state.service';
 import { MessageService } from '../../../../core/services/message.service';
 import { DmConversationService } from '../../../../core/services/dm-conversation.service';
+import { ChannelService } from '../../../../core/services/channel.service';
+import { Channel } from '../../../../core/interfaces/channel.interface';
 
 /**
  * Message composition component used for both the main chat
@@ -46,11 +48,13 @@ export class ChatInput {
 
   emojiPickerOpen = false;
   userPickerOpen = false;
+  channelPickerOpen = false;
   isUsedInThread = input(false);
   userService = inject(UserService);
   authService = inject(AuthService);
   chatStateService = inject(ChatStateService);
   messageService = inject(MessageService);
+  channelService = inject(ChannelService);
   dmConversationService = inject(DmConversationService);
   users = toSignal(this.userService.getAllUsersRealtime());
   mentionedUsers: User[] = [];
@@ -58,6 +62,10 @@ export class ChatInput {
   selectedChannel = this.chatStateService.selectedChannel;
   mode = this.chatStateService.mode;
   currentUser = this.chatStateService.currentUser;
+
+  channels = toSignal(this.channelService.fetchChannels(), {
+    initialValue: [],
+  });
 
   placeholder = computed(() => {
     if (this.isUsedInThread()) {
@@ -98,13 +106,13 @@ export class ChatInput {
    * with text and the user changes the chat
    */
   resetInputEffect = effect(() => {
-  this.chatStateService.resetChatInput();
-  queueMicrotask(() => {
-    if (!this.textarea) return;
-    this.textarea.nativeElement.value = '';
-    this.mentionedUsers = [];
+    this.chatStateService.resetChatInput();
+    queueMicrotask(() => {
+      if (!this.textarea) return;
+      this.textarea.nativeElement.value = '';
+      this.mentionedUsers = [];
+    });
   });
-});
 
   /**
    * Inserts an emoji into the current message
@@ -129,6 +137,13 @@ export class ChatInput {
     }
   }
 
+  addChannel(channel: Channel) {
+    const textarea = this.textarea.nativeElement;
+    textarea.value += `${channel.name}`;
+    this.userPickerOpen = false;
+    this.channelPickerOpen = false;
+  }
+
   /**
    * Toggles the emoji picker visibility.
    */
@@ -141,6 +156,19 @@ export class ChatInput {
    */
   toggleUserPicker() {
     this.userPickerOpen = !this.userPickerOpen;
+  }
+
+  /**
+   * Detects mention triggers while the user types and
+   * opens the corresponding picker for users (@) or channels (#).
+   *
+   * @param event Input event from the message textarea.
+   */
+  onMessageInput(event: Event) {
+    const value = (event.target as HTMLTextAreaElement).value;
+    const word = value.split(' ').pop() ?? '';
+    this.userPickerOpen = word.startsWith('@');
+    this.channelPickerOpen = word.startsWith('#');
   }
 
   /**

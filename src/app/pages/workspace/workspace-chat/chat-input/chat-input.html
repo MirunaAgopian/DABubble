@@ -4,6 +4,7 @@
     type="text"
     [placeholder]="placeholder()"
     (keydown.enter)="onEnter($event)"
+    (input)="onMessageInput($event)"
   ></textarea>
   <div class="chat-input__action-btns">
     <div class="emoji-tag-container">
@@ -119,6 +120,15 @@
             }
           </span>
         </button>
+      }
+    </div>
+  }
+
+  <!-- CHANNELS Container -->
+  @if (channelPickerOpen) {
+    <div class="users-container">
+      @for (channel of channels(); track channel.id) {
+        <button class="app-user bold-txt" (click)="addChannel(channel)">{{ channel.name }}</button>
       }
     </div>
   }

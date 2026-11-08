@@ -15,6 +15,10 @@
   }
 }
 
+.bold-txt {
+  font-weight: var(--font-weight-bold);
+}
+
 textarea {
   width: 100%;
   min-height: 80px;
@@ -149,13 +153,6 @@ ngx-emoji {
 .status-bullet--away {
   background-color: #ff9800;
 }
-
-// @media(max-width:420px){ 
-//   .emoji-picker-container {
-//     width: 300px;
-//   }
-// }
-
 
 @media(max-width:400px){
   .users-container {
