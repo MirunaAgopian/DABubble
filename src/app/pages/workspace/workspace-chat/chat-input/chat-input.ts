@@ -130,7 +130,7 @@ export class ChatInput {
    */
   addUser(user: User) {
     const textarea = this.textarea.nativeElement;
-    textarea.value += `@${user.name}`;
+    textarea.value += `${user.name}`;
     this.userPickerOpen = false;
     if (!this.mentionedUsers.some((u) => u.id === user.id)) {
       this.mentionedUsers.push(user);
