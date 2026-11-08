@@ -115,6 +115,7 @@ export class WorkspaceMain {
     ) {
       this.overlayView = view;
       this.isOverlayOpen = true;
+      document.body.style.overflow = 'hidden';
     }
   }
 
@@ -127,6 +128,7 @@ export class WorkspaceMain {
     this.overlayView = trigger.view;
     this.overlayAnchor.set(trigger.anchor);
     this.isOverlayOpen = true;
+    document.body.style.overflow = 'hidden';
   }
 
   /**
@@ -137,6 +139,7 @@ export class WorkspaceMain {
     this.overlayUser.set(user);
     this.overlayView = 'user-profile';
     this.isOverlayOpen = true;
+    document.body.style.overflow = 'hidden';
   }
 
   /**
@@ -147,6 +150,7 @@ export class WorkspaceMain {
     this.overlayChannel.set(channel);
     this.overlayView = 'channel-details';
     this.isOverlayOpen = true;
+    document.body.style.overflow = 'hidden';
   }
 
   /**
@@ -154,6 +158,7 @@ export class WorkspaceMain {
    */
   closeOverlay() {
     this.isOverlayOpen = false;
+    document.body.style.overflow = '';
   }
 
   /**

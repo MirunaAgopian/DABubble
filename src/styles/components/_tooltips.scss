@@ -58,3 +58,11 @@
   width: min(600px, calc(100vw - 32px));
   max-height: min(700px, calc(90vh - 100px));
 }
+
+@media (max-width: 850px) {
+  .tooltip-channel-details {
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%);
+  }
+}
