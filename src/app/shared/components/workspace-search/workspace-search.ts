@@ -17,6 +17,10 @@ import { Message } from '../../../core/interfaces/message.interface';
   templateUrl: './workspace-search.html',
   styleUrl: './workspace-search.scss',
 })
+/**
+ * Global workspace search for users, channels, and messages.
+ * Allows navigating directly to the selected search result.
+ */
 export class WorkspaceSearch {
   searchValue = signal('');
   user = input<User | null>();
@@ -30,14 +34,23 @@ export class WorkspaceSearch {
   channels = toSignal(this.channelService.fetchChannels(), { initialValue: [] });
   messages = toSignal(this.messageSevice.getAllMessages(), { initialValue: [] });
 
+  /**
+   * Updates the search value when the user types.
+   */
   onInput(event: Event) {
     this.searchValue.set((event.target as HTMLInputElement).value);
   }
 
+  /**
+   * Clears the current search query.
+   */
   clearSearch() {
     this.searchValue.set('');
   }
 
+  /**
+   * Returns matching users based on the current search term.
+   */
   userResults = computed<SearchResult[]>(() => {
     const term = this.searchValue().toLowerCase().trim();
     if (!term) return [];
@@ -54,19 +67,35 @@ export class WorkspaceSearch {
       }));
   });
 
+  /**
+   * Returns matching channels.
+   * Typing "#" displays all channels and further input filters them.
+   */
   channelResults = computed<SearchResult[]>(() => {
-    const term = this.searchValue().toLowerCase().trim();
+    const term = this.searchValue().trim().toLowerCase();
     if (!term) return [];
+    if (term === '#') {
+      return this.channels().map((channel) => ({
+        id: channel.id,
+        type: 'channel',
+        title: channel.name,
+        data: channel,
+      }));
+    }
+    const searchTerm = term.startsWith('#') ? term.slice(1) : term;
     return this.channels()
-      .filter((channel) => channel.name.toLowerCase().includes(term))
+      .filter((channel) => channel.name.toLowerCase().includes(searchTerm))
       .map((channel) => ({
         id: channel.id,
         type: 'channel',
-        title: `# ${channel.name}`,
+        title: channel.name,
         data: channel,
       }));
   });
 
+  /**
+   * Returns messages containing the search term.
+   */
   messageResults = computed<SearchResult[]>(() => {
     const term = this.searchValue().toLowerCase().trim();
     if (!term) return [];
@@ -80,12 +109,19 @@ export class WorkspaceSearch {
       }));
   });
 
+  /**
+   * Combines all available search results into a single list.
+   */
   searchResults = computed<SearchResult[]>(() => [
     ...this.userResults(),
     ...this.channelResults(),
     ...this.messageResults(),
   ]);
 
+  /**
+   * Opens the selected search result and navigates
+   * to the corresponding conversation or message context.
+   */
   async onSearchResultClick(result: SearchResult) {
     switch (result.type) {
       case 'user':
@@ -104,14 +140,23 @@ export class WorkspaceSearch {
     this.clearSearch();
   }
 
+  /**
+   * Opens the direct message conversation with the selected user.
+   */
   private openUserResult(user: User) {
     this.chatStateService.openDM(user);
   }
 
+  /**
+   * Opens the selected channel.
+   */
   private openChannelResult(channel: Channel) {
     this.chatStateService.openChannel(channel);
   }
 
+  /**
+   * Opens the conversation that contains the selected message.
+   */
   private async openMessageResult(message: Message) {
     switch (message.targetType) {
       case 'channel':
@@ -128,6 +173,9 @@ export class WorkspaceSearch {
     }
   }
 
+  /**
+   * Opens the channel containing the selected message.
+   */
   private openChannelMessage(message: Message) {
     const channel = this.channels().find((c) => c.id === message.targetId);
     if (channel) {
@@ -135,6 +183,9 @@ export class WorkspaceSearch {
     }
   }
 
+  /**
+   * Opens the user's personal self-chat.
+   */
   private openSelfMessage() {
     const user = this.user();
     if (user) {
@@ -142,6 +193,9 @@ export class WorkspaceSearch {
     }
   }
 
+  /**
+   * Opens the DM conversation containing the selected message.
+   */
   private async openDmMessage(message: Message) {
     const conversation = await this.dmConversationService.getConversationById(message.targetId);
     const currentUserId = this.user()?.id;
