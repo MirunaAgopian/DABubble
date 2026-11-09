@@ -41,6 +41,19 @@ export class WorkspaceSidebar {
   currentUser = this.chatState.currentUser;
   isMobile = input();
 
+   /**
+   * Returns a sorted channel list so that the logged in user
+   * only sees the channels they are part of
+   */
+  filteredChannels = computed(() => {
+  const user = this.user();
+  const channels = this.channels() ?? [];
+  if (!user) return [];
+  return channels.filter((channel) =>
+    channel.members.includes(user.id),
+  );
+});
+
   /**
    * Returns a sorted user list with the current user displayed first.
    * Guest users are hidden for authenticated users while remaining

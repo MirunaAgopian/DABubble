@@ -40,8 +40,7 @@ export class ChannelService {
   }
 
   /**
-   * Creates a new channel and stores
-   * it in Firestore.
+   * Creates a new channel and stores it in Firestore.
    */
   async createChannel(
     name: string,
@@ -51,6 +50,7 @@ export class ChannelService {
     description?: string,
   ) {
     const channelRef = doc(collection(db, 'channels'));
+    const channelMembers = [...new Set([currentUserId, ...members])];
     const newChannel: Channel = {
       id: channelRef.id,
       name,
@@ -58,7 +58,7 @@ export class ChannelService {
       createdAt: Date.now(),
       createdBy: currentUserId,
       creatorName: currentUserName,
-      members,
+      members: channelMembers,
     };
     await setDoc(channelRef, newChannel);
   }

@@ -62,7 +62,6 @@ export class ChatInput {
   selectedChannel = this.chatStateService.selectedChannel;
   mode = this.chatStateService.mode;
   currentUser = this.chatStateService.currentUser;
-
   channels = toSignal(this.channelService.fetchChannels(), {
     initialValue: [],
   });
@@ -72,6 +71,13 @@ export class ChatInput {
       return 'Antwort hinzufügen...';
     }
     return this.chatStateService.placeholder();
+  });
+
+  filteredChannels = computed(() => {
+    const user = this.currentUser();
+    const channels = this.channels();
+    if (!user) return [];
+    return channels.filter((channel) => channel.members.includes(user.id));
   });
 
   /**

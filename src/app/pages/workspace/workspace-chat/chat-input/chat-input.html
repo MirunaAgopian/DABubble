@@ -125,9 +125,9 @@
   }
 
   <!-- CHANNELS Container -->
-  @if (channelPickerOpen) {
+  @if (channelPickerOpen && filteredChannels().length > 0) {
     <div class="users-container">
-      @for (channel of channels(); track channel.id) {
+      @for (channel of filteredChannels(); track channel.id) {
         <button class="app-user bold-txt" (click)="addChannel(channel)">{{ channel.name }}</button>
       }
     </div>

@@ -217,7 +217,7 @@
     <div class="channels-container">
       <!-- CHANNELS SECTION -->
       <div class="added-channels max-height-primary scroll-thin">
-        @for (channel of channels(); track channel.id) {
+        @for (channel of filteredChannels(); track channel.id) {
           <button class="single-channel" (click)="openChannel(channel)">
             <svg
               xmlns="http://www.w3.org/2000/svg"
