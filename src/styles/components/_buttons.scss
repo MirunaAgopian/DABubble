@@ -140,3 +140,9 @@
     color: var(--color-primary-default);
   }
 }
+
+@media(max-width: 350px){
+  .btn-primary {
+    width: 100px;
+  } 
+}

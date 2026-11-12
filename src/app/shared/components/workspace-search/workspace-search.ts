@@ -68,22 +68,36 @@ export class WorkspaceSearch {
   });
 
   /**
+   * Returns a sorted channel list so that the logged in user
+   * only sees the channels they are part of
+   */
+  filteredChannels = computed(() => {
+    const user = this.user();
+    const channels = this.channels() ?? [];
+    if (!user) return [];
+    return channels.filter((channel) => channel.members.includes(user.id));
+  });
+
+  /**
+   * Returns a sorted messages list so that the logged in user
+   * only sees the direct messages they are part of
+   */
+  filteredMessages = computed(() => {
+    const user = this.user();
+    const messages = this.messages() ?? [];
+    if(!user) return [];
+    return messages.filter((message) => message.senderId.includes(user.id));
+  });
+
+  /**
    * Returns matching channels.
    * Typing "#" displays all channels and further input filters them.
    */
   channelResults = computed<SearchResult[]>(() => {
     const term = this.searchValue().trim().toLowerCase();
     if (!term) return [];
-    if (term === '#') {
-      return this.channels().map((channel) => ({
-        id: channel.id,
-        type: 'channel',
-        title: channel.name,
-        data: channel,
-      }));
-    }
     const searchTerm = term.startsWith('#') ? term.slice(1) : term;
-    return this.channels()
+    return this.filteredChannels()
       .filter((channel) => channel.name.toLowerCase().includes(searchTerm))
       .map((channel) => ({
         id: channel.id,
@@ -94,13 +108,37 @@ export class WorkspaceSearch {
   });
 
   /**
-   * Returns messages containing the search term.
+   * Returns messages containing the search term
+   * from within the direct messages.
    */
   messageResults = computed<SearchResult[]>(() => {
     const term = this.searchValue().toLowerCase().trim();
     if (!term) return [];
-    return this.messages()
+    return this.filteredMessages()
       .filter((message) => message.text.toLowerCase().includes(term))
+      .map((message) => ({
+        id: message.id,
+        type: 'message',
+        title: message.text,
+        data: message,
+      }));
+  });
+
+  /**
+   * Returns messages containing the search term
+   * from within the channel messages.
+   */
+  channelMessageResults = computed<SearchResult[]>(() => {
+    const term = this.searchValue().toLowerCase().trim();
+    if (!term) return [];
+    const userChannelIds = new Set(this.filteredChannels().map((channel) => channel.id));
+    return this.messages()
+      .filter(
+        (message) =>
+          message.targetType === 'channel' &&
+          userChannelIds.has(message.targetId) &&
+          message.text.toLowerCase().includes(term),
+      )
       .map((message) => ({
         id: message.id,
         type: 'message',
@@ -115,6 +153,7 @@ export class WorkspaceSearch {
   searchResults = computed<SearchResult[]>(() => [
     ...this.userResults(),
     ...this.channelResults(),
+    ...this.channelMessageResults(),
     ...this.messageResults(),
   ]);
 

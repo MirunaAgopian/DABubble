@@ -94,6 +94,7 @@ export class WorkspaceMain {
   handleLogout() {
     this.chatStateService.resetChatState();
     this.authService.logoutUser();
+    document.body.style.overflow = 'auto';
     this.router.navigate(['sign-in']);
   }
 
