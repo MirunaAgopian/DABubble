@@ -12,3 +12,9 @@
 .content-wrapper__workspace {
   padding: 0 clamp(20px, 5vw, 60px);
 }
+
+@media(max-width:450px){
+  .content-wrapper {
+    padding: 0 10px;
+  }
+}
