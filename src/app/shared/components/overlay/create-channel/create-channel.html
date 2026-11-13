@@ -49,13 +49,15 @@
       (nameExists() && form.controls.name.valid)
     "
   >
-    {{
-      form.controls.name.invalid && form.controls.name.touched && !nameExists()
-        ? 'Bitte gib einen gültigen Channel-Namen ein.'
-        : nameExists() && form.controls.name.valid
-          ? 'Dieser Name ist bereits vergeben.'
-          : ''
-    }}
+    @if (form.controls.name.invalid && form.controls.name.touched && !nameExists()) {
+      @if (form.controls.name.hasError('maxlength')) {
+        Der Name ist zu lang (max. 20 Zeichen).
+      } @else {
+        Bitte gib einen gültigen Channel-Namen ein.
+      }
+    } @else if (nameExists() && form.controls.name.valid) {
+      Dieser Name ist bereits vergeben.
+    }
   </p>
   <h3 class="create-channel__label">
     Beschreibung <span class="create-channel__label--optional">(optional)</span>
@@ -72,7 +74,7 @@
       form.controls.description.invalid && form.controls.description.touched
     "
   >
-    Die Beschreibung darf nicht länger als 200 Zeichen sein.
+    Die Beschreibung ist zu lang (max. 100 Zeichen).
   </p>
 
   <button

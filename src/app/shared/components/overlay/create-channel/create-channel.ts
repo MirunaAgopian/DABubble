@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ChannelService } from '../../../../core/services/channel.service';
 import { User } from '../../../../core/interfaces/user.interface';
 import { ReactiveFormsModule } from '@angular/forms';
+import { maxLength } from '@angular/forms/signals';
 
 /**
  * First step of the channel creation workflow.
@@ -30,10 +31,10 @@ export class CreateChannel {
   loading = signal(false);
   form = new FormGroup({
     name: new FormControl('', {
-      validators: [Validators.required],
+      validators: [Validators.required, Validators.maxLength(20)],
     }),
     description: new FormControl('', {
-      validators: [Validators.maxLength(200)],
+      validators: [Validators.maxLength(100)],
     }),
   });
   addMembers = output<{ name: string; description: string }>();

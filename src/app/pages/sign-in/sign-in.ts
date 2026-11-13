@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Input } from '../../shared/components/input/input';
 import { Footer } from '../../shared/components/footer/footer';
 import { Header } from '../../shared/components/header/header';
@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { strongPasswordValidator } from '../../shared/utils/strong-password.validator';
 import { AuthService } from '../../core/services/auth.service';
+import { User } from '../../core/interfaces/user.interface';
 
 @Component({
   selector: 'app-sign-in',

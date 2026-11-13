@@ -52,6 +52,7 @@ export class Overlay {
   logout = output<void>();
   visible = input<boolean>();
   close = output<void>();
+  closeOnChannelLeave = output<void>();
   switchView = output<'profile' | 'edit-profile' | 'logout'>();
   user = input<User | null>();
   overlayUser = input<User | null>();
@@ -79,6 +80,10 @@ export class Overlay {
    */
   onBackgroundClick() {
     this.close.emit();
+  }
+
+  onChannelLeave(){
+    this.closeOnChannelLeave.emit();
   }
 
   /**

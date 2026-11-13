@@ -5,6 +5,7 @@ import { ChannelService } from '../../../../core/services/channel.service';
 import { ChatStateService } from '../../../../core/services/chat-state.service';
 import { UserService } from '../../../../core/services/user.service';
 import { User } from '../../../../core/interfaces/user.interface';
+import { log } from 'firebase/firestore/pipelines';
 
 /**
  * Displays and manages channel information.
@@ -27,6 +28,7 @@ import { User } from '../../../../core/interfaces/user.interface';
 })
 export class ChannelDetails {
   close = output();
+  channelLeave = output();
   channel = input<Channel | null>();
   channelService = inject(ChannelService);
   chatStateService = inject(ChatStateService);
@@ -93,9 +95,9 @@ export class ChannelDetails {
    */
   async leaveChannel() {
     const channel = this.channel();
-    const user = this.userService.authService.getCurrentUserId();
-    if (!user) return;
-    await this.channelService.removeMember(channel!.id, { id: user } as User);
-    this.close.emit();
+    const user = this.chatStateService.currentUser();
+    if (!user || !channel) return;
+    await this.channelService.removeMember(channel.id, user);
+    this.channelLeave.emit();
   }
 }

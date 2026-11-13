@@ -35,7 +35,6 @@
 .all-users-btn {
   @include flex-space-btw;
   gap: 4px;
-  padding: 4px 16px;
   border-radius: 30px;
 
   &:hover {
@@ -108,6 +107,12 @@
   white-space: nowrap;
 }
 
+
+@media(max-width: 1200px) and (min-width: 1101px){
+  .header-btn-group {
+    max-width: 170px;
+  }
+}
 
 @media (max-width: 500px) {
   .all-users-btn {

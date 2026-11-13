@@ -163,6 +163,16 @@ export class WorkspaceMain {
   }
 
   /**
+   * Closes the channel-details overlay
+   * when leaving a channel and sets the UI to the mode 'new'.
+   */
+  closeOverlayChannelLeave(){
+    this.isOverlayOpen = false;
+    document.body.style.overflow = '';
+    this.chatStateService.mode.set('new');
+  }
+
+  /**
    * Switches between profile-related overlay views from within the workspace-header.
    * @param view Target overlay view.
    */
