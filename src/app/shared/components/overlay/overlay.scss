@@ -26,9 +26,20 @@
   }
 }
 
+@media(max-width:600px) {
+  .workspace-overlay__dialogs {
+    right: 50px;
+  }
+}
+
 @media(max-width:400px) {
   .workspace-overlay__dialogs {
     right: 20px;
   }
 }
 
+@media(max-width: 350px) {
+  .workspace-overlay__dialogs {
+    right: 8px;
+  }
+}

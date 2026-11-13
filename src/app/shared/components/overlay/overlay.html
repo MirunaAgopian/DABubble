@@ -72,7 +72,7 @@
   <!-- CENTERED-RIGHT DIALOGS -->
   @if (view() === 'header-add-members-primary') {
     <div
-      class="workspace-overlay__popover"
+      class="workspace-overlay__popover tooltip-add-members"
       [style.left.px]="anchor()!.right - 300"
       [style.top.px]="anchor()!.bottom + 300"
     >
@@ -85,7 +85,7 @@
   }
   @if (view() === 'header-add-members-secondary') {
     <div
-      class="workspace-overlay__popover"
+      class="workspace-overlay__popover tooltip-add-members"
       [style.left.px]="anchor()!.right - 280"
       [style.top.px]="anchor()!.bottom + 250"
     >
