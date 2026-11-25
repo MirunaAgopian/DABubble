@@ -43,3 +43,9 @@
     right: 8px;
   }
 }
+
+@media(max-height: 580px){
+  .workspace-overlay__dialogs {
+    top: 20px;
+  }
+}
