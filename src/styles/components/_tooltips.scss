@@ -56,7 +56,7 @@
   padding: clamp(16px, 1vw, 32px);
   border-radius: 0 30px 30px 30px;
   width: min(600px, calc(100vw - 32px));
-  max-height: min(700px, calc(90vh - 100px));
+  // max-height: min(700px, calc(90vh - 100px));
 }
 
 @media (max-width: 850px) {
